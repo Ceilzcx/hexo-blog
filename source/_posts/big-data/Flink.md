@@ -74,3 +74,28 @@ tags: 大数据
 
 
 
+### 双流Join操作
+
++ join()
++ coGroup()
++ intervalJoin()
+
+#### 1、join()
+
+> 对应 mysql 的 inner join
+
+通过一个窗口，进行join操作，简单易用。
+
+存在问题：一个流的数据存在延迟时，另一个流的数据没有对应的join数据。
+
+#### 2、coGroup()
+
+> 对应 mysql 的 left/right outer join
+
+双重循环
+
+#### 3、intervalJoin()
+
+按照指定字段以及右流相对左流偏移的时间区间进行关联，即：
+
+> right.timestamp ∈ [left.timestamp + lowerBound; left.timestamp + upperBound]

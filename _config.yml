@@ -97,8 +97,8 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-# theme: Kratos-Rebirth
-theme: shoka
+theme: Kratos-Rebirth
+# theme: shoka
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
