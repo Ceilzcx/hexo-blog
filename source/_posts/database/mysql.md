@@ -110,7 +110,6 @@ update global transaction isolation REPEATABLE READ;
 
   ![read-committed-2](read-committed-2.png)
   
-
 + 可重复读（REPEATABLE READ）
 
   解决了不可重复读和脏读的问题。但是存在换读的问题（一个事务新增了一条id=1的数据，这时另一个事务也新增了一条id=1的数据并提交，第一个事务select时会发现不存在id=1的数据，报主键冲突的错误）。
@@ -131,7 +130,7 @@ update global transaction isolation REPEATABLE READ;
 
 日志未打开，win10在my.ini文件的[mysqld]下面添加
 
-```mysql
+```sql
 log_bin=mysql-bin
 binlog-format=ROW
 server-id=1
@@ -139,7 +138,7 @@ server-id=1
 
 查找MySQL当前binlog的配置情况，**第一行ON代表日志已经打开**。
 
-```mysql
+```sql
 show variables like '%log_bin%';
 ```
 
@@ -147,7 +146,7 @@ show variables like '%log_bin%';
 
 查看日志文件的使用情况（日志名称、大小bit、是否加密）
 
-```mysql
+```sql
 show binary logs;
 ```
 
@@ -155,7 +154,7 @@ show binary logs;
 
 查看当前正在使用的日志情况，后续的DDL操作都会记录在当前日志中。
 
-```mysql
+```sql
 show master status;
 ```
 
@@ -167,7 +166,7 @@ show master status;
 
 在binlog中查找之前执行的SQL语句
 
-```mysql
+```sql
 show binlog events in 'binlog.000012';
 ```
 
@@ -177,7 +176,7 @@ show binlog events in 'binlog.000012';
 
 注：根据需求，可以在恢复数据的时候关闭日志。等到数据恢复后，重新打开日志
 
-```mysql
+```sql
 set sql_log_bin=0;	#临时关闭日志
 set sql_log_bin=1;	#打开日志
 ```
@@ -189,3 +188,65 @@ mysqlbinlog --start-position=1300 --stop-position=1757 ./binlog.000012 >./bin.sq
 ```
 
 注：这里运行可能会报 `unknown variable 'default-character-set=utf8'` 的错误。加上运行参数 `--no-default` ，或者修改配置文件。
+
+
+
+### 六、索引
+
+#### 6.1 聚簇索引
+
++ 如果设置了主键，主键为聚簇索引
++ 否则第一个 NOT NULL and UNIQUE的字段为聚簇索引
++ 默认创建一个隐藏的row_id 为聚簇索引
+
+聚簇索引指向（存储）的数据是行记录（页结构）
+
+**InnoDB必须包含一个聚簇索引**
+
+#### 6.2 普通索引
+
+> 二级索引，非聚簇索引
+
+叶子节点存储聚簇索引字段的值
+
+#### 6.3 回表查询
+
+> 先通过普通索引的值定位聚簇索引值，再通过聚簇索引的值定位行记录数据，需要扫描两次索引B+树，它的性能较扫一遍索引树更低。
+
+```sql
+// user表包含 id，name，age字段，其中id为主键（聚簇索引），age为普通索引
+select * from user where age = 20;
+```
+
+通过age的普通索引查询对应的id，然后回表查询id，获得对应的行（两次查询）
+
+#### 6.4 索引覆盖
+
+> 只需要在一棵索引树上就能获取SQL所需的所有列数据，无需回表，速度快。
+
+```sql
+select id, age from user where age = 20;
+```
+
+**如何实现覆盖索引？**
+
++ 创建联合索引
+
+  ```sql
+  create index idx_age_name on user(`age`,`name`);
+  ```
+
+适用范围：全表count、分页查询
+
+索引结构：age和name放在一个节点，和普通的B+Tree一致，比较大小时（**最左匹配原则**：先比较age，再比较name）
+
+
+
+### 七、视图
+
+> 作为一张虚拟表，本身不存储数据，作为一条select语句存储在数据字典中
+>
+> 简化设计，可能提高性能、也可能降低性能
+
+
+
