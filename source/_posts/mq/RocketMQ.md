@@ -79,6 +79,13 @@ broker定时将topic信息注册到 `NameServer`
 
 
 
+### Topic和Tag
+
++ topic 为 消费 和 提供者 订阅的一种主题
++ tag 为 topic 更细粒度的一种划分。例：topic = oder，你想要获取不同类型的订单，可以定义不同的tag
+
+
+
 ## 网络部署
 
 ### 特点 
