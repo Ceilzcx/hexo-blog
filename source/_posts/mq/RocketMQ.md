@@ -103,6 +103,44 @@ broker定时将topic信息注册到 `NameServer`
 
 
 
+## 消息传输
+
+### 消息刷盘
+
++ 同步刷盘：等待数据保存到磁盘，broker返回成功的ACK响应
++ 异步刷盘：数据加载到 PageCache，就返回成功的ACK响应，启动一个新的新的进程将 PageCache 加载到磁盘
+
+### 消息重复
+
+#### 补充：QOS
+
+> Quality of Service，服务质量
+
++ 至少一次（at least once）
++ 最多一次（at most once）
++ 仅一次（Exactly once）
+
+**rocketMQ 支持 at least one**，因此可能存在重复数据
+
+### 回溯消费
+
+注：fllink中 end back 使用的 ？
+
+已经消费成功的消息，业务需要回退重新消费，通过时间维度回退（精确到毫秒）
+
+### 定时消息
+
+**定时消息（延迟队列）是指消息发送到 broker 后，不会立即被消费，等待特定时间投递给真正的 topic**。 broker 有配置项`messageDelayLevel`，默认值为`1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h`，18个level。
+
+###  消息回查和消息重试
+
++ 消息回查针对 Producer。用于事务的 `Haslf Message`，默认回查15次。
++ 消息重试针对 Consumer。Comsumer 消费成功后需要返回 `Broker` 一个确认消息，**如果没有返回则 `Broker` 认为这条消息消费失败，失败后会再重试消费该消息，默认重试16次**
+
+### 死信消息
+
+消息重试失败后，保持无法正常消费的消息。可以通过console控制台对死信队队列的消息进行重发。
+
 
 
 ## 源码解析
