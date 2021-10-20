@@ -141,7 +141,82 @@ broker定时将topic信息注册到 `NameServer`
 
 消息重试失败后，保持无法正常消费的消息。可以通过console控制台对死信队队列的消息进行重发。
 
+### 消息顺序
+
+部分消息按照业务需求需要按顺序进行消费。例：订单状态：订单创建 → 订单付款 → 订单完成
+
++ 分区顺序：根据 Sharding key 进行区块区分。可以采用 id 取 hash 放入不同的 消息队列，对消息队列进行先入先出操作，不同 id 之间互不影响
++ 全局顺序：指定 topic 下的所有消息按照先入先出（FIFO）进行发布和消费。适用性不高
+
+### 消息过滤
+
+通过 tag 进行消息过滤。消息过滤在 broker 实现，减少对 consumer 的网络传输，缺点增加 broker 负担，同时实现困难。
+
 
 
 ## 源码解析
+
+### acl
+
+
+
+### broker
+
+
+
+### client
+
+rocketMQ 客户端实现
+
+#### Producer
+
+![client-producer](client-producer.PNG)
+
+主要逻辑在package：producer和impl，真正的实现还是需要远程访问，需要用到 remoting 模块
+
+### filter
+
+> 消息过滤，在 broker 和 consumer 中间加入了 filter 代理，主要有 broker负责
+
+
+
+### namesrv
+
+
+
+### remoting
+
+> 基于 netty 的底层通信实现
+
+#### netty
+
+NettyRemotingServer
+
+NettyRemotingClient
+
+#### protocol
+
+> 协议相关实现，对应 `RemotingCommand`
+
+| length | head length | head data   | body data |
+| ------ | ----------- | ----------- | --------- |
+| 4 byte | 4 byte      | head length | length？  |
+
+
+
+### srvutil
+
+> 解析命令行的工具类 `ServerUtil`
+
+### store
+
+> 存储层实现，同时包括了索引服务，高可用HA服务实现
+
+### tools
+
+>  mq集群管理工具，提供了消息查询等功能
+
+![代码结构](struct.png)
+
+
 
