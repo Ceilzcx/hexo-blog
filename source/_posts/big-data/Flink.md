@@ -99,3 +99,51 @@ tags: 大数据
 按照指定字段以及右流相对左流偏移的时间区间进行关联，即：
 
 > right.timestamp ∈ [left.timestamp + lowerBound; left.timestamp + upperBound]
+
+
+
+
+
+
+
+
+
+## 架构和源码
+
+### flink-connector-jdbc
+
+#### upsert
+
+作为sink向外部数据库写入数据时，如果使用DDL定义的主键，连接器将在upsert模式下操作（需要保证幂等性），否则使用append操作（这时插入主键相同的数据会出现主键冲突的异常）。
+
+#### cache
+
+JDBC 可以在临时连接中用作查找源。
+
+默认情况下，不确定缓存查找。可以设置 `lookup.cache.max-rows` 和 `lookup.cache.ttl` 设置启动它.
+
+使用缓存存在数据不是最新的问题，因此需要合理设置最大行和过期时间。
+
+
+
+#### `catalog`
+
+> 目录
+
+将 database → table 的形式转出类似目录的形式
+
+
+
+#### `dialect`
+
+> 方言，不同 JDBC 语法的差异
+
+upsert操作参考：`JdbcDialect.getUpsertStatement`
+
+
+
+#### table
+
+Source、Sink、Function
+
+TableSchema 在 table-common包中

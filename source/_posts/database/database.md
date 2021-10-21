@@ -1,7 +1,7 @@
 ---
 title: database
 date: 2021-10-12 11:06:30
-tags: database
+tags: 数据库
 ---
 
 ## build a simple database
