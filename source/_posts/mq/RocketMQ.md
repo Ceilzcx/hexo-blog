@@ -22,8 +22,8 @@ tags: 消息队列
 
 支持 push / pull 进行消费；支持集群（默认消费模式）和广播形式消费
 
-+ 同一个 `ConsumerGroup` 下，一条消息消费一次
-+ 同一个 `ConsumerGroup` 下，一条消息每个实例都消费一次
++ 集群模式：同一个 `ConsumerGroup` 下，一条消息消费一次
++ 广播模式：同一个 `ConsumerGroup` 下，一条消息每个实例都消费一次
 
 实时消息订阅（订阅topic）
 
@@ -67,7 +67,7 @@ tags: 消息队列
 
 
 
-### BorkerServer
+### BrokerServer
 
 > broker主要负责消息的存储、传递和查询以及服务高可用保证
 
@@ -82,7 +82,7 @@ broker定时将topic信息注册到 `NameServer`
 ### Topic和Tag
 
 + topic 为 消费 和 提供者 订阅的一种主题
-+ tag 为 topic 更细粒度的一种划分。例：topic = oder，你想要获取不同类型的订单，可以定义不同的tag
++ tag 为 topic 更细粒度的一种划分。例：topic = order，你想要获取不同类型的订单，可以定义不同的tag
 
 
 
@@ -156,6 +156,10 @@ broker定时将topic信息注册到 `NameServer`
 
 ## 源码解析
 
+![代码结构](struct.png)
+
+   
+
 ### acl
 
 
@@ -166,33 +170,53 @@ broker定时将topic信息注册到 `NameServer`
 
 ### client
 
-rocketMQ 客户端实现
+rocketMQ 客户端实现   
+
+   
 
 #### Producer
 
 ![client-producer](client-producer.PNG)
 
-主要逻辑在package：producer和impl，真正的实现还是需要远程访问，需要用到 remoting 模块
+主要逻辑在package：producer和impl，真正的实现还是需要远程访问，需要用到 remoting 模块。
+
+   
 
 ### filter
 
 > 消息过滤，在 broker 和 consumer 中间加入了 filter 代理，主要有 broker负责
 
-
+   
 
 ### namesrv
+
+`NamesrvStartup` 是 `namesrv` 的启动类，具体的实现类为 `NamesrvController` 。
+
+create NamesrvController （create NamesrvConfig、create NettyServerConfig）
+
+NamesrvController（initialize、start）
+
+![namesrv](namesrv.png)
 
 
 
 ### remoting
 
-> 基于 netty 的底层通信实现
+> 基于 netty 的底层通信实现   
+
+   
 
 #### netty
 
-NettyRemotingServer
+NettyRemotingServer /  NettyRemotingClient
 
-NettyRemotingClient
++ read request 通过 InboundHandler 实现
+
++ process request -> response
+
+  通过 `RequestProcessor` 接口，这样不同模块可以编写自己的实现类去转换request
+
++ write response 通过 writeAndFlush() 实现
 
 #### protocol
 
@@ -202,21 +226,35 @@ NettyRemotingClient
 | ------ | ----------- | ----------- | --------- |
 | 4 byte | 4 byte      | head length | length？  |
 
+#### 运行逻辑
 
+- client 封装 RemotingCommand 类，将消息传输给 Server。消息传输在 `AbstractNettyRemoting.invokeSyncImpl` 中
+- Server 通过 channel 获取消息，再通过 `AbstractNettyRemoting.processRequestMessage` 将request转换为response，并将结果发送回client
+- client 通过 channel 获取消息，再通过 `AbstractNettyRemoting.processResponseMessage` 处理返回的结果，获取结果执行其他逻辑。
+
+   
 
 ### srvutil
 
 > 解析命令行的工具类 `ServerUtil`
 
+   
+
 ### store
 
 > 存储层实现，同时包括了索引服务，高可用HA服务实现
+
+`ConsumeQueue` **不负责存储消息**，只是负责记录它所属 Topic 的消息在 CommitLog 中的偏移量。
+
+`DefaultMessageStore` 类下 `ReputMessageService` 的 `doReput` ，每隔 1 毫秒循环，通知 `ConsumerQueue` 进行更新
+
+
 
 ### tools
 
 >  mq集群管理工具，提供了消息查询等功能
 
-![代码结构](struct.png)
+  
 
-
+   
 

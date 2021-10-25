@@ -37,3 +37,4 @@ toc: true
 [github网址](https://github.com/wechaty/summer-of-wechaty)
 
 实现比较简单，个人感觉文档不太健全。可能是版本问题，接口与示例不符。
+
