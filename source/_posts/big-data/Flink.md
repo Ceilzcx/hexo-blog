@@ -147,3 +147,27 @@ upsert操作参考：`JdbcDialect.getUpsertStatement`
 Source、Sink、Function
 
 TableSchema 在 table-common包中
+
+
+
+
+
+#### package
+
+maven包可能不存在，在 `settings.xml` 添加国际镜像
+
+```tex
+<mirror>
+	<id>mapr-public</id>
+	<mirrorOf>mapr-releases</mirrorOf>
+	<name>mapr-releases</name>
+	<url>https://maven.aliyun.com/repository/mapr-public</url>
+</mirror>
+```
+
+打包执行 `mvn clean install -DskipTests -Drat.skip=true ` ，最后一句一定要加，不然会报下面错误
+
+```tex
+Failed to execute goal org.apache.rat:apache-rat-plugin:0.12:check (default) on project flink-parent: Too many files with unapproved license: 4 See RAT report in: D:\ffffff\flink-release-1.10.0\flink-release-1.10.0\target\rat.txt
+```
+

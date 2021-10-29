@@ -258,3 +258,8 @@ NettyRemotingServer /  NettyRemotingClient
 
    
 
+### 疑问
+
++ `rocketmq-namesrv` 模块中 `KVConfingManager` 的作用？
++ `rocketmq-store` 模块中，一个 topic 对应多个 Queue
+
