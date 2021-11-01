@@ -152,7 +152,7 @@ TableSchema 在 table-common包中
 
 
 
-#### package
+#### package(version：1.13)
 
 maven包可能不存在，在 `settings.xml` 添加国际镜像
 
@@ -165,9 +165,40 @@ maven包可能不存在，在 `settings.xml` 添加国际镜像
 </mirror>
 ```
 
-打包执行 `mvn clean install -DskipTests -Drat.skip=true ` ，最后一句一定要加，不然会报下面错误
+打包执行 `mvn clean install -DskipTests -Dfast -T 4 -Drat.skip=true ` ，最后一句一定要加，用来跳过license，不然会报下面错误
 
 ```tex
 Failed to execute goal org.apache.rat:apache-rat-plugin:0.12:check (default) on project flink-parent: Too many files with unapproved license: 4 See RAT report in: D:\ffffff\flink-release-1.10.0\flink-release-1.10.0\target\rat.txt
+```
+
+flink-runtime-web下载node速度较慢，下载超时失败。修改 pom.xml 的配置信息，如果已经操作，需要删除 web-dashboard 的 node modules
+
+```xml
+// 修改
+<arguments>ci --cache-max=0 --no-save</arguments>
+// 替换
+<arguments>install -registry=https://registry.npm.taobao.org --cache-max=0 --no-save</arguments>
+```
+
+代码规范
+
+```shell
+mvn spotless:apply
+```
+
+node 添加 其他下载源
+
+```xml
+<configuration>
+	<nodeDownloadRoot>https://registry.npm.taobao.org/dist/</nodeDownloadRoot>
+	<npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>
+	<nodeVersion>v10.9.0</nodeVersion>
+</configuration>
+```
+
+局部打包，例如我要打包 flink-connector 模块，`-pl`：指定需要打包的模块，`-am`：加载依赖模块
+
+```shell
+mvn clean install -pl flink-connectors -am -Drat.skip=true
 ```
 
