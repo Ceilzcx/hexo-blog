@@ -114,3 +114,17 @@ class Entry<K, V> {
   destroy() 方法只会被调用一次，在 Servlet 生命周期结束时被调用。destroy() 方法可以让您的 Servlet 关闭数据库连接、停止后台线程、把 Cookie 列表或点击计数器写入到磁盘，并执行其他类似的清理活动。
 
   在调用 destroy() 方法之后，servlet 对象被标记为垃圾回收
+
+
+
+### ServiceLoader
+
+> 加载接口下的所有实现类
+
+```java
+ServiceLoader.load(Test.class, classLoader);
+```
+
+**需要将 `META-INF/services` 目录下配置文件**，文件名称就是接口名，文件内容就是具体实现类
+
+其他：在 `Spring` 框架中， `getBeansOfType()` 也可以实现

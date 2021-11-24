@@ -250,6 +250,12 @@ NettyRemotingServer /  NettyRemotingClient
 
 
 
+#### 顺序存储
+
+由于 `Rocketmq` 的信息是存储到文件的，硬盘的存储和读取效率会低于内存，同时顺序读写和随机读写的效率相差极大（顺序写的速度好像比随机写快了千倍），`DefaultMessageStore` 也是通过顺序读写实现的，Java 的顺序读写通过 `RandomAccessFile` 类实现。
+
+
+
 ### tools
 
 >  mq集群管理工具，提供了消息查询等功能

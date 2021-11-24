@@ -11,11 +11,13 @@ toc: true
 + `docsify`：相对简单，只需要配置侧边栏等就可以部署运行（`github pages`）
 
 
+
 ## 开源项目
 
 包含了许多开源项目的文章和视频，语言不限。
 
 [github网址](https://github.com/danistefanovic/build-your-own-x)
+
 
 
 ## Vertx
@@ -25,6 +27,7 @@ toc: true
 [doc](https://vertx.io/docs/)
 
 
+
 ## GitHub Actions 
 
 [github网址](https://docs.github.com/cn/actions/quickstart)
@@ -32,9 +35,22 @@ toc: true
 [阮一峰入门教程](http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html)
 
 
+
 ## Java实现微信机器人
 
 [github网址](https://github.com/wechaty/summer-of-wechaty)
 
 实现比较简单，个人感觉文档不太健全。可能是版本问题，接口与示例不符。
+
+
+
+## Maven install：未报告的异常错误
+
+常出现在 `orElseThrow` ，肯定是 JDK 的问题，需要显示声明 Exception
+
+```java
+.orElseThrow(Exception::new)
+// ↓
+.<Exception>orElseThrow(Exception::new)
+```
 
