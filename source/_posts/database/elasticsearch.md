@@ -293,14 +293,79 @@ PUT my_index
 
 
 
+#### 3.3 Runtime Fields 和 Script Fields
+
++ Runtime Fields：运行时字段，可以用于聚合、排序等操作，查询时效率会略微降低（字段值运行时计算），减少磁盘的存储（不被存储和索引）。
+
+  试用场景：日志
+
+  ```js
+  PUT students/_mapping
+  {
+    "runtime": {
+      "score_flag": {
+        "type": "keyword",
+        "script": {
+          "source": "if (doc['score'].value > 90) emit('A'); else if(doc['score'].value > 75) emit('B'); else if(doc['score'].value > 60) return emit('C'); else emit('D');"
+        }
+      }
+    }
+  }
+  
+  GET students/_search
+  {
+    // 不设置该属性查询时不会显示运行时字段
+    "fields" : ["*"],
+    "query": {
+      "match_all": {}
+    }
+  }
+  ```
+
+  
+
++ Script Fields：脚本字段，不可用于聚合等操作，数据查询时进行操作。
+
+  ```js
+  POST students/_search
+  {
+    "query": {
+      "match_all": {}
+    },
+    "script_fields": {
+      "score_flag": {
+        "script": {
+          "lang": "painless",
+          "source": "if (doc['score'].value > 90) return 'A'; else if(doc['score'].value > 75) return 'B'; else if(doc['score'].value > 60) return 'C'; else return 'D';"
+        }
+      }
+    }
+  }
+  ```
+
+
+
+#### 3.4 [Mapping limit Setting]([Mapping limit settings | Elasticsearch Guide [7.16\] | Elastic](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-settings-limit.html))
+
+> 为 mapping 设置各类限制
+
+```js
+PUT students/_settings
+{
+  "index.mapping.total_fields.limit": "5"
+}
+```
+
+
+
+
+
 ### 四、index
 
 打开和关闭索引
 
 + 关闭索引：只显示元数据，不能够读写数据
 + 打开索引：允许读写（正常操作）
-
-
 
 
 
@@ -404,6 +469,5 @@ PUT _ingest/pipeline/test
 
 // pipeline 应用到索引
 PUT my_index/_doc/1?pipeline=test
-
 ```
 
