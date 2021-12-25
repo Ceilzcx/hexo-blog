@@ -4,7 +4,7 @@ date: 2021-07-15 15:59:27
 tags: 数据库
 ---
 
-### 一、介绍
+## 一、介绍
 
 >  分布式文档存储，采用JSON文档
 
@@ -19,384 +19,28 @@ tags: 数据库
 
 
 
-### 二、start searching
+### 其他
 
-#### 2.1、创建索引和文档
+#### 快捷键
 
-customer：索引名称，不存在自动创建
++ `ctrl + i` ：格式化代码
++ `ctrl + enter`：运行代码
 
-_doc：创建文档，1为id
 
-{"name": "zcx"}：添加的文档内容
 
-```js
-PUT /customer/_doc/1
-{
-	"name": "zcx",
-    "settings" : {	// 设置
-        "index" : {
-            "number_of_shards" : 3, 	// 分片数量
-            "number_of_replicas" : 2 	// 副分片数量
-        }
-    },
-    "mappings" : {	// 配置文档的属性和类型
-        "_doc" : {
-            "properties" : {
-                "field1" : { "type" : "text" }
-            }
-        }
-    },
-    "aliases" : {	// 添加别名
-        "alias_1" : {},
-        "alias_2" : {
-            "filter" : {
-                "term" : {"user" : "kimchy" }
-            },
-            "routing" : "kimchy"
-        }
-    }    
-}
-```
+##  二、安装和配置ES
 
+> ES + kibana + plugins
 
+待补充
 
-#### 2.2 search
 
-```js
-// 查询索引是否存在
-head /customer
-```
 
+## 三、API
 
+### 1. 集群（cluster）
 
-```js
-GET /customer/_search
-{
-  "query": {
-      "match": {"address":"mill lane"}	// 匹配到mill或者lane
-      "match_phrase": {"address": "mill lane"}	// 匹配到mill lane这条语句
-      "bool": {"must":[], "must_not":[], "should":[]}
-  },	// 查询，类似where
-  "sort": [],	// 排序
-  "from": 0,	// 分页
-  "size": 20
-}
-
-response：
-{
-  "took" : 3,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 5,
-    "successful" : 5,
-    "skipped" : 0,
-    "failed" : 0
-  },
-  "hits" : {
-    "total" : 1,
-    "max_score" : 1.0,
-    "hits" : [
-      {
-        "_index" : "customer",
-        "_type" : "_doc",
-        "_id" : "1",
-        "_score" : 1.0,
-        "_source" : {
-          "name" : "zcx",
-          "sno" : "31701028"
-        }
-      }
-    ]
-  }
-}
-```
-
-+ `took`：执行时间（毫秒）
-+ `time_out`：请求是否超时
-+ `_shards`：分片总数、成功、失败、跳过
-+ `max_score`：最相关文档的总数
-+ `hits`：命中
-
-
-
-```js
-// 精准查询schools索引中，username=zcx的数据
-GET schools/_search?q=username:zcx
-```
-
-
-
-在 index 后添加 `_stats`，获取索引相关的统计数据
-
-```js
-GET /school/_stats
-
-response：
-{
-  "_shards" : {
-    "total" : 2,
-    "successful" : 1,
-    "failed" : 0
-  },
-  "_all" : {
-    "primaries" : {
-      "docs" : {
-        "count" : 0,
-        "deleted" : 0
-      },
-      "shard_stats" : {
-        "total_count" : 1
-      },
-      "store" : {
-        "size_in_bytes" : 230,
-        "total_data_set_size_in_bytes" : 230,
-        "reserved_in_bytes" : 0
-      },
-      "indexing" : {
-        "index_total" : 0,
-        "index_time_in_millis" : 0,
-        "index_current" : 0,
-        "index_failed" : 0,
-        "delete_total" : 0,
-        "delete_time_in_millis" : 0,
-        "delete_current" : 0,
-        "noop_update_total" : 0,
-        "is_throttled" : false,
-        "throttle_time_in_millis" : 0
-      },
-      "get" : {
-        "total" : 0,
-        "time_in_millis" : 0,
-        "exists_total" : 0,
-        "exists_time_in_millis" : 0,
-        "missing_total" : 0,
-        "missing_time_in_millis" : 0,
-        "current" : 0
-      },
-      "search" : {
-        "open_contexts" : 0,
-        "query_total" : 0,
-        "query_time_in_millis" : 0,
-        "query_current" : 0,
-        "fetch_total" : 0,
-        "fetch_time_in_millis" : 0,
-        "fetch_current" : 0,
-        "scroll_total" : 0,
-        "scroll_time_in_millis" : 0,
-        "scroll_current" : 0,
-        "suggest_total" : 0,
-        "suggest_time_in_millis" : 0,
-        "suggest_current" : 0
-      },
-  },
-  。。。省略
-}
-```
-
-
-
-索引除了持久化到事务日志，也会持久化到 `Lucene`。数据恢复速度加快
-
-```js
-POST school/_flush
-```
-
-
-
-
-
-#### 2.3、聚合分析
-
-待续
-
-
-
-
-
-
-
-### 三、Mapping
-
-#### 3.1、Dynamic Mapping
-
-对于文档中未定义的字段，可以通过动态映射来定义是否动态添加。
-
-类型通过字段的值动态推算，需要注意的几个：
-
-| `JSON DataType` | `Elasticsearch datatype`    |
-| --------------- | --------------------------- |
-| integer         | long                        |
-| array           | 第一个非空的value的类型数组 |
-| string          | text                        |
-| 浮点数          | float                       |
-
-```js
-PUT my_index
-{
-  "mappings": {
-    "_doc": {
-	  "dynamic": true		// 是否开启 动态Mapping（false、true、version7——runtime）
-      "date_detection": true					// 是否开启date类型转换
-      "dynamic_date_formats": ["MM/dd/yyyy"]	// 动态将字符串转为date类型，这样只有这种格式会转换为date类型
-    }
-  }
-}
-```
-
-
-
-#### 3.2 Dynamic templates
-
-```js
-PUT my_index
-{
-  "mappings": {
-    "_doc": {
-      "dynamic_templates": [
-        // long -> integer
-        {
-          "integers": {
-            "match_mapping_type": "long",
-            "mapping": {
-              "type": "integer"
-            }
-          }
-        },
-        // 匹配到field name如果是long开头，不以text结束的类型：string -> long，否则为string类型
-        {
-          "longs_as_strings": {
-            "match_mapping_type": "string",
-            "match":   "long_*",
-            "unmatch": "*_text",
-            "mapping": {
-              "type": "long"
-            }
-          }
-        },
-        // 正则匹配field name以profit开头+一串数字的类型：string -> long，否则为string类型
-        {
-          "longs_as_pattern_strings": {
-            "match_mapping_type": "string"
-            "match_pattern": "regex",
-            "match": "^profit_\\d+$",
-            "mapping": {
-              "type": "long"
-            }
-          }
-        }
-      ]
-    }
-  }
-}
-
-```
-
-
-
-#### 3.3 Runtime Fields 和 Script Fields
-
-+ Runtime Fields：运行时字段，可以用于聚合、排序等操作，查询时效率会略微降低（字段值运行时计算），减少磁盘的存储（不被存储和索引）。
-
-  试用场景：日志
-
-  ```js
-  PUT students/_mapping
-  {
-    "runtime": {
-      "score_flag": {
-        "type": "keyword",
-        "script": {
-          "source": "if (doc['score'].value > 90) emit('A'); else if(doc['score'].value > 75) emit('B'); else if(doc['score'].value > 60) return emit('C'); else emit('D');"
-        }
-      }
-    }
-  }
-  
-  GET students/_search
-  {
-    // 不设置该属性查询时不会显示运行时字段
-    "fields" : ["*"],
-    "query": {
-      "match_all": {}
-    }
-  }
-  ```
-
-  
-
-+ Script Fields：脚本字段，不可用于聚合等操作，数据查询时进行操作。
-
-  ```js
-  POST students/_search
-  {
-    "query": {
-      "match_all": {}
-    },
-    "script_fields": {
-      "score_flag": {
-        "script": {
-          "lang": "painless",
-          "source": "if (doc['score'].value > 90) return 'A'; else if(doc['score'].value > 75) return 'B'; else if(doc['score'].value > 60) return 'C'; else return 'D';"
-        }
-      }
-    }
-  }
-  ```
-
-
-
-#### 3.4 [Mapping limit Setting]([Mapping limit settings | Elasticsearch Guide [7.16\] | Elastic](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-settings-limit.html))
-
-> 为 mapping 设置各类限制
-
-```js
-PUT students/_settings
-{
-  "index.mapping.total_fields.limit": "5"
-}
-```
-
-
-
-
-
-### 四、index
-
-打开和关闭索引
-
-+ 关闭索引：只显示元数据，不能够读写数据
-+ 打开索引：允许读写（正常操作）
-
-
-
-### 五、`Cat APIs`
-
-> `_cat` + index/nodes/templates，一般以 `JSON` 的形式返回数据类型，这里以表格的形式展示
-
-```js
-GET /_cat/indices
-
-response:
-healthy status index						   uuid					  pri rep docs.count docs.deleted store.size pri.store.size
-green   open   .geoip_databases                F0S_AfxbS4qnRfmUZYGyBg 1   0   42         39           40.6mb     40.6mb
-yellow open    my_index_01                     HU0-D83QQMasMtdlfPIUAw 1   1   0          0            230b       230b
-yellow open  chapter                         nouKVwjsToaPqQR4QS4D-w 1 1  3     0  8.7kb  8.7kb
-yellow close my_index_02                     to-6fbc0QsyMsBuwyOELKA 1 1                       
-green  open  .apm-custom-link                zCu-FR7oR3CLVvdEp-JSRQ 1 0  0     0   208b   208b
-yellow open  schools                         8YMa4HV0T1CxvZSVcEVoWw 1 1  1     0  4.6kb  4.6kb
-green  open  .kibana-event-log-7.15.2-000001 WloRRcBOSfOmeS-Sc8N3vw 1 0  2     0 11.9kb 11.9kb
-green  open  .apm-agent-configuration        Y9bRJgbiR06TwsQzCQqG4g 1 0  0     0   208b   208b
-green  open  .kibana_pre6.5.0_001            L8NwjI1bSPGfA7XfPVWGgA 1 0  1     0  5.5kb  5.5kb
-green  open  .kibana_7.15.2_001              7nAFYuyRSa6Tj5tGbM85bg 1 0 47    16  2.3mb  2.3mb
-green  open  .tasks                          1zbUv88mTim-0--gLetpTQ 1 0  4     0 27.2kb 27.2kb
-green  open  .kibana_task_manager_7.15.2_001 Adr8ANIjRiWtSbFVo2PGGg 1 0 15 11785  1.5mb  1.5mb
-```
-
-
-
-### 六、`cluster APIs`
-
-> 集群相关的 `API`，/_nodes + address / _local
+#### 1.1、集群查询（address / _local）
 
 ```
 GET /_nodes/_local
@@ -440,7 +84,7 @@ response:
 
 
 
-> 检索当前 hot thread 的节点信息
+#### 1.2、检索当前 hot thread 的节点信息
 
 ```js
 GET /_nodes/hot_threads
@@ -448,26 +92,519 @@ GET /_nodes/hot_threads
 
 
 
-### 七、`Ingest Node`
+### 2. 索引（index）
 
-#### 7.1、 `Pipeline`
+#### 2.1、创建索引
 
-> 管道（可以类比 Netty，对数据插入进行一系列操作）
+> 使用PUT方式或者POST添加（索引不存在会自动创建索引）
+>
+
++ `settting`：[index的配置项](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-settings-limit.html)
++ `mappings`：设置文档的字段类型
++ `aliases`：为索引添加别名
 
 ```js
-// 创建 pipeline
-PUT _ingest/pipeline/test
+PUT {index}
 {
-  "processors": [
-    {
-      "lowercase": {
-        "field": "username"
+  "settings": {
+    "index": {
+      "number_of_shards": 3,
+      "number_of_replicas": 2
+    }
+  },
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "field1": {
+          "type": "text"
+        }
       }
     }
-  ]
+  },
+  "aliases": {
+    "alias_1": {},
+    "alias_2": {
+      "filter": {
+        "term": {
+          "user": "kimchy"
+        }
+      },
+      "routing": "kimchy"
+    }
+  }
+}
+```
+
+
+
+#### 2.2、Dynamic Mapping
+
+> 对于文档中未定义的字段，可以通过动态映射来定义是否动态添加。
+
+类型通过字段的值动态推算，需要注意的几个：
+
+| `JSON DataType` | `Elasticsearch datatype`    |
+| --------------- | --------------------------- |
+| integer         | long                        |
+| array           | 第一个非空的value的类型数组 |
+| string          | text                        |
+| 浮点数          | float                       |
+
++ `dynamic`：是否开启 动态Mapping（false、true、7+版本添加runtime）
++ `date_detection`：是否开启date类型转换
++ `dynamic_date_formats`：动态将字符串转为date类型，这样只有这种格式会转换为date类型
+
+```js
+PUT my_index
+{
+  "mappings": {
+    "_doc": {
+	  "dynamic": true		
+      "date_detection": true				
+      "dynamic_date_formats": ["MM/dd/yyyy"]
+    }
+  }
+}
+```
+
+#### Runtime Fields 和 Script Fields
+
+- Runtime Fields：运行时字段，可以用于聚合、排序等操作，查询时效率会略微降低（字段值运行时计算），减少磁盘的存储（不被存储和索引）。
+
+  试用场景：日志
+
+  ```js
+  PUT students/_mapping
+  {
+    "runtime": {
+      "score_flag": {
+        "type": "keyword",
+        "script": {
+          "source": "if (doc['score'].value > 90) emit('A'); else if(doc['score'].value > 75) emit('B'); else if(doc['score'].value > 60) return emit('C'); else emit('D');"
+        }
+      }
+    }
+  }
+  
+  GET students/_search
+  {
+    // 不设置该属性查询时不会显示运行时字段
+    "fields" : ["*"],
+    "query": {
+      "match_all": {}
+    }
+  }
+  ```
+
++ Script Fields：脚本字段，不可用于聚合等操作，数据查询时进行操作。
+
+  ```js
+  POST students/_search
+  {
+    "query": {
+      "match_all": {}
+    },
+    "script_fields": {
+      "score_flag": {
+        "script": {
+          "lang": "painless",
+          "source": "if (doc['score'].value > 90) return 'A'; else if(doc['score'].value > 75) return 'B'; else if(doc['score'].value > 60) return 'C'; else return 'D';"
+        }
+      }
+    }
+  }
+  ```
+
+  
+
+#### 2.3、查询索引
+
+##### 查询索引是否存在
+
+```js
+head /customer
+```
+
+
+
+##### 表格形式返回索引信息
+
+```js
+GET /_cat/indices
+
+response:
+healthy status index						   uuid					  pri rep docs.count docs.deleted store.size pri.store.size
+green   open   .geoip_databases                F0S_AfxbS4qnRfmUZYGyBg 1   0   42         39           40.6mb     40.6mb
+yellow open    my_index_01                     HU0-D83QQMasMtdlfPIUAw 1   1   0          0            230b       230b
+yellow open  chapter                         nouKVwjsToaPqQR4QS4D-w 1 1  3     0  8.7kb  8.7kb
+yellow close my_index_02                     to-6fbc0QsyMsBuwyOELKA 1 1                       
+green  open  .apm-custom-link                zCu-FR7oR3CLVvdEp-JSRQ 1 0  0     0   208b   208b
+yellow open  schools                         8YMa4HV0T1CxvZSVcEVoWw 1 1  1     0  4.6kb  4.6kb
+green  open  .kibana-event-log-7.15.2-000001 WloRRcBOSfOmeS-Sc8N3vw 1 0  2     0 11.9kb 11.9kb
+green  open  .apm-agent-configuration        Y9bRJgbiR06TwsQzCQqG4g 1 0  0     0   208b   208b
+green  open  .kibana_pre6.5.0_001            L8NwjI1bSPGfA7XfPVWGgA 1 0  1     0  5.5kb  5.5kb
+green  open  .kibana_7.15.2_001              7nAFYuyRSa6Tj5tGbM85bg 1 0 47    16  2.3mb  2.3mb
+green  open  .tasks                          1zbUv88mTim-0--gLetpTQ 1 0  4     0 27.2kb 27.2kb
+green  open  .kibana_task_manager_7.15.2_001 Adr8ANIjRiWtSbFVo2PGGg 1 0 15 11785  1.5mb  1.5mb
+```
+
+
+
+#### 2.4、打开和关闭索引
+
++ 关闭索引：只显示元数据，不能够读写数据
++ 打开索引：允许读写（正常操作）
+
+
+
+### 3. 文档（doc）
+
+#### 3.1、创建和修改文档
+
+##### 3.1.1）创建修改单个文档（通过id查找）
+
+> 使用 POST 和 PUT 的方式添加或者修改文档，与 POST 的 _update 不同的是，如果文档已经存在，覆盖文档，而不会修改文档对应的字段
+
+```js
+POST {index}/_doc/{id}
+{
+}
+PUT {index}/_doc/{id}
+{
+}
+```
+
+##### 3.1.2）query形式修改文档
+
+待补充
+
+##### 3.1.3）批量添加文档
+
+```js
+POST {index}/_bulk?refresh
+{"index":{"_id":"1"}}
+{"field":"TEXT"}
+{"index":{"_id":"2"}}
+{"field":"TEXT"}
+```
+
+
+
+#### 3.2、搜索文档
+
+##### 3.2.1）`_search` 搜索
+
+```js
+GET {index}/_search
+{
+  "query": {
+      "match": {"address":"mill lane"}	// 匹配到mill或者lane
+      "match_phrase": {"address": "mill lane"}	// 匹配到mill lane这条语句
+      "bool": {"must":[], "must_not":[], "should":[]}
+  },	// 查询，类似where
+  "sort": [],	// 排序
+  "from": 0,	// 分页
+  "size": 20
 }
 
-// pipeline 应用到索引
-PUT my_index/_doc/1?pipeline=test
+response：
+{
+  "took" : 3,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : 1,
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "customer",
+        "_type" : "_doc",
+        "_id" : "1",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "zcx",
+          "sno" : "31701028"
+        }
+      }
+    ]
+  }
+}
+
+// 精准查询schools索引中，username=zcx的数据
+GET schools/_search?q=username:zcx
 ```
+
++ `took`：执行时间（毫秒）
++ `time_out`：请求是否超时
++ `_shards`：分片总数、成功、失败、跳过
++ `max_score`：最相关文档的总数
++ `hits`：命中
+
+
+
+##### 3.2.2）获取索引相关的统计数据
+
+```js
+GET /school/_stats
+```
+
+
+
+##### 3.2.3）分页搜索
+
++ **From + Size查询**
+
+  + from：未指定，**默认为0**，指第一个数据的index（与传统的第几页不同）
+  + size：未指定，默认为10
+
+  ```js
+  GET students/_search
+  {
+    "from": 1,
+    "size": 2,
+    "query": {
+      "match_all": {}
+    }
+  }
+  ```
+
+  优点：支持随机翻页
+
+  缺点：
+
+  + 受制于 `max_result_window` 的设置（from + size < max_result_window），不能无限翻页，默认为10000。
+  + 存在深度翻页的问题（from前面的数据也会查出），越往后翻页越慢。
+
+  搜素一般会跨越分片进行搜索，每个分片必须将其请求的命中内容以及任何先前页面的命中内容加载到内存（将 from + size 的文档加载到内存）。大量消耗内存和CPU使用率。
+
++ **search_after查询（推荐使用）**
+
+  > 使用前一页的一组排序来检索下一页的排序
+
+  前置条件：使用 search_after 要求后续的多个请求返回与第一次查询相同的排序结果序列。也就是说，即便在后续翻页的过程中，可能会有新数据写入等操作，但这些操作不会对原有结果集构成影响。
+
+  实现：创建一个 Point in Time（PIT，类似快照的方式，在7.10之后才有的新特性）
+
+  ```js
+  POST students/_pit?keep_alive=1m
+  ```
+
+  ```js
+  POST _search
+  {
+    "track_total_hits": true, 
+    "query": {
+      "match_all": {}
+    }, 
+     "pit": {
+      "id": "xxx"
+    }
+  }
+  ```
+
+  keep_alive过期是报错而不是重新创建新的PIT？
+
+  返回的 sort，第一个字段表示排序方式，以某个字段升序或者降序排序的意思；第二个字段为 tiebreaker（参考官方文档）
+
+  缺点：只支持向后翻页
+
++ **scroll**
+
+  > 适用于遍历查询，搜索大量结果甚至于所有结果
+
+  搜索时创建一个快照
+
+  ```js
+  POST students/_search?scroll=3m
+  {
+    "size": 100,
+    "query": {
+      "match_all": {}
+    }
+  }
+  
+  POST _search/scroll                                   
+  {
+    "scroll" : "3m",
+    "scroll_id":"xxx" 
+  }
+  ```
+
+  非实时的响应，同时快照需要消耗大量堆内存
+
+
+
+#### 3.3、聚合分析
+
+> 底层使用倒排索引 + 正排索引（参考四-2和3）
+
+aggs → name（自定义）→ type（histogram、terms等）→ 聚合字典、其他信息
+
+##### 3.3.1）bucket aggregations（桶聚合）
+
+
+
+##### 3.3.2）histogram aggregations（直方图统计）
+
+> 根据指定的间隔构造存储桶。值应该放入哪个桶？向下舍入最接近的间隔存储桶
+>
+> bucket_key = Math.floor((value - offset) / interval) * interval + offset
+
+**时间间隔必须为正十进制数，而偏移量必须为[0，offset]范围内的十进制**
+
+```js
+POST students/_search
+{
+  "size": 0,
+  "aggs": {
+    "score_histogram": {
+      "histogram": {
+        "field": "score",
+        "interval": 20
+      }
+    }
+  }
+}
+
+response:
+"aggregations" : {
+  "score_histogram" : {
+    "buckets" : [
+      {
+        "key" : 40.0,
+        "doc_count" : 1
+      },
+      {
+        "key" : 60.0,
+        "doc_count" : 2
+      },
+      {
+        "key" : 80.0,
+        "doc_count" : 2
+      }
+    ]
+  }
+}
+```
+
+
+
+##### 3.3.3）Terms aggregations（术语聚合）
+
+> 搜索指定字段的唯一值构建存储桶。
+
+```js
+GET students/_search
+{
+  "size": 0,
+  "aggs": {
+    "names": {
+      "terms": {
+        "field": "score",
+        "size": 10
+      }
+    }
+  }
+}
+```
+
+
+
+
+
+### 4. 模板（template）
+
+#### 4.1、Dynamic template
+
+```js
+PUT my_index
+{
+  "mappings": {
+    "_doc": {
+      "dynamic_templates": [
+        {
+          "integers": {
+            "match_mapping_type": "long",
+            "mapping": {
+              "type": "integer"
+            }
+          }
+        },
+        {
+          "longs_as_strings": {
+            "match_mapping_type": "string",
+            "match":   "long_*",
+            "unmatch": "*_text",
+            "mapping": {
+              "type": "long"
+            }
+          }
+        },
+        {
+          "longs_as_pattern_strings": {
+            "match_mapping_type": "string",
+            "match_pattern": "regex",
+            "match": "^profit_\\d+$",
+            "mapping": {
+              "type": "long"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+
+
+### 5、管道（pipeline）
+
+
+
+## 四、底层原理
+
+### 1、[文档的创建](https://www.elastic.co/guide/cn/elasticsearch/guide/current/translog.html)
+
++ doc 写入到 in-memory buffer，同时将操作写入到 Translog（应该是在硬盘，防止系统中断等操作导致内存丢失，通过Translog复原数据）
++ 每隔一秒执行refresh操作：将 in-memory buffer 的数据写入到 segment（内存，查询时轮询分片的所有segment，segment太多会导致查询效率降低，es会自动合并segment到一个大的segment，等到大的segment被写入磁盘，删除所有小的segment）
++ 每隔30分钟执行一次fresh操作（或者Translog太大）：将 segment 的数据存入到磁盘
+
+`Translog`：默认5秒加载被 `fsync` 加载到硬盘，或者每次写请求完成后也会执行（index、update、bulk等）。这个过程在主分片和副本分片都会发生，因此需要等到所有操作都执行完成后才会执行 `200 OK` 的响应
+
+
+
+### 2、倒排索引
+
+
+
+
+
+### 3、正排索引
+
+
+
+### 4、Lucene文件与数据压缩
+
+| Name                | Extension        | Brief Description                                            |
+| ------------------- | ---------------- | ------------------------------------------------------------ |
+| Segment Info        | .si              | segment的元数据文件                                          |
+| Compound File       | .cfs, .cfe       | 一个segment包含了如下表的各个文件，为减少打开文件的数量，在segment小的时候，segment的所有文件内容都保存在cfs文件中，cfe文件保存了lucene各文件在cfs文件的位置信息 |
+| Fields              | .fnm             | 保存了fields的相关信息                                       |
+| Field Index         | .fdx             | 正排存储文件的元数据信息                                     |
+| Field Data          | **.fdt**         | 存储了正排存储数据，写入的原文存储在这                       |
+| Term Dictionary     | **.tim**         | 倒排索引的元数据信息                                         |
+| Term Index          | .tip             | 倒排索引文件，存储了所有的倒排索引数据                       |
+| Frequencies         | .doc             | 保存了每个term的doc id列表和term在doc中的词频                |
+| Positions           | .pos             | Stores position information about where a term occurs in the index 全文索引的字段，会有该文件，保存了term在doc中的位置 |
+| Payloads            | .pay             | Stores additional per-position metadata information such as character offsets and user payloads 全文索引的字段，使用了一些像payloads的高级特性会有该文件，保存了term在doc中的一些高级特性 |
+| Norms               | .nvd, .nvm       | 文件保存索引字段加权数据                                     |
+| Per-Document Values | **.dvd, .dvm**   | lucene的docvalues文件，即数据的列式存储，用作聚合和排序      |
+| Term Vector Data    | .tvx, .tvd, .tvf | Stores offset into the document data file 保存索引字段的矢量信息，用在对term进行高亮，计算文本相关性中使用 |
+| Live Documents      | .liv             | 记录了segment中删除的doc                                     |
 
