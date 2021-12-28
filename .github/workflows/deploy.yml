@@ -45,6 +45,7 @@ jobs:
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.email "1758619238@qq.com"
           git config --global user.name "ceilzcx"
+          npm i hexo-renderer-multi-markdown-it --save
           npm install hexo-cli -g
           npm install
           
