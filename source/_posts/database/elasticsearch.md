@@ -36,6 +36,12 @@ tags: 数据库
 
 
 
+### 各配置项
+
++ 单个分片的最大文档数：`2^32-1`（约20亿）。官方建议分片的大小控制在 `30GB - 50GB`
+
+
+
 ## 三、API
 
 ### 1. 集群（cluster）
@@ -254,6 +260,77 @@ green  open  .kibana_task_manager_7.15.2_001 Adr8ANIjRiWtSbFVo2PGGg 1 0 15 11785
 
 + 关闭索引：只显示元数据，不能够读写数据
 + 打开索引：允许读写（正常操作）
+
+
+
+#### 2.5、索引生命周期和滚动索引（rollover）
+
+> 滚动索引是 `5.X` 之后推出的 API，解决以日期作为索引名称大小不均匀的问题
+
+索引的生命周期（ILM）和 冷热架构
+
++ 热接点（Hot）：用户最关心的热数据
++ 温节点（Warm）：存放前一段时间沉淀的热数据
++ 冷接点（Cold）：用户不太关心的数据，或者很久前的数据
+
+磁盘数据不足时优先删除冷接点数据，硬件资源不足时，热接点优先使用SSD
+
+
+
+```js
+PUT my-index-2021.12.27-000001
+{
+  "aliases": {
+    "my-alias": {
+      "is_write_index": true
+    }
+  }
+}
+
+POST my-alias/_rollover
+{
+  "conditions": {
+    "max_age": "7d",
+    "max_docs": 100,
+    "max_size": "5gb"
+  }
+}
+```
+
+需要注意配置索引的别名时，必须配置 `is_write_index:true`，rollover只能用于 `alias` 和 `data stream` ，索引名也需要设置为 `*-00001` 类似的格式，这样 rollover的时候索引名可以累加，否则会报错。
+
+上述配置中，当索引满足任意一个条件都会生成新的索引（时间间隔超过7天 或 最大文档超过100个 或 文档总大小超过5GB）
+
+
+
+#### 2.6、冻结或解除索引（freeze）
+
+> 冻结索引后，当前索引不占用内存空间，只占用磁盘。索引可以被查询（效率较低），通常使用在快速缓解集群内存使用率过高的情况导致的熔断上。
+
+```js
+POST {index_name}/_freeze
+POST {index_name}/_unfreeze
+```
+
+
+
+#### 2.7、重构索引（`reindex`）
+
+> 常用在字段类型变更、分片数量变更、迁移索引等场景。`reindex` 执行过程中**索引需要停止写入**，否则会出现数据不一致的问题，如果索引数据量较大，需要添加 `wait_for_completion=false`，这样调用`Reindex API` 时就异步执行并返回一个 `taskId` 。我们可以通过该 `taskId` 来查看 `reindex` 状态甚至取消该task
+
+```js
+POST _reindex
+{
+  "source": {
+    "index": "{source_index_name}"
+  },
+  "dest": {
+    "index": "{dest_index_name}"
+  }
+}
+```
+
+
 
 
 
@@ -567,6 +644,88 @@ PUT my_index
 
 
 
+### 6、别名（Alias）
+
+> 一个索引是一组数据流或者index的别名，可以在任何时刻替换数据流或index
+
+```js
+POST _aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "students2020",
+        "alias": "students"
+      },
+      "remove": {
+        "index": "students2020",
+        "alias": "students"
+      }
+    }
+  ]
+}
+```
+
+
+
+### 7、缓存（Cache）
+
+#### 7.1、API
+
+##### 7.1.1）清除缓存
+
+```js
+POST /_cache/clear
+POST /{index}/_cache/clear
+// 清理节点查询缓存
+POST /{index}/_cache/clear?query=true
+// 清理reques缓存
+POST /{index}/_cache/clear?request=true
+// 清理field data缓存
+POST /{index}/_cache/clear?fielddata=true
+```
+
+**缓存应用场景**
+
+| 缓存类型                    | 缓存内容                                                 |
+| --------------------------- | -------------------------------------------------------- |
+| 节点请求缓存                | 缓存可维护在 filter 上下文中使用的查询结果。             |
+| 分片请求缓存                | 缓存 size = 0 时频繁使用的查询的结果，尤其是聚合的结果。 |
+| 字段请求缓存 （Field data） | 用于排序和支持某些字段类型上的聚合。                     |
+
+
+
+##### 7.1.2）禁用或启用缓存
+
+```js
+PUT {index}
+{
+  "settings": {
+    "index.requests.cache.enable": false
+  }   
+}
+```
+
+##### 7.1.3）全局查询缓存
+
+```js
+GET _cat/nodes?v&h=id,queryCacheMemory,queryCacheEvictions,requestCacheMemory,requestCacheHitCount,requestCacheMissCount,flushTotal,flushTotalTime
+```
+
+
+
+#### 7.2、节点查询缓存
+
+> `Filter` 或者 `Term` 查询的结果进行缓存，节点的所有分片共享，使用 `LRU` 策略
+
+默认情况下，节点查询缓存最多容纳10000个查询，占总堆空间的10%
+
+
+
+
+
+
+
 ## 四、底层原理
 
 ### 1、[文档的创建](https://www.elastic.co/guide/cn/elasticsearch/guide/current/translog.html)
@@ -607,4 +766,16 @@ PUT my_index
 | Per-Document Values | **.dvd, .dvm**   | lucene的docvalues文件，即数据的列式存储，用作聚合和排序      |
 | Term Vector Data    | .tvx, .tvd, .tvf | Stores offset into the document data file 保存索引字段的矢量信息，用在对term进行高亮，计算文本相关性中使用 |
 | Live Documents      | .liv             | 记录了segment中删除的doc                                     |
+
+
+
+### 5、索引的压缩机制
+
++ 在倒排索引的基础上建立词典索引（term index）
+
+  为什么需要词典索引？倒排索引创建好词典元素是排好序的，可以通过二分查找快速筛选；但是ES的索引是放在内存中的（为了提高效率），因此需要词典索引提交查询效率和压缩大小（主要目的）。
+
+  词典索引使用 **有限状态机**。部分前缀使用有向图的方式。图不会包含所有的term，只会包含term的前缀，通过前缀快速定位到指定的block，block中也只会存储去除前缀的部分，大大提高空间利用率。
+
++ 
 
