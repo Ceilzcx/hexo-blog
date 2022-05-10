@@ -272,6 +272,8 @@ green  open  .kibana_task_manager_7.15.2_001 Adr8ANIjRiWtSbFVo2PGGg 1 0 15 11785
 + 热接点（Hot）：用户最关心的热数据
 + 温节点（Warm）：存放前一段时间沉淀的热数据
 + 冷接点（Cold）：用户不太关心的数据，或者很久前的数据
++ `frozen`
++ `delete`
 
 磁盘数据不足时优先删除冷接点数据，硬件资源不足时，热接点优先使用SSD
 
@@ -355,15 +357,25 @@ PUT {index}/_doc/{id}
 
 待补充
 
-##### 3.1.3）批量添加文档
+##### 3.1.3）批量操作文档（_bulk）
+
+> 支持批量覆盖、删除、添加和部分字段修改
 
 ```js
 POST {index}/_bulk?refresh
 {"index":{"_id":"1"}}
 {"field":"TEXT"}
-{"index":{"_id":"2"}}
-{"field":"TEXT"}
+
+{"delete":{"_id":"2"}}
+
+{"create":{"_id":"3"}}
+{"field":"value"}
+
+{"update":{"_id":"1"}}
+{"doc":{"field":"value"}}
 ```
+
+
 
 
 
@@ -421,6 +433,65 @@ GET schools/_search?q=username:zcx
 + `_shards`：分片总数、成功、失败、跳过
 + `max_score`：最相关文档的总数
 + `hits`：命中
+
+
+
+**query**
+
++ `wildcard query`（查询速度可能会较慢，尽量防止通配符出现在开头位置）
+
+  ```js
+  {
+      "query": {
+          "wildcard": {
+              "name": "test*"
+          } 
+      }
+  }
+  ```
+
+  + 通配符 * ：类似MySQL【`where field like 'test%'`】
+  + 通配符 ? ：类似MySQL【`where field like 'test_'`】
+
++ `prefix query`
+
+  ```js
+  {
+      "query": {
+          "prefix": {
+              "name": "test"
+          } 
+      }
+  }
+  ```
+
+  等价于 `"wildcard": {"name": "test*"}`
+
++ `fuzzy query`
+
+  模糊查询使用基于Levenshtein编辑距离的相似度，用于查询误拼写的fuzzy模糊搜索技术。
+
+  ```js
+  {
+      "query": {
+          "fuzzy" : {
+              "name": {
+                  "value": "test",
+                  "fuzziness": 1,
+                  "prefix_length": 1,
+                  "max_expansions": 100
+              }
+          }
+      }
+  }
+  ```
+
+  + fuzziness：最大编辑距离【一个字符串变成另一个字符串的需要操作的步数】。默认为AUTO
+  + prefix_length：不会被初始化的字符串。默认为0
+  + max_expansions：控制与前缀匹配的词的数量。默认为50
+  + transpositions：是否支持模糊转置（ab → ba）。默认为false
+
++ 
 
 
 
@@ -592,6 +663,63 @@ GET students/_search
 
 
 
+#### 3.4、数据类型（dataType）
+
+##### 3.4.1）Nested dataType & Object dataType
+
+> arrays of objects can be indexed
+
+主要用于查询某个对象或者对象数组字段下的某个字段值
+
+*username 使用 Object dataType，cources 使用 nested dataType*
+
+```js
+PUT students2000
+{
+  "mappings": {
+    "properties": {
+      "username": {
+        "properties": {
+          "first": {
+            "type": "text"
+          },
+          "last": {
+            "type": "text"
+          }
+        }
+      },
+      "cources": {
+        "type": "nested"
+      }
+    }
+  }
+}
+```
+
+查询
+
+```js
+GET students2000/_search
+{
+  "query": {
+    "nested": {
+      "path": "cources",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "cources.name": "chinese"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
 
 
 ### 4. 模板（template）
@@ -722,6 +850,44 @@ GET _cat/nodes?v&h=id,queryCacheMemory,queryCacheEvictions,requestCacheMemory,re
 
 
 
+### 8、Text analysis
+
+#### 8.1、概念（concept）
+
+##### 8.1、词干（Stemmer）
+
+查询时词干分析将单词还原为词根，两个具有相同词根的不同单词可以搜索出来（例：`working` 和 `worked`）
+
+`stemmer token filters`
+
+##### 8.2、token graph
+
++ position：每个词（token）的位置
++ position length：词（token）跨域的间距
+
+相似语句【synonyms】（例：fast car 和 quick car）
+
+`Multi-position tokens`（例：简称，domain name system 和 dns）
+
+
+
+#### Tokenization
+
+将一个 text 拆分成更小的块。大部分情况下这些 token 都是一个独立的单词。
+
+text：`the quick brown fox jumps`，查询语句 `quick fox`
+
+匹配查询中独立的一些词
+
+#### Normalization
+
+匹配近似语义的词
+
++ 大小写：big、Big
++ 前后缀
+
+
+
 
 
 
@@ -735,6 +901,8 @@ GET _cat/nodes?v&h=id,queryCacheMemory,queryCacheEvictions,requestCacheMemory,re
 + 每隔30分钟执行一次fresh操作（或者Translog太大）：将 segment 的数据存入到磁盘
 
 `Translog`：默认5秒加载被 `fsync` 加载到硬盘，或者每次写请求完成后也会执行（index、update、bulk等）。这个过程在主分片和副本分片都会发生，因此需要等到所有操作都执行完成后才会执行 `200 OK` 的响应
+
+![image-20220315162859107](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220315162821232.png)
 
 
 
@@ -779,3 +947,11 @@ GET _cat/nodes?v&h=id,queryCacheMemory,queryCacheEvictions,requestCacheMemory,re
 
 + 
 
+
+
+### 6、计算文档相关性得分算法
+
+> `TF-IDF` 算法（词频、逆文档频率）
+
++ 词频：所查找的单词在文档种出现的次数越多，得分越高。
++ 逆文档词频：如果某个单词在所有文档中比较少见，那么该词的权重越高，得分也越高。

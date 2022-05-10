@@ -32,6 +32,8 @@ tags:
 
 > 将当前分支的内容提交到远程分支
 
++ `-f`：
+
 
 
 ### git log
@@ -178,3 +180,19 @@ tags:
 #### 常用命令
 
 + `<tag name>`
+
+
+
+### git cherry-pick
+
+> 将一个分支的commit转移到另一个分支
+
+#### 常用命令
+
++ `<commit hash>`：当前分支产生一个新的commit
++ `<branch>`：当前分支产生一个指定分支最新的commit
+
+
+
+### git submodule
+
