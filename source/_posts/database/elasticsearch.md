@@ -955,3 +955,28 @@ text：`the quick brown fox jumps`，查询语句 `quick fox`
 
 + 词频：所查找的单词在文档种出现的次数越多，得分越高。
 + 逆文档词频：如果某个单词在所有文档中比较少见，那么该词的权重越高，得分也越高。
+
+
+
+## 五、elasticsearch 对比 solr
+
+### Configuration
+
++ es 所有配置保存在 *elasticsearch.yml*；但是 es 的配置可以通过API进行修改
++ solr 所有配置保存在 *solrconfig.xml*
++ 修改配置文件都需要重启生效
+
+### Node Discovery
+
++ es 采用自带的 Zen；主节点可以作为协调节点只负责集群的管理
++ Solr 使用 zookeeper 集成；zk 负责数据监控和存储配置文件
+
+### Shard Placement
+
++ es 索引和分片的放置都是动态的。一个节点添加或删除，都可以动态修改分片的位置（迁移需要一定的时间）
++ solr 更倾向于静态的。一个节点添加或删除，通过不做任何处理（solr7之后通过AutoScaling API控制）
+
+### Cache
+
++ es 的 cache 按 segment 进行。segment发生变化，对应的cache失效，进行refresh
++ solr 的 cache 按分片划分。segment发生变化，整个cache刷新（非常耗费时间和硬件资源）
