@@ -491,6 +491,17 @@ GET schools/_search?q=username:zcx
   + max_expansions：控制与前缀匹配的词的数量。默认为50
   + transpositions：是否支持模糊转置（ab → ba）。默认为false
 
++ `boolean query`
+
+  + `must`：查询条件必须出现在文档中，并计算分数。使用 `match_all` 返回全部，score全部为1.0
+  + `filter`：与must类似。但不计算分数，同时filter的计算结果可以缓存
+  + `should`：查询条件应该出现在文档，并计算分数。通过 `minimum_should_match ` 设置满足should几个条件，当设置为0时，可以不满足任何should也可以被查询
+  + `must_not`：查询条件必须不出现在文档，不会计算分数，结果可以被缓存
+
++ `boosting query`
+
+  
+
 + 
 
 
@@ -902,7 +913,7 @@ text：`the quick brown fox jumps`，查询语句 `quick fox`
 
 `Translog`：默认5秒加载被 `fsync` 加载到硬盘，或者每次写请求完成后也会执行（index、update、bulk等）。这个过程在主分片和副本分片都会发生，因此需要等到所有操作都执行完成后才会执行 `200 OK` 的响应
 
-![image-20220315162859107](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220315162821232.png)
+![image-20220315162859107](image-20220315162821232.png)
 
 
 
