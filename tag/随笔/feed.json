@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "hexo-blog • All posts by \"随笔\" tag",
+    "description": "record some markdown",
+    "home_page_url": "https://ceilzcx.github.io/hexo-blog",
+    "items": [
+        {
+            "id": "https://ceilzcx.github.io/hexo-blog/2021/07/21/Essays/",
+            "url": "https://ceilzcx.github.io/hexo-blog/2021/07/21/Essays/",
+            "title": "essays",
+            "date_published": "2021-07-21T13:58:12.000Z",
+            "content_html": "<h2 id=\"blog-搭建\"><a class=\"markdownIt-Anchor\" href=\"#blog-搭建\">#</a> blog 搭建</h2>\n<ul>\n<li><code>hexo</code> ：主题比较多样，需要自己配置，相对比较复杂，可以通过  <code>github actions</code>  或者 <code>hexo d</code>  进行部署。</li>\n<li><code>docsify</code> ：相对简单，只需要配置侧边栏等就可以部署运行（ <code>github pages</code> ）</li>\n</ul>\n<h2 id=\"开源项目\"><a class=\"markdownIt-Anchor\" href=\"#开源项目\">#</a> 开源项目</h2>\n<p>包含了许多开源项目的文章和视频，语言不限。</p>\n<p><span class=\"exturl\" data-url=\"aHR0cHM6Ly9naXRodWIuY29tL2RhbmlzdGVmYW5vdmljL2J1aWxkLXlvdXItb3duLXg=\">github 网址</span></p>\n<h2 id=\"vertx\"><a class=\"markdownIt-Anchor\" href=\"#vertx\">#</a> Vertx</h2>\n<p>是一个基于 JVM、轻量级、高性能的应用平台。（本身并不算一个框架），采用 React 模式开发。</p>\n<p><span class=\"exturl\" data-url=\"aHR0cHM6Ly92ZXJ0eC5pby9kb2NzLw==\">doc</span></p>\n<h2 id=\"github-actions\"><a class=\"markdownIt-Anchor\" href=\"#github-actions\">#</a> GitHub Actions</h2>\n<p><span class=\"exturl\" data-url=\"aHR0cHM6Ly9kb2NzLmdpdGh1Yi5jb20vY24vYWN0aW9ucy9xdWlja3N0YXJ0\">github 网址</span></p>\n<p><span class=\"exturl\" data-url=\"aHR0cDovL3d3dy5ydWFueWlmZW5nLmNvbS9ibG9nLzIwMTkvMDkvZ2V0dGluZy1zdGFydGVkLXdpdGgtZ2l0aHViLWFjdGlvbnMuaHRtbA==\">阮一峰入门教程</span></p>\n<h2 id=\"java实现微信机器人\"><a class=\"markdownIt-Anchor\" href=\"#java实现微信机器人\">#</a> Java 实现微信机器人</h2>\n<p><span class=\"exturl\" data-url=\"aHR0cHM6Ly9naXRodWIuY29tL3dlY2hhdHkvc3VtbWVyLW9mLXdlY2hhdHk=\">github 网址</span></p>\n<p>实现比较简单，个人感觉文档不太健全。可能是版本问题，接口与示例不符。</p>\n<h2 id=\"maven-install未报告的异常错误\"><a class=\"markdownIt-Anchor\" href=\"#maven-install未报告的异常错误\">#</a> Maven install：未报告的异常错误</h2>\n<p>常出现在  <code>orElseThrow</code>  ，肯定是 JDK 的问题，需要显示声明 Exception</p>\n<figure class=\"highlight java\"><table><tr><td class=\"gutter\"><pre><span class=\"line\">1</span><br><span class=\"line\">2</span><br><span class=\"line\">3</span><br></pre></td><td class=\"code\"><pre><span class=\"line\">.orElseThrow(Exception::<span class=\"keyword\">new</span>)</span><br><span class=\"line\"><span class=\"comment\">// ↓</span></span><br><span class=\"line\">.&lt;Exception&gt;orElseThrow(Exception::<span class=\"keyword\">new</span>)</span><br></pre></td></tr></table></figure>\n",
+            "tags": [
+                "随笔"
+            ]
+        }
+    ]
+}

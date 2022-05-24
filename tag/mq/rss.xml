@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>hexo-blog • Posts by &#34;mq&#34; tag</title>
+        <link>https://ceilzcx.github.io/hexo-blog</link>
+        <description>record some markdown</description>
+        <language>zh-CN</language>
+        <pubDate>Wed, 09 Mar 2022 20:02:22 +0000</pubDate>
+        <lastBuildDate>Wed, 09 Mar 2022 20:02:22 +0000</lastBuildDate>
+        <category>随笔</category>
+        <category>hexo</category>
+        <category>算法</category>
+        <category>大数据</category>
+        <category>数据库</category>
+        <category>java</category>
+        <category>消息队列</category>
+        <category>mq</category>
+        <item>
+            <guid isPermalink="true">https://ceilzcx.github.io/hexo-blog/2022/03/09/mq/kafka/</guid>
+            <title>kafka</title>
+            <link>https://ceilzcx.github.io/hexo-blog/2022/03/09/mq/kafka/</link>
+            <category>mq</category>
+            <pubDate>Wed, 09 Mar 2022 20:02:22 +0000</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;kafka&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#kafka&#34;&gt;#&lt;/a&gt; Kafka&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;发布 - 订阅模式的消息队列中间件&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;what is 发布 - 订阅模式？生产者发送消息到消息队列，&lt;strong&gt;消费者轮询主动拉取消息&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;优点&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#优点&#34;&gt;#&lt;/a&gt; 优点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;解耦：两边独立的修改和可扩展处理&lt;/li&gt;
+&lt;li&gt;可恢复性：消息存在队列中，一部分系统挂了，也可以重启继续读取消息队列&lt;/li&gt;
+&lt;li&gt;缓冲：解决生产者和消费者速度不一致问题&lt;/li&gt;
+&lt;li&gt;削峰：防止流量猛增导致系统崩溃&lt;/li&gt;
+&lt;li&gt;异步处理：等待指定时间后处理消息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;速度快&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#速度快&#34;&gt;#&lt;/a&gt; 速度快？&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;页缓存&lt;/p&gt;
+&lt;p&gt;保存在内存&lt;/p&gt;
+&lt;p&gt;数据写入磁盘，采用  &lt;code&gt;write-back&lt;/code&gt;  机制：先判断是否在页缓存中存在，不存在添加到页缓存，然后再向磁盘中写入。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;零拷贝：不需要 CPU 拷贝，通过 sendfile 实现 DMA 拷贝，上下文切换从四次变为两次&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

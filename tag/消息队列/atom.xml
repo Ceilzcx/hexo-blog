@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://ceilzcx.github.io/hexo-blog</id>
+    <title>hexo-blog • Posts by &#34;消息队列&#34; tag</title>
+    <link href="https://ceilzcx.github.io/hexo-blog" />
+    <updated>2021-10-14T16:38:36.000Z</updated>
+    <category term="随笔" />
+    <category term="hexo" />
+    <category term="算法" />
+    <category term="大数据" />
+    <category term="数据库" />
+    <category term="java" />
+    <category term="消息队列" />
+    <category term="mq" />
+    <entry>
+        <id>https://ceilzcx.github.io/hexo-blog/2021/10/14/mq/RocketMQ/</id>
+        <title>RocketMQ</title>
+        <link rel="alternate" href="https://ceilzcx.github.io/hexo-blog/2021/10/14/mq/RocketMQ/"/>
+        <content type="html">&lt;h2 id=&#34;设计架构&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#设计架构&#34;&gt;#&lt;/a&gt; 设计架构&lt;/h2&gt;
+&lt;h3 id=&#34;producer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#producer&#34;&gt;#&lt;/a&gt; Producer&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;消息提供 / 发布者，支持分布式和集群部署&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;通过  &lt;code&gt;NameServer&lt;/code&gt; ，获取  &lt;code&gt;Broker&lt;/code&gt;  路由信息，通过负载均衡模块选择对应的  &lt;code&gt;Broker&lt;/code&gt;  集群队列，并发布消息。&lt;/p&gt;
+&lt;p&gt;投递的过程支持快速失败并且低延迟。&lt;/p&gt;
+&lt;h3 id=&#34;consumer&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#consumer&#34;&gt;#&lt;/a&gt; Consumer&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;消息消费者，支持分布式和集群部署&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;支持 push /pull 进行消费；支持集群（默认消费模式）和广播形式消费&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;集群模式：同一个  &lt;code&gt;ConsumerGroup&lt;/code&gt;  下，一条消息消费一次&lt;/li&gt;
+&lt;li&gt;广播模式：同一个  &lt;code&gt;ConsumerGroup&lt;/code&gt;  下，一条消息每个实例都消费一次&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;实时消息订阅（订阅 topic）&lt;/p&gt;
+&lt;h3 id=&#34;nameserver&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#nameserver&#34;&gt;#&lt;/a&gt; NameServer&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;topic 路由注册中心，（类似 dubbo 的 zookeeper），支持 broker 的注册和发现&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;AP 的设计：Availability（可用性）+ Partition Tolerance（分区容错性）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;NameServer&lt;/code&gt;  &lt;strong&gt;节点之间并不通信&lt;/strong&gt;，各个时刻数据没法保持一致（不遵循 Consistency（一致性））&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Broker 管理&lt;/strong&gt;：接受 Broker 集群注册信息并保存作为路由信息的基本数据&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;提供健康检查&lt;/strong&gt;：检查 Broker 是否存活&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;每个  &lt;code&gt;NameServer&lt;/code&gt;  将保存关于 Broker 集群的整个路由信息和用于客户端查询的队列信息，然后  &lt;code&gt;Producer&lt;/code&gt;  和  &lt;code&gt;Conumser&lt;/code&gt;  通过  &lt;code&gt;NameServer&lt;/code&gt;  就可以知道整个 Broker 集群的路由信息，从而进行消息的投递和消费。&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;如何注册 topic？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;手动创建，指定对应的 broker 和消息队列数量进行创建&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;自动创建&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;autoCreateTopicEnable = true&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;生产发送消息时，如果指定的 Topic 不存在， &lt;code&gt;NameServer&lt;/code&gt;  会返回一个【默认主题： &lt;code&gt;TBW102&lt;/code&gt; 】的路由信息，使得生产者能够正常发生消息&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Broker 收到消息后，发现消息对应 Topic 不存在，且 Broker 允许自动创建 Topic，则会为消息创建 Topic ，并定时把路由信息同步至  &lt;code&gt;NameServer&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;生产者也会定时从  &lt;code&gt;NameServer&lt;/code&gt;  同步最新的路由信息，缓存至本地&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;后续生产者发送消息时，就可以从本地的缓存中查询到对应 Topic 的路由信息了&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;brokerserver&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#brokerserver&#34;&gt;#&lt;/a&gt; BrokerServer&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;broker 主要负责消息的存储、传递和查询以及服务高可用保证&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;broker 分为 Master 和 Slave，对应关系通过相同  &lt;code&gt;BrokerName&lt;/code&gt; ，不同的  &lt;code&gt;BrokerId&lt;/code&gt;  来定义， &lt;code&gt;BrokerId = 0&lt;/code&gt;  表示 Master；broker 支持一主多从，但是&lt;strong&gt;只有  &lt;code&gt;brokerId = 1&lt;/code&gt;  的从服务器才会参与消息的读负载&lt;/strong&gt; 。&lt;/p&gt;
+&lt;p&gt;broker 定时将 topic 信息注册到  &lt;code&gt;NameServer&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;topic和tag&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#topic和tag&#34;&gt;#&lt;/a&gt; Topic 和 Tag&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;topic 为 消费 和 提供者 订阅的一种主题&lt;/li&gt;
+&lt;li&gt;tag 为 topic 更细粒度的一种划分。例：topic = order，你想要获取不同类型的订单，可以定义不同的 tag&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;网络部署&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#网络部署&#34;&gt;#&lt;/a&gt; 网络部署&lt;/h2&gt;
+&lt;h3 id=&#34;特点&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特点&#34;&gt;#&lt;/a&gt; 特点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Producer 与  &lt;code&gt;NameServer&lt;/code&gt;  集群的一个节点建立连接（随机），获取 topic 路由信息，与&lt;strong&gt; Master&lt;/strong&gt; 建立长连接，并定时发送心跳&lt;/li&gt;
+&lt;li&gt;Consumer 与  &lt;code&gt;NameServer&lt;/code&gt;  集群的一个节点建立连接（随机），获取 topic 路由信息，与&lt;strong&gt; Master 和 Slave&lt;/strong&gt; 建立长连接，并定时发送心跳&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;启动流程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#启动流程&#34;&gt;#&lt;/a&gt; 启动流程&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;NameServer 启动，等待 Broker、Producer、Consumer 连接&lt;/li&gt;
+&lt;li&gt;Broker 启动，跟所有的 NameServer 保持长连接，定时发送心跳包。心跳包中包含当前 Broker 信息 (IP + 端口等) 以及存储所有 Topic 信息。注册成功后，NameServer 集群中就有 Topic 跟 Broker 的映射关系。&lt;/li&gt;
+&lt;li&gt;收发消息前，先创建 Topic，创建 Topic 时需要指定该 Topic 要存储在哪些 Broker 上，也可以在发送消息时自动创建 Topic。&lt;/li&gt;
+&lt;li&gt;Producer 发送消息，启动时先跟 NameServer 集群中的其中一台建立长连接，并从 NameServer 中获取当前发送的 Topic 存在哪些 Broker 上，轮询从队列列表中选择一个队列，然后与队列所在的 Broker 建立长连接从而向 Broker 发消息。&lt;/li&gt;
+&lt;li&gt;Consumer 跟 Producer 类似，跟其中一台 NameServer 建立长连接，获取当前订阅 Topic 存在哪些 Broker 上，然后直接跟 Broker 建立连接通道，开始消费消息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;消息传输&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息传输&#34;&gt;#&lt;/a&gt; 消息传输&lt;/h2&gt;
+&lt;h3 id=&#34;消息刷盘&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息刷盘&#34;&gt;#&lt;/a&gt; 消息刷盘&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;同步刷盘：等待数据保存到磁盘，broker 返回成功的 ACK 响应&lt;/li&gt;
+&lt;li&gt;异步刷盘：数据加载到 PageCache，就返回成功的 ACK 响应，启动一个新的新的进程将 PageCache 加载到磁盘&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;消息重复&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息重复&#34;&gt;#&lt;/a&gt; 消息重复&lt;/h3&gt;
+&lt;h4 id=&#34;补充qos&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#补充qos&#34;&gt;#&lt;/a&gt; 补充：QOS&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Quality of Service，服务质量&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;至少一次（at least once）&lt;/li&gt;
+&lt;li&gt;最多一次（at most once）&lt;/li&gt;
+&lt;li&gt;仅一次（Exactly once）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;rocketMQ 支持 at least one&lt;/strong&gt;，因此可能存在重复数据&lt;/p&gt;
+&lt;h3 id=&#34;回溯消费&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#回溯消费&#34;&gt;#&lt;/a&gt; 回溯消费&lt;/h3&gt;
+&lt;p&gt;注：fllink 中 end back 使用的 ？&lt;/p&gt;
+&lt;p&gt;已经消费成功的消息，业务需要回退重新消费，通过时间维度回退（精确到毫秒）&lt;/p&gt;
+&lt;h3 id=&#34;定时消息&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#定时消息&#34;&gt;#&lt;/a&gt; 定时消息&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;定时消息（延迟队列）是指消息发送到 broker 后，不会立即被消费，等待特定时间投递给真正的 topic&lt;/strong&gt;。 broker 有配置项 &lt;code&gt;messageDelayLevel&lt;/code&gt; ，默认值为 &lt;code&gt;1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h&lt;/code&gt; ，18 个 level。&lt;/p&gt;
+&lt;h3 id=&#34;消息回查和消息重试&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息回查和消息重试&#34;&gt;#&lt;/a&gt; 消息回查和消息重试&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;消息回查针对 Producer。用于事务的  &lt;code&gt;Haslf Message&lt;/code&gt; ，默认回查 15 次。&lt;/li&gt;
+&lt;li&gt;消息重试针对 Consumer。Comsumer 消费成功后需要返回  &lt;code&gt;Broker&lt;/code&gt;  一个确认消息，&lt;strong&gt;如果没有返回则  &lt;code&gt;Broker&lt;/code&gt;  认为这条消息消费失败，失败后会再重试消费该消息，默认重试 16 次&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;死信消息&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#死信消息&#34;&gt;#&lt;/a&gt; 死信消息&lt;/h3&gt;
+&lt;p&gt;消息重试失败后，保持无法正常消费的消息。可以通过 console 控制台对死信队队列的消息进行重发。&lt;/p&gt;
+&lt;h3 id=&#34;消息顺序&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息顺序&#34;&gt;#&lt;/a&gt; 消息顺序&lt;/h3&gt;
+&lt;p&gt;部分消息按照业务需求需要按顺序进行消费。例：订单状态：订单创建 → 订单付款 → 订单完成&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分区顺序：根据 Sharding key 进行区块区分。可以采用 id 取 hash 放入不同的 消息队列，对消息队列进行先入先出操作，不同 id 之间互不影响&lt;/li&gt;
+&lt;li&gt;全局顺序：指定 topic 下的所有消息按照先入先出（FIFO）进行发布和消费。适用性不高&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;消息过滤&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#消息过滤&#34;&gt;#&lt;/a&gt; 消息过滤&lt;/h3&gt;
+&lt;p&gt;通过 tag 进行消息过滤。消息过滤在 broker 实现，减少对 consumer 的网络传输，缺点增加 broker 负担，同时实现困难。&lt;/p&gt;
+&lt;h2 id=&#34;源码解析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#源码解析&#34;&gt;#&lt;/a&gt; 源码解析&lt;/h2&gt;
+&lt;p&gt;&lt;img data-src=&#34;struct.png&#34; alt=&#34;代码结构&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;acl&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#acl&#34;&gt;#&lt;/a&gt; acl&lt;/h3&gt;
+&lt;h3 id=&#34;broker&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#broker&#34;&gt;#&lt;/a&gt; broker&lt;/h3&gt;
+&lt;h3 id=&#34;client&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#client&#34;&gt;#&lt;/a&gt; client&lt;/h3&gt;
+&lt;p&gt;rocketMQ 客户端实现&lt;/p&gt;
+&lt;h4 id=&#34;producer-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#producer-2&#34;&gt;#&lt;/a&gt; Producer&lt;/h4&gt;
+&lt;p&gt;&lt;img data-src=&#34;client-producer.PNG&#34; alt=&#34;client-producer&#34;&gt;&lt;/p&gt;
+&lt;p&gt;主要逻辑在 package：producer 和 impl，真正的实现还是需要远程访问，需要用到 remoting 模块。&lt;/p&gt;
+&lt;h3 id=&#34;filter&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#filter&#34;&gt;#&lt;/a&gt; filter&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;消息过滤，在 broker 和 consumer 中间加入了 filter 代理，主要有 broker 负责&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;namesrv&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#namesrv&#34;&gt;#&lt;/a&gt; namesrv&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;NamesrvStartup&lt;/code&gt;  是  &lt;code&gt;namesrv&lt;/code&gt;  的启动类，具体的实现类为  &lt;code&gt;NamesrvController&lt;/code&gt;  。&lt;/p&gt;
+&lt;p&gt;create NamesrvController （create NamesrvConfig、create NettyServerConfig）&lt;/p&gt;
+&lt;p&gt;NamesrvController（initialize、start）&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;namesrv.png&#34; alt=&#34;namesrv&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;remoting&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#remoting&#34;&gt;#&lt;/a&gt; remoting&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;基于 netty 的底层通信实现&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;netty&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#netty&#34;&gt;#&lt;/a&gt; netty&lt;/h4&gt;
+&lt;p&gt;NettyRemotingServer /  NettyRemotingClient&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;read request 通过 InboundHandler 实现&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;process request -&amp;gt; response&lt;/p&gt;
+&lt;p&gt;通过  &lt;code&gt;RequestProcessor&lt;/code&gt;  接口，这样不同模块可以编写自己的实现类去转换 request&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;write response 通过 writeAndFlush () 实现&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;protocol&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#protocol&#34;&gt;#&lt;/a&gt; protocol&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;协议相关实现，对应  &lt;code&gt;RemotingCommand&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;length&lt;/th&gt;
+&lt;th&gt;head length&lt;/th&gt;
+&lt;th&gt;head data&lt;/th&gt;
+&lt;th&gt;body data&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;4 byte&lt;/td&gt;
+&lt;td&gt;4 byte&lt;/td&gt;
+&lt;td&gt;head length&lt;/td&gt;
+&lt;td&gt;length？&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;运行逻辑&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#运行逻辑&#34;&gt;#&lt;/a&gt; 运行逻辑&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;client 封装 RemotingCommand 类，将消息传输给 Server。消息传输在  &lt;code&gt;AbstractNettyRemoting.invokeSyncImpl&lt;/code&gt;  中&lt;/li&gt;
+&lt;li&gt;Server 通过 channel 获取消息，再通过  &lt;code&gt;AbstractNettyRemoting.processRequestMessage&lt;/code&gt;  将 request 转换为 response，并将结果发送回 client&lt;/li&gt;
+&lt;li&gt;client 通过 channel 获取消息，再通过  &lt;code&gt;AbstractNettyRemoting.processResponseMessage&lt;/code&gt;  处理返回的结果，获取结果执行其他逻辑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;srvutil&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#srvutil&#34;&gt;#&lt;/a&gt; srvutil&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;解析命令行的工具类  &lt;code&gt;ServerUtil&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;store&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#store&#34;&gt;#&lt;/a&gt; store&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;存储层实现，同时包括了索引服务，高可用 HA 服务实现&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;ConsumeQueue&lt;/code&gt;  &lt;strong&gt;不负责存储消息&lt;/strong&gt;，只是负责记录它所属 Topic 的消息在 CommitLog 中的偏移量。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;DefaultMessageStore&lt;/code&gt;  类下  &lt;code&gt;ReputMessageService&lt;/code&gt;  的  &lt;code&gt;doReput&lt;/code&gt;  ，每隔 1 毫秒循环，通知  &lt;code&gt;ConsumerQueue&lt;/code&gt;  进行更新&lt;/p&gt;
+&lt;h4 id=&#34;顺序存储&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#顺序存储&#34;&gt;#&lt;/a&gt; 顺序存储&lt;/h4&gt;
+&lt;p&gt;由于  &lt;code&gt;Rocketmq&lt;/code&gt;  的信息是存储到文件的，硬盘的存储和读取效率会低于内存，同时顺序读写和随机读写的效率相差极大（顺序写的速度好像比随机写快了千倍）， &lt;code&gt;DefaultMessageStore&lt;/code&gt;  也是通过顺序读写实现的，Java 的顺序读写通过  &lt;code&gt;RandomAccessFile&lt;/code&gt;  类实现。&lt;/p&gt;
+&lt;h3 id=&#34;tools&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#tools&#34;&gt;#&lt;/a&gt; tools&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mq 集群管理工具，提供了消息查询等功能&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;疑问&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#疑问&#34;&gt;#&lt;/a&gt; 疑问&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;rocketmq-namesrv&lt;/code&gt;  模块中  &lt;code&gt;KVConfingManager&lt;/code&gt;  的作用？&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rocketmq-store&lt;/code&gt;  模块中，一个 topic 对应多个 Queue&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="消息队列" />
+        <updated>2021-10-14T16:38:36.000Z</updated>
+    </entry>
+</feed>
