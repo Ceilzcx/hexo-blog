@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://ceilzcx.github.io/hexo-blog</id>
+    <title>hexo-blog • Posts by &#34;大数据&#34; tag</title>
+    <link href="https://ceilzcx.github.io/hexo-blog" />
+    <updated>2021-10-29T14:23:31.000Z</updated>
+    <category term="随笔" />
+    <category term="hexo" />
+    <category term="算法" />
+    <category term="大数据" />
+    <category term="数据库" />
+    <category term="java" />
+    <category term="消息队列" />
+    <category term="mq" />
+    <entry>
+        <id>https://ceilzcx.github.io/hexo-blog/2021/10/29/big-data/big-data/</id>
+        <title>big-data</title>
+        <link rel="alternate" href="https://ceilzcx.github.io/hexo-blog/2021/10/29/big-data/big-data/"/>
+        <content type="html">&lt;h2 id=&#34;大数据知识&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#大数据知识&#34;&gt;#&lt;/a&gt; 大数据知识&lt;/h2&gt;
+&lt;h3 id=&#34;olap-和-oltp-的概念和比较&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#olap-和-oltp-的概念和比较&#34;&gt;#&lt;/a&gt; OLAP 和 OLTP 的概念和比较&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;OLAP：联机分析处理。数据仓库的主要应用，支持复杂的数据操作。&lt;/li&gt;
+&lt;li&gt;OLTP：连接事务处理。传统的关系型数据库的主要应用，主要是基本的事务处理。强调数据的实时性和内存效率，以及并发的操作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;OLTP&lt;/th&gt;
+&lt;th&gt;OLAP&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;数据&lt;/td&gt;
+&lt;td&gt;最新的数据&lt;/td&gt;
+&lt;td&gt;历史数据；聚合、多维集成的数据&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;工作单位&lt;/td&gt;
+&lt;td&gt;事务&lt;/td&gt;
+&lt;td&gt;查询&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;时间&lt;/td&gt;
+&lt;td&gt;实时性&lt;/td&gt;
+&lt;td&gt;存在一定延迟&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;应用&lt;/td&gt;
+&lt;td&gt;数据库&lt;/td&gt;
+&lt;td&gt;数据仓库&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;hadoop-hdfs-hive-hbase的关系&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#hadoop-hdfs-hive-hbase的关系&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Hadoop&lt;/code&gt; 、 &lt;code&gt;HDFS&lt;/code&gt; 、 &lt;code&gt;Hive&lt;/code&gt; 、 &lt;code&gt;HBase&lt;/code&gt;  的关系&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Hadoop&lt;/code&gt; ：分布式计算的开源框架&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;HDFS&lt;/code&gt; ：分布式文件系统（ &lt;code&gt;Hadoop&lt;/code&gt;  三大组件之一）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Hive&lt;/code&gt; ：存储处理数据的  &lt;code&gt;sql&lt;/code&gt; ， &lt;code&gt;Hive&lt;/code&gt;  会将  &lt;code&gt;sql&lt;/code&gt;  转化为  &lt;code&gt;MapReduce&lt;/code&gt;  程序。&lt;/p&gt;
+&lt;p&gt;本身并不存储数据，完全依赖于  &lt;code&gt;HDFS&lt;/code&gt;   和  &lt;code&gt;MapReduce&lt;/code&gt; 。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;HBase&lt;/code&gt; ：基于  &lt;code&gt;HDFS&lt;/code&gt;  的数据库， &lt;code&gt;NoSQL&lt;/code&gt;  数据库，用于海量数据数据（亿）的随机查询&lt;/p&gt;
+&lt;p&gt;物理表，提供一个超大的内存  &lt;code&gt;Hash&lt;/code&gt;  表，通过他存储索引，方便查询操作&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Sqoop&lt;/code&gt; ：为  &lt;code&gt;HBase&lt;/code&gt;  提供了方便的  &lt;code&gt;RDBMS&lt;/code&gt;  数据导入功能，使得传统的数据向  &lt;code&gt;HBase&lt;/code&gt;  迁移变得非常方便&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;&#34; alt=&#34;hadoop.png&#34;&gt;&lt;/p&gt;
+</content>
+        <category term="大数据" />
+        <updated>2021-10-29T14:23:31.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://ceilzcx.github.io/hexo-blog/2021/10/28/big-data/hadoop/</id>
+        <title>hadoop</title>
+        <link rel="alternate" href="https://ceilzcx.github.io/hexo-blog/2021/10/28/big-data/hadoop/"/>
+        <content type="html">&lt;h2 id=&#34;hadoop&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#hadoop&#34;&gt;#&lt;/a&gt; Hadoop&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Apache 下密集型数据分布式系统基础架构。&lt;/p&gt;
+&lt;p&gt;实现海量数据的存储和分析计算&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;高可靠性：多副本存储&lt;/li&gt;
+&lt;li&gt;高拓展性：可以方便的动态拓展节点&lt;/li&gt;
+&lt;li&gt;高效性：并行计算，汇总 —— MapReduce&lt;/li&gt;
+&lt;li&gt;高容错性：自动分配失败的任务（一个节点的计算任务挂掉，会将该节点的计算子任务分配到另一个有该任务资源的节点上进行计算）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;一-hdfs&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一-hdfs&#34;&gt;#&lt;/a&gt; 一、HDFS&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;分布式文件系统&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;namenode&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#namenode&#34;&gt;#&lt;/a&gt; NameNode&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;存储文件的元数据（存储文件的信息，不存储数据）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;datanode&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#datanode&#34;&gt;#&lt;/a&gt; DataNode&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;存储文件块数据，以及数据的校验和&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;secondary-namenode-2nn&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#secondary-namenode-2nn&#34;&gt;#&lt;/a&gt; Secondary NameNode (2NN)&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;NameNode 的数据备份（防止 NameNode 挂掉后，数据无法找到）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;二-yarn&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#二-yarn&#34;&gt;#&lt;/a&gt; 二、YARN&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;资源调度器&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;resourcemanager&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#resourcemanager&#34;&gt;#&lt;/a&gt; ResourceManager&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;管理整个集群的资源（内存、CPU、磁盘、网络等）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;nodemanager&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#nodemanager&#34;&gt;#&lt;/a&gt; NodeManager&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;管理单个节点服务器资源&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;application-master&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#application-master&#34;&gt;#&lt;/a&gt; Application Master&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;管理任务运行（任务在节点上运行）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;container&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#container&#34;&gt;#&lt;/a&gt; Container&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;容器（相当于任务运行的服务器），封装任务运行所需要的任务&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+        <category term="大数据" />
+        <updated>2021-10-28T10:01:18.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://ceilzcx.github.io/hexo-blog/2021/10/09/big-data/Flink/</id>
+        <title>Flink</title>
+        <link rel="alternate" href="https://ceilzcx.github.io/hexo-blog/2021/10/09/big-data/Flink/"/>
+        <content type="html">&lt;h2 id=&#34;what-is-flink&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#what-is-flink&#34;&gt;#&lt;/a&gt; what is Flink？&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;分布式&lt;/strong&gt; 处理引擎&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;流&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#流&#34;&gt;#&lt;/a&gt; 流&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;无边界 / 有边界 的 &lt;strong&gt;有状态&lt;/strong&gt; 的计算&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;无边界&lt;/strong&gt;：只定义开始，没有结束，数据摄入后立即执行（输入无限）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;有边界&lt;/strong&gt;：定义开始和结束。可以数据摄入后立即立即执行（&lt;strong&gt;实时&lt;/strong&gt;），也可以等待全部输入（存储在存储引擎中）后批量执行（&lt;strong&gt;历史记录&lt;/strong&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;任务 —— 并行处理&lt;/p&gt;
+&lt;h3 id=&#34;状态&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#状态&#34;&gt;#&lt;/a&gt; 状态&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;只有在每一个单独的事件上进行转换操作的应用才不需要状态&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;多种状态基础类型&lt;/strong&gt;：数据类型（value、map、list 等）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt; &lt;code&gt;State Backend&lt;/code&gt; &lt;/strong&gt;：管理状态。内存 /  &lt;code&gt;RocksDB&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;精确一次语义&lt;/strong&gt;：处理故障，保证状态一致性&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;超大数据量状态&lt;/strong&gt;：利用其异步以及增量式的 checkpoint 算法，存储数 TB 级别的应用状态。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可弹性伸缩的应用&lt;/strong&gt;：在更多或更少的工作节点上对状态进行重新分布，支持有状态应用的分布式的横向伸缩。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;时间&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#时间&#34;&gt;#&lt;/a&gt; 时间&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;事件总是在特定时间点发生，所以大多数的事件流都拥有事件本身所固有的时间语义&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;事件时间模式&lt;/strong&gt;：本身自带的时间戳进行结果的计算。保证准确性和一致性&lt;/p&gt;
+&lt;p&gt;为什么自带时间戳？例如窗口模式，将同一个范围的时间戳放在一个 bucket 里面&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Watermark 支持&lt;/strong&gt;：衡量事件时间进展。平衡处理延时和完整性的灵活机制（Future）&lt;/p&gt;
+&lt;p&gt;什么是 watermark？简单的举例：时间戳为 1-10 的数据按顺序进入 task Manager 执行，如果按照 5 的范围设置，那么等到 5 的时间戳到达说明 1-5 的数据都已经拿到，关闭对应的 bucket，执行任务；但是数据存在乱序的可能，可能 5 的数据已经拿到，但是 3 的数据在后面，如果关闭了 bucket 那么 3 的数据就丢失，因此可以通过设置 watermark，如果设置 watermark 为 2，拿到 5 的数据时，判断 5-2=3，不关闭 bucket，等到拿到 7 的数据关闭 1-5 的 bucket。因此设置合理的 watermark 可以解决大部分低延迟的数据。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;迟到数据处理&lt;/strong&gt;：当以带有 watermark 的事件时间模式处理数据流时，在计算完成之后仍会有相关数据到达。这样的事件被称为迟到事件。Flink 提供了多种处理迟到数据的选项，例如将这些数据重定向到旁路输出（side output）或者更新之前完成计算的结果。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;处理时间模式&lt;/strong&gt;：处理时间语义。处理时间模式根据处理引擎的机器时钟触发计算，一般适用于有着严格的低延迟需求，并且能够容忍近似结果的流处理应用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;分层-api&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#分层-api&#34;&gt;#&lt;/a&gt; 分层 API&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;High-level Analytics API：只需要写 SQL / Table API&lt;/li&gt;
+&lt;li&gt;DataStream API：写数据流和批处理，可以调用 streams 和 windows&lt;/li&gt;
+&lt;li&gt;ProcessFunction：Stateful Event-Driven Applications，可以调用 events、state 和 time&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;运行架构&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#运行架构&#34;&gt;#&lt;/a&gt; 运行架构&lt;/h3&gt;
+&lt;h4 id=&#34;作业管理器jobmanager&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#作业管理器jobmanager&#34;&gt;#&lt;/a&gt; 作业管理器（JobManager）&lt;/h4&gt;
+&lt;h3 id=&#34;流处理&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#流处理&#34;&gt;#&lt;/a&gt; 流处理&lt;/h3&gt;
+&lt;h4 id=&#34;特点&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#特点&#34;&gt;#&lt;/a&gt; 特点&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;event：事件触发，具有极强的时间性（事件发生、事件进入、事件处理时间 等）&lt;/li&gt;
+&lt;li&gt;Stream：事件流，无界&lt;/li&gt;
+&lt;li&gt;Process：流处理，&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;双流join操作&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#双流join操作&#34;&gt;#&lt;/a&gt; 双流 Join 操作&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;join()&lt;/li&gt;
+&lt;li&gt;coGroup()&lt;/li&gt;
+&lt;li&gt;intervalJoin()&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;1-join&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1-join&#34;&gt;#&lt;/a&gt; 1、join()&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对应 mysql 的 inner join&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;通过一个窗口，进行 join 操作，简单易用。&lt;/p&gt;
+&lt;p&gt;存在问题：一个流的数据存在延迟时，另一个流的数据没有对应的 join 数据。&lt;/p&gt;
+&lt;h4 id=&#34;2-cogroup&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2-cogroup&#34;&gt;#&lt;/a&gt; 2、coGroup()&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对应 mysql 的 left/right outer join&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;双重循环&lt;/p&gt;
+&lt;h4 id=&#34;3-intervaljoin&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#3-intervaljoin&#34;&gt;#&lt;/a&gt; 3、intervalJoin()&lt;/h4&gt;
+&lt;p&gt;按照指定字段以及右流相对左流偏移的时间区间进行关联，即：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;right.timestamp ∈ [left.timestamp + lowerBound; left.timestamp + upperBound]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;架构和源码&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#架构和源码&#34;&gt;#&lt;/a&gt; 架构和源码&lt;/h2&gt;
+&lt;h3 id=&#34;flink-connector-jdbc&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#flink-connector-jdbc&#34;&gt;#&lt;/a&gt; flink-connector-jdbc&lt;/h3&gt;
+&lt;h4 id=&#34;upsert&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#upsert&#34;&gt;#&lt;/a&gt; upsert&lt;/h4&gt;
+&lt;p&gt;作为 sink 向外部数据库写入数据时，如果使用 DDL 定义的主键，连接器将在 upsert 模式下操作（需要保证幂等性），否则使用 append 操作（这时插入主键相同的数据会出现主键冲突的异常）。&lt;/p&gt;
+&lt;h4 id=&#34;cache&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#cache&#34;&gt;#&lt;/a&gt; cache&lt;/h4&gt;
+&lt;p&gt;JDBC 可以在临时连接中用作查找源。&lt;/p&gt;
+&lt;p&gt;默认情况下，不确定缓存查找。可以设置  &lt;code&gt;lookup.cache.max-rows&lt;/code&gt;  和  &lt;code&gt;lookup.cache.ttl&lt;/code&gt;  设置启动它.&lt;/p&gt;
+&lt;p&gt;使用缓存存在数据不是最新的问题，因此需要合理设置最大行和过期时间。&lt;/p&gt;
+&lt;h4 id=&#34;catalog&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#catalog&#34;&gt;#&lt;/a&gt;  &lt;code&gt;catalog&lt;/code&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;目录&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;将 database → table 的形式转出类似目录的形式&lt;/p&gt;
+&lt;h4 id=&#34;dialect&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#dialect&#34;&gt;#&lt;/a&gt;  &lt;code&gt;dialect&lt;/code&gt;&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;方言，不同 JDBC 语法的差异&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;upsert 操作参考： &lt;code&gt;JdbcDialect.getUpsertStatement&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;table&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#table&#34;&gt;#&lt;/a&gt; table&lt;/h4&gt;
+&lt;p&gt;Source、Sink、Function&lt;/p&gt;
+&lt;p&gt;TableSchema 在 table-common 包中&lt;/p&gt;
+&lt;h4 id=&#34;packageversion113&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#packageversion113&#34;&gt;#&lt;/a&gt; package(version：1.13)&lt;/h4&gt;
+&lt;p&gt;maven 包可能不存在，在  &lt;code&gt;settings.xml&lt;/code&gt;  添加国际镜像&lt;/p&gt;
+&lt;figure class=&#34;highlight tex&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;mirror&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&amp;lt;id&amp;gt;mapr-public&amp;lt;/id&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&amp;lt;mirrorOf&amp;gt;mapr-releases&amp;lt;/mirrorOf&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&amp;lt;name&amp;gt;mapr-releases&amp;lt;/name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&amp;lt;url&amp;gt;https://maven.aliyun.com/repository/mapr-public&amp;lt;/url&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;/mirror&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;打包执行  &lt;code&gt;mvn clean install -DskipTests -Dfast -T 4 -Drat.skip=true &lt;/code&gt;  ，最后一句一定要加，用来跳过 license，不然会报下面错误&lt;/p&gt;
+&lt;figure class=&#34;highlight tex&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;Failed to execute goal org.apache.rat:apache-rat-plugin:0.12:check (default) on project flink-parent: Too many files with unapproved license: 4 See RAT report in: D:&lt;span class=&#34;keyword&#34;&gt;\ffffff&lt;/span&gt;&lt;span class=&#34;keyword&#34;&gt;\flink&lt;/span&gt;-release-1.10.0&lt;span class=&#34;keyword&#34;&gt;\flink&lt;/span&gt;-release-1.10.0&lt;span class=&#34;keyword&#34;&gt;\target&lt;/span&gt;&lt;span class=&#34;keyword&#34;&gt;\rat&lt;/span&gt;.txt&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;flink-runtime-web 下载 node 速度较慢，下载超时失败。修改 pom.xml 的配置信息，如果已经操作，需要删除 web-dashboard 的 node modules&lt;/p&gt;
+&lt;figure class=&#34;highlight xml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;// 修改&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;arguments&lt;/span&gt;&amp;gt;&lt;/span&gt;ci --cache-max=0 --no-save&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;arguments&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;// 替换&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;arguments&lt;/span&gt;&amp;gt;&lt;/span&gt;install -registry=https://registry.npm.taobao.org --cache-max=0 --no-save&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;arguments&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;代码规范&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;mvn spotless:apply&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;node 添加 其他下载源&lt;/p&gt;
+&lt;figure class=&#34;highlight xml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;configuration&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;nodeDownloadRoot&lt;/span&gt;&amp;gt;&lt;/span&gt;https://registry.npm.taobao.org/dist/&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;nodeDownloadRoot&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;npmDownloadRoot&lt;/span&gt;&amp;gt;&lt;/span&gt;https://registry.npmjs.org/npm/-/&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;npmDownloadRoot&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;nodeVersion&lt;/span&gt;&amp;gt;&lt;/span&gt;v10.9.0&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;nodeVersion&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;configuration&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;局部打包，例如我要打包 flink-connector 模块， &lt;code&gt;-pl&lt;/code&gt; ：指定需要打包的模块， &lt;code&gt;-am&lt;/code&gt; ：加载依赖模块&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;mvn clean install -pl flink-connectors -am -Drat.skip=true&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+        <category term="大数据" />
+        <updated>2021-10-09T15:10:11.000Z</updated>
+    </entry>
+</feed>

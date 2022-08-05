@@ -1,0 +1,625 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo-blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/hexo-blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/atom.xml" />
+<link rel="alternate" type="application/json" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/hexo-blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="数据库" />
+
+
+<link rel="canonical" href="https://ceilzcx.github.io/hexo-blog/2021/07/15/database/mysql/">
+
+
+
+  <title>
+mysql |
+Ceilzcx's blog = hexo-blog</title>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">mysql
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-07-15 15:59:33">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-15T15:59:33+00:00">2021-07-15</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/hexo-blog/" rel="start">Ceilzcx's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclxxcb6rj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipesrnqv3j20zk0m8ava.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/hexo-blog/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://ceilzcx.github.io/hexo-blog/2021/07/15/database/mysql/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/hexo-blog/images/avatar.jpg">
+    <meta itemprop="name" content="ceilzcx">
+    <meta itemprop="description" content=", record some markdown">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="hexo-blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="mysql数据库"><a class="markdownIt-Anchor" href="#mysql数据库">#</a> MySQL 数据库</h2>
+<h3 id="二-函数"><a class="markdownIt-Anchor" href="#二-函数">#</a> 二、函数</h3>
+<h4 id="21-递归"><a class="markdownIt-Anchor" href="#21-递归">#</a> 2.1、递归</h4>
+<p>mysql 的递归比较繁琐，需要通过函数实现，返回的是集合，通过  <code>FIND_IN_SET</code>  进行操作。</p>
+<p>注：递归调用消耗大量时间，在实现中宁可在代码中采用递归，也不要在 SQL 中使用递归。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">create function getChildrenOrg(teamId INT)</span><br><span class="line">    returns varchar(4000)</span><br><span class="line">BEGIN</span><br><span class="line">    DECLARE oTemp VARCHAR(4000);</span><br><span class="line">    DECLARE oTempChild VARCHAR(4000);</span><br><span class="line"></span><br><span class="line">    SET oTemp = &#x27;&#x27;;</span><br><span class="line">    SET oTempChild = CAST(teamId AS CHAR);</span><br><span class="line"></span><br><span class="line">    WHILE oTempChild IS NOT NULL</span><br><span class="line">        DO</span><br><span class="line">            SET oTemp = CONCAT(oTemp,&#x27;,&#x27;,oTempChild);</span><br><span class="line">            SELECT GROUP_CONCAT(team_id) INTO oTempChild FROM team WHERE FIND_IN_SET(parent_id, oTempChild) &gt; 0;</span><br><span class="line">        END WHILE;</span><br><span class="line">    RETURN oTemp;</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+<h4 id="22-now"><a class="markdownIt-Anchor" href="#22-now">#</a> 2.2 NOW</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select NOW(), NOW(3)</span><br></pre></td></tr></table></figure>
+<p><code>NOW(3)</code> : 获得当前时间，包括毫秒值</p>
+<h3 id="三-主从复制"><a class="markdownIt-Anchor" href="#三-主从复制">#</a> 三、主从复制</h3>
+<h4 id="31-类型"><a class="markdownIt-Anchor" href="#31-类型">#</a> 3.1、类型</h4>
+<ul>
+<li>
+<p>基于语句的复制：将修改数据的 SQL 记录到  <code>binlog</code>  中。从库读取  <code>binlog</code>  写入中继日志  <code>relayLog</code>  中，复制日志时，从库会启动一个<strong>工作线程</strong>，然后将其放入数据库。</p>
+<p>优点：只记录修改数据，日志不大，解决 IO。</p>
+<p>缺点：数据可能存在不一致，例：同步过程主数据库挂了</p>
+</li>
+<li>
+<p>基于行数据的复制：只记录行数据的修改。</p>
+<p>缺点：中间过程全部丢失，产生大量日志（例：alter table）</p>
+</li>
+<li>
+<p>混合复制：一般的复制使用 STATEMENT 模式保存 binlog，对于 STATEMENT 模式无法复制的操作使用 ROW 模式保存 binlog</p>
+</li>
+</ul>
+<h4 id="32-模式"><a class="markdownIt-Anchor" href="#32-模式">#</a> 3.2、模式</h4>
+<ul>
+<li>异步复制模式：主服务器启动 I/O 线程，将数据写到 binlog 中返回给客户端数据更新成功，不考虑数据是否同步。效率高，但数据一致性存在风险。</li>
+<li>同步复制模式：主服务器执行执行完客户端提交的事物后，等待从库执行完后，才返回执行成功。等待过程中，线程被阻塞，性能较慢。</li>
+<li>半同步复制模式：master 的 dump 线程通知从库，从库执行完成后，发送 ACK，主库接收到一个标志码（ACK）后，返回成功。与同步不同的是，只需要一个从库同步成功就返回成功。</li>
+</ul>
+<h3 id="四-事务隔离级别"><a class="markdownIt-Anchor" href="#四-事务隔离级别">#</a> 四、事务隔离级别</h3>
+<h4 id="41-查看和修改事务隔离级别"><a class="markdownIt-Anchor" href="#41-查看和修改事务隔离级别">#</a> 4.1、查看和修改事务隔离级别</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@transaction_isolation;</span><br></pre></td></tr></table></figure>
+<p><img data-src="mysql-select-transaction.png" alt="mysql-select-transaction"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update global transaction isolation REPEATABLE READ;</span><br><span class="line">-- global：全局修改</span><br><span class="line">-- session：本次回话修改</span><br></pre></td></tr></table></figure>
+<p><img data-src="mysql-update-transaction.png" alt="mysql-update-transaction"></p>
+<h4 id="42-隔离级别"><a class="markdownIt-Anchor" href="#42-隔离级别">#</a> 4.2、隔离级别</h4>
+<ul>
+<li>
+<p>读未提交（READ UNCOMMITTED）</p>
+<p>读未提交会读到另一个事务未提交的数据，产生脏读，不可重复读数据。一个事务的 update 操作可能会影响另一个事务。</p>
+<p>如下图，可以看到第一个事务修改完后，第二个事务直接可以 select 修改后的值</p>
+<p><img data-src="read-uncommitted-1.png" alt="read-uncommitted-1"></p>
+<p><img data-src="read-uncommitted-2.png" alt="read-uncommitted-2"></p>
+</li>
+<li>
+<p>读提交（READ COMMITTED）</p>
+<p>解决脏读的问题，出现不可重复读。一个事务可以读取另一个事务提交后的数据。一个事务的 update 操作可能会影响另一个事务。</p>
+<p>如下图，可以看到第一个事务 update 后，第二个事务查询的还是原来的数据，等到第一个事务提交后，第二个事务查询的就是第一个事务修改后的数据</p>
+<p><img data-src="read-committed-1.png" alt="read-committed-1"></p>
+<p><img data-src="read-committed-2.png" alt="read-committed-2"></p>
+</li>
+<li>
+<p>可重复读（REPEATABLE READ）</p>
+<p>解决了不可重复读和脏读的问题。但是存在换读的问题（一个事务新增了一条 id=1 的数据，这时另一个事务也新增了一条 id=1 的数据并提交，第一个事务 select 时会发现不存在 id=1 的数据，报主键冲突的错误）。</p>
+<p><img data-src="repeatable-read-1.png" alt="repeatable-read-1"></p>
+<p><img data-src="repeatable-read-2.png" alt="repeatable-read-2"></p>
+</li>
+<li>
+<p>串行化（SERIALIZABLE）</p>
+<p>暂无</p>
+</li>
+</ul>
+<h3 id="五-日志binlog"><a class="markdownIt-Anchor" href="#五-日志binlog">#</a> 五、日志（binlog）</h3>
+<h4 id="51使用日志进行数据还原"><a class="markdownIt-Anchor" href="#51使用日志进行数据还原">#</a> 5.1 使用日志进行数据还原</h4>
+<p>日志未打开，win10 在 my.ini 文件的 [mysqld] 下面添加</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log_bin<span class="operator">=</span>mysql<span class="operator">-</span>bin</span><br><span class="line">binlog<span class="operator">-</span>format<span class="operator">=</span><span class="type">ROW</span></span><br><span class="line">server<span class="operator">-</span>id<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>查找 MySQL 当前 binlog 的配置情况，<strong>第一行 ON 代表日志已经打开</strong>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;%log_bin%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><img data-src="mysql-binlog-variables.png" alt="mysql-binlog-variables"></p>
+<p>查看日志文件的使用情况（日志名称、大小 bit、是否加密）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="type">binary</span> logs;</span><br></pre></td></tr></table></figure>
+<p><img data-src="mysql-binlog-show-1.png" alt="mysql-binlog-show-1"></p>
+<p>查看当前正在使用的日志情况，后续的 DDL 操作都会记录在当前日志中。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> master status;</span><br></pre></td></tr></table></figure>
+<p><img data-src="mysql-binlog-show-2.png" alt="mysql-binlog-show-2"></p>
+<p>执行一些测试的 SQL 语句，可以看到创建一个数据库 test2，在数据库中创建了一张表 test，模拟不小心删除了 test2 数据库。</p>
+<p><img data-src="mysql-test-1.png" alt="mysql-test-1"></p>
+<p>在 binlog 中查找之前执行的 SQL 语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> binlog events <span class="keyword">in</span> <span class="string">&#x27;binlog.000012&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><img data-src="mysql-binlog-show-3.png" alt="mysql-binlog-show-3"></p>
+<p>第二列的 1300… 表示所在的位置（行数），将这几行数据复制到一个 sql 文件，执行该文件即可恢复数据。</p>
+<p>注：根据需求，可以在恢复数据的时候关闭日志。等到数据恢复后，重新打开日志</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> sql_log_bin<span class="operator">=</span><span class="number">0</span>;	#临时关闭日志</span><br><span class="line"><span class="keyword">set</span> sql_log_bin<span class="operator">=</span><span class="number">1</span>;	#打开日志</span><br></pre></td></tr></table></figure>
+<p>注意这里是 shell，不是 MySQL 中执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog --start-position=1300 --stop-position=1757 ./binlog.000012 &gt;./bin.sql</span><br></pre></td></tr></table></figure>
+<p>注：这里运行可能会报  <code>unknown variable 'default-character-set=utf8'</code>  的错误。加上运行参数  <code>--no-default</code>  ，或者修改配置文件。</p>
+<h3 id="六-索引"><a class="markdownIt-Anchor" href="#六-索引">#</a> 六、索引</h3>
+<h4 id="61-聚簇索引"><a class="markdownIt-Anchor" href="#61-聚簇索引">#</a> 6.1 聚簇索引</h4>
+<ul>
+<li>如果设置了主键，主键为聚簇索引</li>
+<li>否则第一个 NOT NULL and UNIQUE 的字段为聚簇索引</li>
+<li>默认创建一个隐藏的 row_id 为聚簇索引</li>
+</ul>
+<p>聚簇索引指向（存储）的数据是行记录（页结构）</p>
+<p><strong>InnoDB 必须包含一个聚簇索引</strong></p>
+<h4 id="62-普通索引"><a class="markdownIt-Anchor" href="#62-普通索引">#</a> 6.2 普通索引</h4>
+<blockquote>
+<p>二级索引，非聚簇索引</p>
+</blockquote>
+<p>叶子节点存储聚簇索引字段的值</p>
+<h4 id="63-回表查询"><a class="markdownIt-Anchor" href="#63-回表查询">#</a> 6.3 回表查询</h4>
+<blockquote>
+<p>先通过普通索引的值定位聚簇索引值，再通过聚簇索引的值定位行记录数据，需要扫描两次索引 B + 树，它的性能较扫一遍索引树更低。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span> <span class="keyword">user</span>表包含 id，name，age字段，其中id为主键（聚簇索引），age为普通索引</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> age <span class="operator">=</span> <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+<p>通过 age 的普通索引查询对应的 id，然后回表查询 id，获得对应的行（两次查询）</p>
+<h4 id="64-索引覆盖"><a class="markdownIt-Anchor" href="#64-索引覆盖">#</a> 6.4 索引覆盖</h4>
+<blockquote>
+<p>只需要在一棵索引树上就能获取 SQL 所需的所有列数据，无需回表，速度快。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id, age <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> age <span class="operator">=</span> <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>如何实现覆盖索引？</strong></p>
+<ul>
+<li>
+<p>创建联合索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> index idx_age_name <span class="keyword">on</span> <span class="keyword">user</span>(`age`,`name`);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>适用范围：全表 count、分页查询</p>
+<p>索引结构：age 和 name 放在一个节点，和普通的 B+Tree 一致，比较大小时（<strong>最左匹配原则</strong>：先比较 age，再比较 name）</p>
+<h3 id="七-视图"><a class="markdownIt-Anchor" href="#七-视图">#</a> 七、视图</h3>
+<blockquote>
+<p>作为一张虚拟表，本身不存储数据，作为一条 select 语句存储在数据字典中</p>
+<p>简化设计，可能提高性能、也可能降低性能</p>
+</blockquote>
+
+      <div class="tags">
+          <a href="/hexo-blog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"><i class="ic i-tag"></i> 数据库</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-08-05 07:40:31" itemprop="dateModified" datetime="2022-08-05T07:40:31+00:00">2022-08-05</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/hexo-blog/images/wechatpay.png" alt="ceilzcx 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/alipay.png" alt="ceilzcx 支付宝">
+        <p>支付宝</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/paypal.png" alt="ceilzcx 贝宝">
+        <p>贝宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>ceilzcx <i class="ic i-at"><em>@</em></i>hexo-blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://ceilzcx.github.io/hexo-blog/2021/07/15/database/mysql/" title="mysql">https://ceilzcx.github.io/hexo-blog/2021/07/15/database/mysql/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/hexo-blog/2021/07/15/database/elasticsearch/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeybxm1pj20zk0m8niv.jpg" title="elasticsearch">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>elasticsearch</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/hexo-blog/2021/07/15/database/redis/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicm0n457cj20zk0m8e81.jpg" title="redis">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>redis</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text"> MySQL 数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-%E5%87%BD%E6%95%B0"><span class="toc-text"> 二、函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#21-%E9%80%92%E5%BD%92"><span class="toc-text"> 2.1、递归</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#22-now"><span class="toc-text"> 2.2 NOW</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="toc-text"> 三、主从复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#31-%E7%B1%BB%E5%9E%8B"><span class="toc-text"> 3.1、类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#32-%E6%A8%A1%E5%BC%8F"><span class="toc-text"> 3.2、模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text"> 四、事务隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#41-%E6%9F%A5%E7%9C%8B%E5%92%8C%E4%BF%AE%E6%94%B9%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text"> 4.1、查看和修改事务隔离级别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#42-%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text"> 4.2、隔离级别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94-%E6%97%A5%E5%BF%97binlog"><span class="toc-text"> 五、日志（binlog）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#51%E4%BD%BF%E7%94%A8%E6%97%A5%E5%BF%97%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E8%BF%98%E5%8E%9F"><span class="toc-text"> 5.1 使用日志进行数据还原</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD-%E7%B4%A2%E5%BC%95"><span class="toc-text"> 六、索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#61-%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="toc-text"> 6.1 聚簇索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#62-%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95"><span class="toc-text"> 6.2 普通索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#63-%E5%9B%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-text"> 6.3 回表查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#64-%E7%B4%A2%E5%BC%95%E8%A6%86%E7%9B%96"><span class="toc-text"> 6.4 索引覆盖</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83-%E8%A7%86%E5%9B%BE"><span class="toc-text"> 七、视图</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="ceilzcx"
+      data-src="/hexo-blog/images/avatar.jpg">
+  <p class="name" itemprop="name">ceilzcx</p>
+  <div class="description" itemprop="description">record some markdown</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/hexo-blog/archives/">
+        <span class="count">18</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/hexo-blog/tags/">
+        <span class="count">8</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NlaWx6Y3g=" title="https:&#x2F;&#x2F;github.com&#x2F;ceilzcx"><i class="ic i-github"></i></span>
+      <a href="/hexo-blog/1758619238@qq.com" title="1758619238@qq.com" class="item email"><i class="ic i-envelope"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/hexo-blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/hexo-blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/hexo-blog/2021/07/15/database/elasticsearch/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/hexo-blog/2021/07/15/database/redis/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2022/03/09/mq/kafka/" title="kafka">kafka</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/12/14/git/" title="git">git</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/12/database/database/" title="database">database</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/java/SpringBoot/" title="SpringBoot">SpringBoot</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/java/Java/" title="Java">Java</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/mysql/" title="mysql">mysql</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/Hexo/" title="Hexo">Hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/redis/" title="redis">redis</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/elasticsearch/" title="elasticsearch">elasticsearch</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/21/Essays/" title="essays">essays</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ceilzcx @ Ceilzcx's blog</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/07/15/database/mysql/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/hexo-blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

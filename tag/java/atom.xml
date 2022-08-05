@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://ceilzcx.github.io/hexo-blog</id>
+    <title>hexo-blog • Posts by &#34;java&#34; tag</title>
+    <link href="https://ceilzcx.github.io/hexo-blog" />
+    <updated>2022-05-25T14:30:22.000Z</updated>
+    <category term="随笔" />
+    <category term="hexo" />
+    <category term="算法" />
+    <category term="大数据" />
+    <category term="数据库" />
+    <category term="java" />
+    <category term="消息队列" />
+    <category term="mq" />
+    <entry>
+        <id>https://ceilzcx.github.io/hexo-blog/2022/05/25/java/lmax-disruptor/</id>
+        <title>lmax-disruptor</title>
+        <link rel="alternate" href="https://ceilzcx.github.io/hexo-blog/2022/05/25/java/lmax-disruptor/"/>
+        <content type="html">&lt;h2 id=&#34;lmax-disruptor&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#lmax-disruptor&#34;&gt;#&lt;/a&gt; LMAX Disruptor&lt;/h2&gt;
+&lt;h3 id=&#34;核心概念&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#核心概念&#34;&gt;#&lt;/a&gt; 核心概念&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Ring Buffer&lt;/strong&gt;：version3.0 后，环形缓存仅作为存储和更新数据（事件）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sequence&lt;/strong&gt;：序列作为识别组件位置，每个消费者维护一个自己的序列&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sequencer&lt;/strong&gt;：序列器接口，有两个实现类（单生产者和多生产者），实现生产者和消费者快速传输的并发算法&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sequence Barrier&lt;/strong&gt;：由  &lt;code&gt;Sequencer&lt;/code&gt;  生产，包含对已发布  &lt;code&gt;Sequence&lt;/code&gt;  的引用和任何依赖的消费者；也包含是否有数据需要被消费的逻辑&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Wait Strategy&lt;/strong&gt;：等待策略决定消费者如何等待事件的处理策略&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Event&lt;/strong&gt;：生产者到消费者传输的数据单位。事件完全由用户决定&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Event Processor&lt;/strong&gt;：主事件循环处理来自  &lt;code&gt;disruptor&lt;/code&gt;  的事件，并拥有消费者序列的所有权&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Event Handler&lt;/strong&gt;：一个由用户实现的接口，作为  &lt;code&gt;disruptor&lt;/code&gt;  的消费者&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Producer&lt;/strong&gt;：用户自己的代码调用  &lt;code&gt;disruptor&lt;/code&gt;  进行排队&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="java" />
+        <updated>2022-05-25T14:30:22.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://ceilzcx.github.io/hexo-blog/2021/07/15/java/SpringBoot/</id>
+        <title>SpringBoot</title>
+        <link rel="alternate" href="https://ceilzcx.github.io/hexo-blog/2021/07/15/java/SpringBoot/"/>
+        <content type="html">&lt;h2 id=&#34;springboot&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#springboot&#34;&gt;#&lt;/a&gt; SpringBoot&lt;/h2&gt;
+&lt;h3 id=&#34;一-跨域问题-cors&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一-跨域问题-cors&#34;&gt;#&lt;/a&gt; 一、跨域问题 —— CORS&lt;/h3&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 拦截器和其他配置&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;WebMvcConfigurer&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;addCorsMappings&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(CorsRegistry registry)&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;二-读取配置的几种方式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#二-读取配置的几种方式&#34;&gt;#&lt;/a&gt; 二、读取配置的几种方式&lt;/h3&gt;
+&lt;p&gt;配置文件：Resources 下的文件，一般为 yml 文件或者 properties 文件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;资源文件注解： &lt;code&gt;@PropertySource&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;默认 yml 文件的注解： &lt;code&gt;@ConfigurationProperties &lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读取对应的值： &lt;code&gt;@Value&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;三-拦截器和过滤器&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#三-拦截器和过滤器&#34;&gt;#&lt;/a&gt; 三、拦截器和过滤器&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;相同点：都使用 AOP 编程思想&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不同点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、Filter 是 Servlet 规范定义的，拦截器是 Spring 框架的&lt;/li&gt;
+&lt;li&gt;2、过滤器在进入 tomcat 容器后，servlet 之前的预处理；拦截器在 servlet 处理后执行&lt;/li&gt;
+&lt;li&gt;3、拦截器可以使用 Spring 中的各个 Bean；Filter 依赖 Servlet 容器（可以操作 Request 和 Response）&lt;/li&gt;
+&lt;li&gt;4、过滤器的实现基于回调；拦截器的实现基于反射&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;四-spring-event&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#四-spring-event&#34;&gt;#&lt;/a&gt; 四、Spring Event&lt;/h3&gt;
+&lt;p&gt;观察者模式、监听器模式&lt;/p&gt;
+&lt;p&gt;主要组成：事件（ApplicationEvent）、监听器（ApplicationListener）、事件发布操作（publisher 方法）&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;TestEvent&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;ApplicationEvent&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;final&lt;/span&gt; String msg;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;TestEvent&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(Object source, String msg)&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;built_in&#34;&gt;super&lt;/span&gt;(source);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;built_in&#34;&gt;this&lt;/span&gt;.msg = msg;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; String &lt;span class=&#34;title function_&#34;&gt;getMsg&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; msg;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@Component&lt;/span&gt;	&lt;span class=&#34;comment&#34;&gt;// 需要将监听器添加到Spring容器&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;TestEventListener&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;ApplicationListener&lt;/span&gt;&amp;lt;TestEvent&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;meta&#34;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;onApplicationEvent&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(TestEvent testEvent)&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        System.out.println(&lt;span class=&#34;string&#34;&gt;&amp;quot;触发监听器：&amp;quot;&lt;/span&gt; + testEvent.getMsg());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;@Configuration&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;public class EventConfig &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	// 与上述代码实现效果一样，使用注解和接口的区别&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    @EventListener(classes = &amp;#123;TestEvent.class&amp;#125;)	&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    public void listen(TestEvent event) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        System.out.println(&amp;quot;触发监听器：&amp;quot; + event.getMsg());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@Component&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;TestPublisher&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;meta&#34;&gt;@Autowired&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; ApplicationEventPublisher publisher;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;publish&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(String msg)&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        publisher.publishEvent(&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;TestEvent&lt;/span&gt;(&lt;span class=&#34;built_in&#34;&gt;this&lt;/span&gt;, msg));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;其他&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#其他&#34;&gt;#&lt;/a&gt; 其他&lt;/h3&gt;
+&lt;h4 id=&#34;一-servlet主要处理-doget和dopost&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一-servlet主要处理-doget和dopost&#34;&gt;#&lt;/a&gt; 一、Servlet 主要处理 doGet 和 doPost&lt;/h4&gt;
+&lt;h4 id=&#34;配置文件脱敏&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#配置文件脱敏&#34;&gt;#&lt;/a&gt; 配置文件脱敏&lt;/h4&gt;
+&lt;h5 id=&#34;260版本前可以使用-jasypt&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#260版本前可以使用-jasypt&#34;&gt;#&lt;/a&gt; 2.6.0 版本前可以使用  &lt;code&gt;jasypt&lt;/code&gt;&lt;/h5&gt;
+&lt;figure class=&#34;highlight xml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;com.github.ulisesbocchio&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;groupId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;jasypt-spring-boot-starter&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;artifactId&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;3.0.3&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;version&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;dependency&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;配置密钥&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;attr&#34;&gt;jasypt:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;attr&#34;&gt;encryptor:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;attr&#34;&gt;password:&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;XXX&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;密钥放在配置文件也不是一件很安全的事情，可以通过启动时传参&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;java -jar xxx.jar -Djasypt.encryptor.password=***&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;对需要加密的属性进行加密&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@Autowired&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;private&lt;/span&gt; StringEncryptor encryptor;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;encryptor.encrypt(&lt;span class=&#34;string&#34;&gt;&amp;quot;xxx&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果遇到以下异常&lt;/p&gt;
+&lt;figure class=&#34;highlight tex&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;Encryption raised an exception. A possible cause is you are using strong encryption algorithms and you have not installed the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files in this Java Virtual Machine&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;下载  &lt;code&gt;jce_policy-8&lt;/code&gt; ，将文件放到对应的  &lt;code&gt;jre/lib/security&lt;/code&gt;  路径下，覆盖原有的文件&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;加密后的密文写入配置&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过 ENC () 包裹密文并写入&lt;/p&gt;
+&lt;h5 id=&#34;260-后使用-sanitizingfunction&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#260-后使用-sanitizingfunction&#34;&gt;#&lt;/a&gt; 2.6.0+ 后使用  &lt;code&gt;SanitizingFunction&lt;/code&gt;&lt;/h5&gt;
+&lt;p&gt;springboot 的接口，可以自定义指定配置文件的指定规则，对配置文件进行脱敏。&lt;/p&gt;
+&lt;p&gt;还在研究中，目前启动并没有执行里面的代码&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@Configuration&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;MySanitizingFunction&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;meta&#34;&gt;@Bean&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; SanitizingFunction &lt;span class=&#34;title function_&#34;&gt;sanitizingFunction&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; data -&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            PropertySource&amp;lt;?&amp;gt; propertySource = data.getPropertySource();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (propertySource.getName().contains(&lt;span class=&#34;string&#34;&gt;&amp;quot;xxx&amp;quot;&lt;/span&gt;)) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;comment&#34;&gt;// 执行相关操作&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; data;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+        <category term="java" />
+        <updated>2021-07-15T15:56:32.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://ceilzcx.github.io/hexo-blog/2021/07/15/java/Java/</id>
+        <title>Java</title>
+        <link rel="alternate" href="https://ceilzcx.github.io/hexo-blog/2021/07/15/java/Java/"/>
+        <content type="html">&lt;h2 id=&#34;java语言&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#java语言&#34;&gt;#&lt;/a&gt; Java 语言&lt;/h2&gt;
+&lt;h3 id=&#34;java基础&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#java基础&#34;&gt;#&lt;/a&gt; Java 基础&lt;/h3&gt;
+&lt;h4 id=&#34;一-int-和-integer-区别和比较&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一-int-和-integer-区别和比较&#34;&gt;#&lt;/a&gt; 一、 &lt;code&gt;int&lt;/code&gt;  和  &lt;code&gt;Integer&lt;/code&gt;  区别和比较&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;int&lt;/code&gt;  为基本类型， &lt;code&gt;Integer&lt;/code&gt;  为对象类型。&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;variable&#34;&gt;i01&lt;/span&gt; &lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;59&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;variable&#34;&gt;i02&lt;/span&gt; &lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;59&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;variable&#34;&gt;i03&lt;/span&gt; &lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt; Integer.valueOf(&lt;span class=&#34;number&#34;&gt;59&lt;/span&gt;);	&lt;span class=&#34;comment&#34;&gt;// 和 Integer i03 = 59一样&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;variable&#34;&gt;i04&lt;/span&gt; &lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;Integer&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;59&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;System.out.println(i01 == i02);		&lt;span class=&#34;comment&#34;&gt;// true，int类型和Integer类型进行比较时，Integer会自动拆箱，变成int值比较&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;System.out.println(i01 == i03);		&lt;span class=&#34;comment&#34;&gt;// true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;System.out.println(i01 == i04);		&lt;span class=&#34;comment&#34;&gt;// false，i04生成了新的对象&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;System.out.println(i03 == i04);		&lt;span class=&#34;comment&#34;&gt;// false&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&#34;二-string-和-stringbuffer-和-stringbuilder&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#二-string-和-stringbuffer-和-stringbuilder&#34;&gt;#&lt;/a&gt; 二、 &lt;code&gt;String&lt;/code&gt;  和  &lt;code&gt;StringBuffer&lt;/code&gt;  和  &lt;code&gt;StringBuilder&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;String&lt;/code&gt; ：&lt;strong&gt;不可改变的字符串&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;StringBuffer&lt;/code&gt;  ：修改字符串，动态构建字符串。方法添加  &lt;code&gt;Synchronized&lt;/code&gt;  修饰符&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;StringBuilder&lt;/code&gt; ：线程不安全，速度更快&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;三-synchronized-和-lock&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#三-synchronized-和-lock&#34;&gt;#&lt;/a&gt; 三、 &lt;code&gt;Synchronized&lt;/code&gt;  和  &lt;code&gt;Lock&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Synchronized&lt;/code&gt; ：保证最多一个线程同时执行该代码块，抛出异常时，主动释放锁。等待锁的线程无法终端，会一直等待响应。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;修饰静态方法将会锁住类，修饰普通方法会锁住对象的实例。&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Lock&lt;/code&gt; ：需要  &lt;code&gt;finally&lt;/code&gt;  添加  &lt;code&gt;unlock&lt;/code&gt;  释放锁。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;四-六原则和一法则&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#四-六原则和一法则&#34;&gt;#&lt;/a&gt; 四、六原则和一法则&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;单一职责原则：类实现高内聚，最实现自己的功能&lt;/li&gt;
+&lt;li&gt;开闭原则：对外扩展（通过派生新类实现新功能），对内关闭（类本身不进行修改）&lt;/li&gt;
+&lt;li&gt;依赖倒转原则：面向接口编程。&lt;/li&gt;
+&lt;li&gt;里氏替换原则：任何时候都可以用子类型替换掉父类型（猫不能继承狗）。&lt;/li&gt;
+&lt;li&gt;接口隔离原则：接口要小而专，绝不能大而全。&lt;/li&gt;
+&lt;li&gt;合成聚合复用原则：优先使用聚合或合成关系复用代码。&lt;/li&gt;
+&lt;li&gt;迪米特法则：一个对象应当对其他对象有尽可能少的了解。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;五-请说明一下final-finally-finalize的区别&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#五-请说明一下final-finally-finalize的区别&#34;&gt;#&lt;/a&gt; 五、请说明一下 final, finally, finalize 的区别。&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;final&lt;/code&gt; ： 用于声明属性，方法和类，分别表示属性不可变，方法不可覆盖，类不可继承。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;finally&lt;/code&gt; ：是异常处理语句结构的一部分，表示总是执行。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;finalize&lt;/code&gt; ：是  &lt;code&gt;Object&lt;/code&gt;  类的一个方法，在垃圾收集器执行的时候会调用被回收对象的此方法，可以覆盖此方法提供垃圾收集时的其他资源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;数据结构&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#数据结构&#34;&gt;#&lt;/a&gt; 数据结构&lt;/h3&gt;
+&lt;h4 id=&#34;一-hashtable&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一-hashtable&#34;&gt;#&lt;/a&gt; 一、 &lt;code&gt;Hashtable&lt;/code&gt;&lt;/h4&gt;
+&lt;h5 id=&#34;1简介&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1简介&#34;&gt;#&lt;/a&gt; 1）简介&lt;/h5&gt;
+&lt;p&gt;散列表，存储方式：键值对（key-value）映射。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;继承于 Dictionary&lt;/strong&gt;，实现了&lt;strong&gt; Map 接口&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;函数同步（操作的函数都有 &lt;code&gt;synchronized &lt;/code&gt; 修饰符），线程安全&lt;/p&gt;
+&lt;p&gt;key 和 value 都不能为 null&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Hashtable&lt;/code&gt;  的实例有两个参数影响其性能：&lt;strong&gt;初始容量 和 加载因子&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;数据通过单项链表的实现保存，所有值存在 &lt;code&gt;Entry[] table&lt;/code&gt;  中&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;Entry&lt;/span&gt;&amp;lt;K, V&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;final&lt;/span&gt; K key;	&lt;span class=&#34;comment&#34;&gt;// 唯一&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    V value;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Entry&amp;lt;K, V&amp;gt; next;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&#34;servlet&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#servlet&#34;&gt;#&lt;/a&gt; Servlet&lt;/h3&gt;
+&lt;h4 id=&#34;一-生命周期&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一-生命周期&#34;&gt;#&lt;/a&gt; 一、生命周期&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;初始化  &lt;code&gt;init()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一次调用 Servlet 时调用&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;service()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;执行实际任务的方法。每次服务器接收到一个 Servlet 请求，产生一个新的线程并调用服务。通过请求的请求类型选择调用对应的方法，例：doGet，doPost&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;destroy()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;destroy () 方法只会被调用一次，在 Servlet 生命周期结束时被调用。destroy () 方法可以让您的 Servlet 关闭数据库连接、停止后台线程、把 Cookie 列表或点击计数器写入到磁盘，并执行其他类似的清理活动。&lt;/p&gt;
+&lt;p&gt;在调用 destroy () 方法之后，servlet 对象被标记为垃圾回收&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;serviceloader&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#serviceloader&#34;&gt;#&lt;/a&gt; ServiceLoader&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;加载接口下的所有实现类&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;ServiceLoader.load(Test.class, classLoader);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;需要将  &lt;code&gt;META-INF/services&lt;/code&gt;  目录下配置文件&lt;/strong&gt;，文件名称就是接口名，文件内容就是具体实现类&lt;/p&gt;
+&lt;p&gt;其他：在  &lt;code&gt;Spring&lt;/code&gt;  框架中，  &lt;code&gt;getBeansOfType()&lt;/code&gt;  也可以实现&lt;/p&gt;
+</content>
+        <category term="java" />
+        <updated>2021-07-15T15:54:38.000Z</updated>
+    </entry>
+</feed>

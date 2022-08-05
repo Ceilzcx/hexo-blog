@@ -1,0 +1,546 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo-blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/hexo-blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/atom.xml" />
+<link rel="alternate" type="application/json" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/hexo-blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="大数据" />
+
+
+<link rel="canonical" href="https://ceilzcx.github.io/hexo-blog/2021/10/28/big-data/hadoop/">
+
+
+
+  <title>
+hadoop |
+Ceilzcx's blog = hexo-blog</title>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">hadoop
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-10-28 10:01:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-10-28T10:01:18+00:00">2021-10-28</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/hexo-blog/" rel="start">Ceilzcx's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwuom7cj20zk0m8dvn.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/hexo-blog/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://ceilzcx.github.io/hexo-blog/2021/10/28/big-data/hadoop/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/hexo-blog/images/avatar.jpg">
+    <meta itemprop="name" content="ceilzcx">
+    <meta itemprop="description" content=", record some markdown">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="hexo-blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="hadoop"><a class="markdownIt-Anchor" href="#hadoop">#</a> Hadoop</h2>
+<blockquote>
+<p>Apache 下密集型数据分布式系统基础架构。</p>
+<p>实现海量数据的存储和分析计算</p>
+</blockquote>
+<p><strong>特点</strong></p>
+<ul>
+<li>高可靠性：多副本存储</li>
+<li>高拓展性：可以方便的动态拓展节点</li>
+<li>高效性：并行计算，汇总 —— MapReduce</li>
+<li>高容错性：自动分配失败的任务（一个节点的计算任务挂掉，会将该节点的计算子任务分配到另一个有该任务资源的节点上进行计算）</li>
+</ul>
+<h3 id="一-hdfs"><a class="markdownIt-Anchor" href="#一-hdfs">#</a> 一、HDFS</h3>
+<blockquote>
+<p>分布式文件系统</p>
+</blockquote>
+<h4 id="namenode"><a class="markdownIt-Anchor" href="#namenode">#</a> NameNode</h4>
+<blockquote>
+<p>存储文件的元数据（存储文件的信息，不存储数据）</p>
+</blockquote>
+<h4 id="datanode"><a class="markdownIt-Anchor" href="#datanode">#</a> DataNode</h4>
+<blockquote>
+<p>存储文件块数据，以及数据的校验和</p>
+</blockquote>
+<h4 id="secondary-namenode-2nn"><a class="markdownIt-Anchor" href="#secondary-namenode-2nn">#</a> Secondary NameNode (2NN)</h4>
+<blockquote>
+<p>NameNode 的数据备份（防止 NameNode 挂掉后，数据无法找到）</p>
+</blockquote>
+<h3 id="二-yarn"><a class="markdownIt-Anchor" href="#二-yarn">#</a> 二、YARN</h3>
+<blockquote>
+<p>资源调度器</p>
+</blockquote>
+<h4 id="resourcemanager"><a class="markdownIt-Anchor" href="#resourcemanager">#</a> ResourceManager</h4>
+<blockquote>
+<p>管理整个集群的资源（内存、CPU、磁盘、网络等）</p>
+</blockquote>
+<h4 id="nodemanager"><a class="markdownIt-Anchor" href="#nodemanager">#</a> NodeManager</h4>
+<blockquote>
+<p>管理单个节点服务器资源</p>
+</blockquote>
+<h4 id="application-master"><a class="markdownIt-Anchor" href="#application-master">#</a> Application Master</h4>
+<blockquote>
+<p>管理任务运行（任务在节点上运行）</p>
+</blockquote>
+<h4 id="container"><a class="markdownIt-Anchor" href="#container">#</a> Container</h4>
+<blockquote>
+<p>容器（相当于任务运行的服务器），封装任务运行所需要的任务</p>
+</blockquote>
+
+      <div class="tags">
+          <a href="/hexo-blog/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag"><i class="ic i-tag"></i> 大数据</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-08-05 07:40:31" itemprop="dateModified" datetime="2022-08-05T07:40:31+00:00">2022-08-05</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/hexo-blog/images/wechatpay.png" alt="ceilzcx 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/alipay.png" alt="ceilzcx 支付宝">
+        <p>支付宝</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/paypal.png" alt="ceilzcx 贝宝">
+        <p>贝宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>ceilzcx <i class="ic i-at"><em>@</em></i>hexo-blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://ceilzcx.github.io/hexo-blog/2021/10/28/big-data/hadoop/" title="hadoop">https://ceilzcx.github.io/hexo-blog/2021/10/28/big-data/hadoop/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/hexo-blog/2021/10/14/mq/RocketMQ/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclh3brzpj20zk0m8ann.jpg" title="RocketMQ">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>RocketMQ</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/hexo-blog/2021/10/29/big-data/big-data/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclimtf7dj20zk0m8qav.jpg" title="big-data">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>big-data</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hadoop"><span class="toc-text"> Hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-hdfs"><span class="toc-text"> 一、HDFS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#namenode"><span class="toc-text"> NameNode</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#datanode"><span class="toc-text"> DataNode</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#secondary-namenode-2nn"><span class="toc-text"> Secondary NameNode (2NN)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-yarn"><span class="toc-text"> 二、YARN</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#resourcemanager"><span class="toc-text"> ResourceManager</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nodemanager"><span class="toc-text"> NodeManager</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#application-master"><span class="toc-text"> Application Master</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#container"><span class="toc-text"> Container</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="ceilzcx"
+      data-src="/hexo-blog/images/avatar.jpg">
+  <p class="name" itemprop="name">ceilzcx</p>
+  <div class="description" itemprop="description">record some markdown</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/hexo-blog/archives/">
+        <span class="count">18</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/hexo-blog/tags/">
+        <span class="count">8</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NlaWx6Y3g=" title="https:&#x2F;&#x2F;github.com&#x2F;ceilzcx"><i class="ic i-github"></i></span>
+      <a href="/hexo-blog/1758619238@qq.com" title="1758619238@qq.com" class="item email"><i class="ic i-envelope"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/hexo-blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/hexo-blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/hexo-blog/2021/10/14/mq/RocketMQ/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/hexo-blog/2021/10/29/big-data/big-data/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/12/database/database/" title="database">database</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/09/big-data/Flink/" title="Flink">Flink</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2022/05/25/java/lmax-disruptor/" title="lmax-disruptor">lmax-disruptor</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/java/Java/" title="Java">Java</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/elasticsearch/" title="elasticsearch">elasticsearch</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/14/mq/RocketMQ/" title="RocketMQ">RocketMQ</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/algorithm/leetcode/" title="leetcode">leetcode</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2022/03/09/mq/kafka/" title="kafka">kafka</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/java/SpringBoot/" title="SpringBoot">SpringBoot</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/12/14/git/" title="git">git</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ceilzcx @ Ceilzcx's blog</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/10/28/big-data/hadoop/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/hexo-blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

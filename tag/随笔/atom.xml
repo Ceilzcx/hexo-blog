@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://ceilzcx.github.io/hexo-blog</id>
+    <title>hexo-blog • Posts by &#34;随笔&#34; tag</title>
+    <link href="https://ceilzcx.github.io/hexo-blog" />
+    <updated>2021-07-21T13:58:12.000Z</updated>
+    <category term="随笔" />
+    <category term="hexo" />
+    <category term="算法" />
+    <category term="大数据" />
+    <category term="数据库" />
+    <category term="java" />
+    <category term="消息队列" />
+    <category term="mq" />
+    <entry>
+        <id>https://ceilzcx.github.io/hexo-blog/2021/07/21/Essays/</id>
+        <title>essays</title>
+        <link rel="alternate" href="https://ceilzcx.github.io/hexo-blog/2021/07/21/Essays/"/>
+        <content type="html">&lt;h2 id=&#34;blog-搭建&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#blog-搭建&#34;&gt;#&lt;/a&gt; blog 搭建&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;hexo&lt;/code&gt; ：主题比较多样，需要自己配置，相对比较复杂，可以通过  &lt;code&gt;github actions&lt;/code&gt;  或者 &lt;code&gt;hexo d&lt;/code&gt;  进行部署。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docsify&lt;/code&gt; ：相对简单，只需要配置侧边栏等就可以部署运行（ &lt;code&gt;github pages&lt;/code&gt; ）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;开源项目&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#开源项目&#34;&gt;#&lt;/a&gt; 开源项目&lt;/h2&gt;
+&lt;p&gt;包含了许多开源项目的文章和视频，语言不限。&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL2RhbmlzdGVmYW5vdmljL2J1aWxkLXlvdXItb3duLXg=&#34;&gt;github 网址&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;vertx&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#vertx&#34;&gt;#&lt;/a&gt; Vertx&lt;/h2&gt;
+&lt;p&gt;是一个基于 JVM、轻量级、高性能的应用平台。（本身并不算一个框架），采用 React 模式开发。&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly92ZXJ0eC5pby9kb2NzLw==&#34;&gt;doc&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;github-actions&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#github-actions&#34;&gt;#&lt;/a&gt; GitHub Actions&lt;/h2&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9kb2NzLmdpdGh1Yi5jb20vY24vYWN0aW9ucy9xdWlja3N0YXJ0&#34;&gt;github 网址&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3d3dy5ydWFueWlmZW5nLmNvbS9ibG9nLzIwMTkvMDkvZ2V0dGluZy1zdGFydGVkLXdpdGgtZ2l0aHViLWFjdGlvbnMuaHRtbA==&#34;&gt;阮一峰入门教程&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;java实现微信机器人&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#java实现微信机器人&#34;&gt;#&lt;/a&gt; Java 实现微信机器人&lt;/h2&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL3dlY2hhdHkvc3VtbWVyLW9mLXdlY2hhdHk=&#34;&gt;github 网址&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;实现比较简单，个人感觉文档不太健全。可能是版本问题，接口与示例不符。&lt;/p&gt;
+&lt;h2 id=&#34;maven-install未报告的异常错误&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#maven-install未报告的异常错误&#34;&gt;#&lt;/a&gt; Maven install：未报告的异常错误&lt;/h2&gt;
+&lt;p&gt;常出现在  &lt;code&gt;orElseThrow&lt;/code&gt;  ，肯定是 JDK 的问题，需要显示声明 Exception&lt;/p&gt;
+&lt;figure class=&#34;highlight java&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;.orElseThrow(Exception::&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// ↓&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;.&amp;lt;Exception&amp;gt;orElseThrow(Exception::&lt;span class=&#34;keyword&#34;&gt;new&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+        <category term="随笔" />
+        <updated>2021-07-21T13:58:12.000Z</updated>
+    </entry>
+</feed>

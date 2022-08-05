@@ -1,0 +1,613 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo-blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/hexo-blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/atom.xml" />
+<link rel="alternate" type="application/json" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/hexo-blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="大数据" />
+
+
+<link rel="canonical" href="https://ceilzcx.github.io/hexo-blog/2021/10/09/big-data/Flink/">
+
+
+
+  <title>
+Flink |
+Ceilzcx's blog = hexo-blog</title>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Flink
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-10-09 15:10:11">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-10-09T15:10:11+00:00">2021-10-09</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/hexo-blog/" rel="start">Ceilzcx's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipexe4oykj20zk0m87ji.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclfb3vzhj20zk0m8wny.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/hexo-blog/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://ceilzcx.github.io/hexo-blog/2021/10/09/big-data/Flink/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/hexo-blog/images/avatar.jpg">
+    <meta itemprop="name" content="ceilzcx">
+    <meta itemprop="description" content=", record some markdown">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="hexo-blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="what-is-flink"><a class="markdownIt-Anchor" href="#what-is-flink">#</a> what is Flink？</h2>
+<blockquote>
+<p><strong>分布式</strong> 处理引擎</p>
+</blockquote>
+<h3 id="流"><a class="markdownIt-Anchor" href="#流">#</a> 流</h3>
+<blockquote>
+<p>无边界 / 有边界 的 <strong>有状态</strong> 的计算</p>
+</blockquote>
+<ul>
+<li><strong>无边界</strong>：只定义开始，没有结束，数据摄入后立即执行（输入无限）</li>
+<li><strong>有边界</strong>：定义开始和结束。可以数据摄入后立即立即执行（<strong>实时</strong>），也可以等待全部输入（存储在存储引擎中）后批量执行（<strong>历史记录</strong>）</li>
+</ul>
+<p>任务 —— 并行处理</p>
+<h3 id="状态"><a class="markdownIt-Anchor" href="#状态">#</a> 状态</h3>
+<blockquote>
+<p>只有在每一个单独的事件上进行转换操作的应用才不需要状态</p>
+</blockquote>
+<ul>
+<li><strong>多种状态基础类型</strong>：数据类型（value、map、list 等）</li>
+<li><strong> <code>State Backend</code> </strong>：管理状态。内存 /  <code>RocksDB</code></li>
+<li><strong>精确一次语义</strong>：处理故障，保证状态一致性</li>
+<li><strong>超大数据量状态</strong>：利用其异步以及增量式的 checkpoint 算法，存储数 TB 级别的应用状态。</li>
+<li><strong>可弹性伸缩的应用</strong>：在更多或更少的工作节点上对状态进行重新分布，支持有状态应用的分布式的横向伸缩。</li>
+</ul>
+<h3 id="时间"><a class="markdownIt-Anchor" href="#时间">#</a> 时间</h3>
+<blockquote>
+<p>事件总是在特定时间点发生，所以大多数的事件流都拥有事件本身所固有的时间语义</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>事件时间模式</strong>：本身自带的时间戳进行结果的计算。保证准确性和一致性</p>
+<p>为什么自带时间戳？例如窗口模式，将同一个范围的时间戳放在一个 bucket 里面</p>
+</li>
+<li>
+<p><strong>Watermark 支持</strong>：衡量事件时间进展。平衡处理延时和完整性的灵活机制（Future）</p>
+<p>什么是 watermark？简单的举例：时间戳为 1-10 的数据按顺序进入 task Manager 执行，如果按照 5 的范围设置，那么等到 5 的时间戳到达说明 1-5 的数据都已经拿到，关闭对应的 bucket，执行任务；但是数据存在乱序的可能，可能 5 的数据已经拿到，但是 3 的数据在后面，如果关闭了 bucket 那么 3 的数据就丢失，因此可以通过设置 watermark，如果设置 watermark 为 2，拿到 5 的数据时，判断 5-2=3，不关闭 bucket，等到拿到 7 的数据关闭 1-5 的 bucket。因此设置合理的 watermark 可以解决大部分低延迟的数据。</p>
+</li>
+<li>
+<p><strong>迟到数据处理</strong>：当以带有 watermark 的事件时间模式处理数据流时，在计算完成之后仍会有相关数据到达。这样的事件被称为迟到事件。Flink 提供了多种处理迟到数据的选项，例如将这些数据重定向到旁路输出（side output）或者更新之前完成计算的结果。</p>
+</li>
+<li>
+<p><strong>处理时间模式</strong>：处理时间语义。处理时间模式根据处理引擎的机器时钟触发计算，一般适用于有着严格的低延迟需求，并且能够容忍近似结果的流处理应用。</p>
+</li>
+</ul>
+<h3 id="分层-api"><a class="markdownIt-Anchor" href="#分层-api">#</a> 分层 API</h3>
+<ul>
+<li>High-level Analytics API：只需要写 SQL / Table API</li>
+<li>DataStream API：写数据流和批处理，可以调用 streams 和 windows</li>
+<li>ProcessFunction：Stateful Event-Driven Applications，可以调用 events、state 和 time</li>
+</ul>
+<h3 id="运行架构"><a class="markdownIt-Anchor" href="#运行架构">#</a> 运行架构</h3>
+<h4 id="作业管理器jobmanager"><a class="markdownIt-Anchor" href="#作业管理器jobmanager">#</a> 作业管理器（JobManager）</h4>
+<h3 id="流处理"><a class="markdownIt-Anchor" href="#流处理">#</a> 流处理</h3>
+<h4 id="特点"><a class="markdownIt-Anchor" href="#特点">#</a> 特点</h4>
+<ul>
+<li>event：事件触发，具有极强的时间性（事件发生、事件进入、事件处理时间 等）</li>
+<li>Stream：事件流，无界</li>
+<li>Process：流处理，</li>
+</ul>
+<h3 id="双流join操作"><a class="markdownIt-Anchor" href="#双流join操作">#</a> 双流 Join 操作</h3>
+<ul>
+<li>join()</li>
+<li>coGroup()</li>
+<li>intervalJoin()</li>
+</ul>
+<h4 id="1-join"><a class="markdownIt-Anchor" href="#1-join">#</a> 1、join()</h4>
+<blockquote>
+<p>对应 mysql 的 inner join</p>
+</blockquote>
+<p>通过一个窗口，进行 join 操作，简单易用。</p>
+<p>存在问题：一个流的数据存在延迟时，另一个流的数据没有对应的 join 数据。</p>
+<h4 id="2-cogroup"><a class="markdownIt-Anchor" href="#2-cogroup">#</a> 2、coGroup()</h4>
+<blockquote>
+<p>对应 mysql 的 left/right outer join</p>
+</blockquote>
+<p>双重循环</p>
+<h4 id="3-intervaljoin"><a class="markdownIt-Anchor" href="#3-intervaljoin">#</a> 3、intervalJoin()</h4>
+<p>按照指定字段以及右流相对左流偏移的时间区间进行关联，即：</p>
+<blockquote>
+<p>right.timestamp ∈ [left.timestamp + lowerBound; left.timestamp + upperBound]</p>
+</blockquote>
+<h2 id="架构和源码"><a class="markdownIt-Anchor" href="#架构和源码">#</a> 架构和源码</h2>
+<h3 id="flink-connector-jdbc"><a class="markdownIt-Anchor" href="#flink-connector-jdbc">#</a> flink-connector-jdbc</h3>
+<h4 id="upsert"><a class="markdownIt-Anchor" href="#upsert">#</a> upsert</h4>
+<p>作为 sink 向外部数据库写入数据时，如果使用 DDL 定义的主键，连接器将在 upsert 模式下操作（需要保证幂等性），否则使用 append 操作（这时插入主键相同的数据会出现主键冲突的异常）。</p>
+<h4 id="cache"><a class="markdownIt-Anchor" href="#cache">#</a> cache</h4>
+<p>JDBC 可以在临时连接中用作查找源。</p>
+<p>默认情况下，不确定缓存查找。可以设置  <code>lookup.cache.max-rows</code>  和  <code>lookup.cache.ttl</code>  设置启动它.</p>
+<p>使用缓存存在数据不是最新的问题，因此需要合理设置最大行和过期时间。</p>
+<h4 id="catalog"><a class="markdownIt-Anchor" href="#catalog">#</a>  <code>catalog</code></h4>
+<blockquote>
+<p>目录</p>
+</blockquote>
+<p>将 database → table 的形式转出类似目录的形式</p>
+<h4 id="dialect"><a class="markdownIt-Anchor" href="#dialect">#</a>  <code>dialect</code></h4>
+<blockquote>
+<p>方言，不同 JDBC 语法的差异</p>
+</blockquote>
+<p>upsert 操作参考： <code>JdbcDialect.getUpsertStatement</code></p>
+<h4 id="table"><a class="markdownIt-Anchor" href="#table">#</a> table</h4>
+<p>Source、Sink、Function</p>
+<p>TableSchema 在 table-common 包中</p>
+<h4 id="packageversion113"><a class="markdownIt-Anchor" href="#packageversion113">#</a> package(version：1.13)</h4>
+<p>maven 包可能不存在，在  <code>settings.xml</code>  添加国际镜像</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirror&gt;</span><br><span class="line">	&lt;id&gt;mapr-public&lt;/id&gt;</span><br><span class="line">	&lt;mirrorOf&gt;mapr-releases&lt;/mirrorOf&gt;</span><br><span class="line">	&lt;name&gt;mapr-releases&lt;/name&gt;</span><br><span class="line">	&lt;url&gt;https://maven.aliyun.com/repository/mapr-public&lt;/url&gt;</span><br><span class="line">&lt;/mirror&gt;</span><br></pre></td></tr></table></figure>
+<p>打包执行  <code>mvn clean install -DskipTests -Dfast -T 4 -Drat.skip=true </code>  ，最后一句一定要加，用来跳过 license，不然会报下面错误</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to execute goal org.apache.rat:apache-rat-plugin:0.12:check (default) on project flink-parent: Too many files with unapproved license: 4 See RAT report in: D:<span class="keyword">\ffffff</span><span class="keyword">\flink</span>-release-1.10.0<span class="keyword">\flink</span>-release-1.10.0<span class="keyword">\target</span><span class="keyword">\rat</span>.txt</span><br></pre></td></tr></table></figure>
+<p>flink-runtime-web 下载 node 速度较慢，下载超时失败。修改 pom.xml 的配置信息，如果已经操作，需要删除 web-dashboard 的 node modules</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 修改</span><br><span class="line"><span class="tag">&lt;<span class="name">arguments</span>&gt;</span>ci --cache-max=0 --no-save<span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br><span class="line">// 替换</span><br><span class="line"><span class="tag">&lt;<span class="name">arguments</span>&gt;</span>install -registry=https://registry.npm.taobao.org --cache-max=0 --no-save<span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>代码规范</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn spotless:apply</span><br></pre></td></tr></table></figure>
+<p>node 添加 其他下载源</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">nodeDownloadRoot</span>&gt;</span>https://registry.npm.taobao.org/dist/<span class="tag">&lt;/<span class="name">nodeDownloadRoot</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">npmDownloadRoot</span>&gt;</span>https://registry.npmjs.org/npm/-/<span class="tag">&lt;/<span class="name">npmDownloadRoot</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">nodeVersion</span>&gt;</span>v10.9.0<span class="tag">&lt;/<span class="name">nodeVersion</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>局部打包，例如我要打包 flink-connector 模块， <code>-pl</code> ：指定需要打包的模块， <code>-am</code> ：加载依赖模块</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install -pl flink-connectors -am -Drat.skip=true</span><br></pre></td></tr></table></figure>
+
+      <div class="tags">
+          <a href="/hexo-blog/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag"><i class="ic i-tag"></i> 大数据</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-08-05 07:40:31" itemprop="dateModified" datetime="2022-08-05T07:40:31+00:00">2022-08-05</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/hexo-blog/images/wechatpay.png" alt="ceilzcx 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/alipay.png" alt="ceilzcx 支付宝">
+        <p>支付宝</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/paypal.png" alt="ceilzcx 贝宝">
+        <p>贝宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>ceilzcx <i class="ic i-at"><em>@</em></i>hexo-blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://ceilzcx.github.io/hexo-blog/2021/10/09/big-data/Flink/" title="Flink">https://ceilzcx.github.io/hexo-blog/2021/10/09/big-data/Flink/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/hexo-blog/2021/07/21/Essays/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciundwu5j20zk0m8n9e.jpg" title="essays">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>essays</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/hexo-blog/2021/10/12/database/database/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitf0kl1j20zk0m87fe.jpg" title="database">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>database</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#what-is-flink"><span class="toc-text"> what is Flink？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81"><span class="toc-text"> 流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81"><span class="toc-text"> 状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4"><span class="toc-text"> 时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B1%82-api"><span class="toc-text"> 分层 API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%9E%B6%E6%9E%84"><span class="toc-text"> 运行架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E4%B8%9A%E7%AE%A1%E7%90%86%E5%99%A8jobmanager"><span class="toc-text"> 作业管理器（JobManager）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E5%A4%84%E7%90%86"><span class="toc-text"> 流处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-text"> 特点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E6%B5%81join%E6%93%8D%E4%BD%9C"><span class="toc-text"> 双流 Join 操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-join"><span class="toc-text"> 1、join()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-cogroup"><span class="toc-text"> 2、coGroup()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-intervaljoin"><span class="toc-text"> 3、intervalJoin()</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E5%92%8C%E6%BA%90%E7%A0%81"><span class="toc-text"> 架构和源码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#flink-connector-jdbc"><span class="toc-text"> flink-connector-jdbc</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#upsert"><span class="toc-text"> upsert</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cache"><span class="toc-text"> cache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#catalog"><span class="toc-text">  catalog</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dialect"><span class="toc-text">  dialect</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#table"><span class="toc-text"> table</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#packageversion113"><span class="toc-text"> package(version：1.13)</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="ceilzcx"
+      data-src="/hexo-blog/images/avatar.jpg">
+  <p class="name" itemprop="name">ceilzcx</p>
+  <div class="description" itemprop="description">record some markdown</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/hexo-blog/archives/">
+        <span class="count">18</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/hexo-blog/tags/">
+        <span class="count">8</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NlaWx6Y3g=" title="https:&#x2F;&#x2F;github.com&#x2F;ceilzcx"><i class="ic i-github"></i></span>
+      <a href="/hexo-blog/1758619238@qq.com" title="1758619238@qq.com" class="item email"><i class="ic i-envelope"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/hexo-blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/hexo-blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/hexo-blog/2021/07/21/Essays/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/hexo-blog/2021/10/12/database/database/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/redis/" title="redis">redis</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/21/Essays/" title="essays">essays</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/14/mq/RocketMQ/" title="RocketMQ">RocketMQ</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/mysql/" title="mysql">mysql</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/29/big-data/big-data/" title="big-data">big-data</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/elasticsearch/" title="elasticsearch">elasticsearch</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/java/SpringBoot/" title="SpringBoot">SpringBoot</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/28/big-data/hadoop/" title="hadoop">hadoop</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2022/05/30/database/rocksDB/" title="rocksDB">rocksDB</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2022/03/09/mq/kafka/" title="kafka">kafka</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ceilzcx @ Ceilzcx's blog</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/10/09/big-data/Flink/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/hexo-blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

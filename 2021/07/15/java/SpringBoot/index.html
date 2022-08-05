@@ -1,0 +1,556 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo-blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/hexo-blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/atom.xml" />
+<link rel="alternate" type="application/json" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/hexo-blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="java" />
+
+
+<link rel="canonical" href="https://ceilzcx.github.io/hexo-blog/2021/07/15/java/SpringBoot/">
+
+
+
+  <title>
+SpringBoot |
+Ceilzcx's blog = hexo-blog</title>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">SpringBoot
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-07-15 15:56:32">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-07-15T15:56:32+00:00">2021-07-15</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/hexo-blog/" rel="start">Ceilzcx's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/hexo-blog/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://ceilzcx.github.io/hexo-blog/2021/07/15/java/SpringBoot/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/hexo-blog/images/avatar.jpg">
+    <meta itemprop="name" content="ceilzcx">
+    <meta itemprop="description" content=", record some markdown">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="hexo-blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="springboot"><a class="markdownIt-Anchor" href="#springboot">#</a> SpringBoot</h2>
+<h3 id="一-跨域问题-cors"><a class="markdownIt-Anchor" href="#一-跨域问题-cors">#</a> 一、跨域问题 —— CORS</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 拦截器和其他配置</span></span><br><span class="line">WebMvcConfigurer</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addCorsMappings</span><span class="params">(CorsRegistry registry)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="二-读取配置的几种方式"><a class="markdownIt-Anchor" href="#二-读取配置的几种方式">#</a> 二、读取配置的几种方式</h3>
+<p>配置文件：Resources 下的文件，一般为 yml 文件或者 properties 文件</p>
+<ul>
+<li>
+<p>资源文件注解： <code>@PropertySource</code></p>
+</li>
+<li>
+<p>默认 yml 文件的注解： <code>@ConfigurationProperties </code></p>
+</li>
+<li>
+<p>读取对应的值： <code>@Value</code></p>
+</li>
+</ul>
+<h3 id="三-拦截器和过滤器"><a class="markdownIt-Anchor" href="#三-拦截器和过滤器">#</a> 三、拦截器和过滤器</h3>
+<ul>
+<li>
+<p>相同点：都使用 AOP 编程思想</p>
+</li>
+<li>
+<p>不同点：</p>
+<ul>
+<li>1、Filter 是 Servlet 规范定义的，拦截器是 Spring 框架的</li>
+<li>2、过滤器在进入 tomcat 容器后，servlet 之前的预处理；拦截器在 servlet 处理后执行</li>
+<li>3、拦截器可以使用 Spring 中的各个 Bean；Filter 依赖 Servlet 容器（可以操作 Request 和 Response）</li>
+<li>4、过滤器的实现基于回调；拦截器的实现基于反射</li>
+</ul>
+</li>
+</ul>
+<h3 id="四-spring-event"><a class="markdownIt-Anchor" href="#四-spring-event">#</a> 四、Spring Event</h3>
+<p>观察者模式、监听器模式</p>
+<p>主要组成：事件（ApplicationEvent）、监听器（ApplicationListener）、事件发布操作（publisher 方法）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestEvent</span> <span class="keyword">extends</span> <span class="title class_">ApplicationEvent</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String msg;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TestEvent</span><span class="params">(Object source, String msg)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(source);</span><br><span class="line">        <span class="built_in">this</span>.msg = msg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getMsg</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> msg;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>	<span class="comment">// 需要将监听器添加到Spring容器</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestEventListener</span> <span class="keyword">implements</span> <span class="title class_">ApplicationListener</span>&lt;TestEvent&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onApplicationEvent</span><span class="params">(TestEvent testEvent)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;触发监听器：&quot;</span> + testEvent.getMsg());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class EventConfig &#123;</span><br><span class="line">	// 与上述代码实现效果一样，使用注解和接口的区别</span><br><span class="line">    @EventListener(classes = &#123;TestEvent.class&#125;)	</span><br><span class="line">    public void listen(TestEvent event) &#123;</span><br><span class="line">        System.out.println(&quot;触发监听器：&quot; + event.getMsg());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestPublisher</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ApplicationEventPublisher publisher;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">publish</span><span class="params">(String msg)</span> &#123;</span><br><span class="line">        publisher.publishEvent(<span class="keyword">new</span> <span class="title class_">TestEvent</span>(<span class="built_in">this</span>, msg));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="其他"><a class="markdownIt-Anchor" href="#其他">#</a> 其他</h3>
+<h4 id="一-servlet主要处理-doget和dopost"><a class="markdownIt-Anchor" href="#一-servlet主要处理-doget和dopost">#</a> 一、Servlet 主要处理 doGet 和 doPost</h4>
+<h4 id="配置文件脱敏"><a class="markdownIt-Anchor" href="#配置文件脱敏">#</a> 配置文件脱敏</h4>
+<h5 id="260版本前可以使用-jasypt"><a class="markdownIt-Anchor" href="#260版本前可以使用-jasypt">#</a> 2.6.0 版本前可以使用  <code>jasypt</code></h5>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.ulisesbocchio<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jasypt-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>配置密钥</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jasypt:</span></span><br><span class="line">  <span class="attr">encryptor:</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">XXX</span></span><br></pre></td></tr></table></figure>
+<p><strong>密钥放在配置文件也不是一件很安全的事情，可以通过启动时传参</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar xxx.jar -Djasypt.encryptor.password=***</span><br></pre></td></tr></table></figure>
+<p><strong>对需要加密的属性进行加密</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> StringEncryptor encryptor;</span><br><span class="line">encryptor.encrypt(<span class="string">&quot;xxx&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>如果遇到以下异常</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Encryption raised an exception. A possible cause is you are using strong encryption algorithms and you have not installed the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files in this Java Virtual Machine</span><br></pre></td></tr></table></figure>
+<p>下载  <code>jce_policy-8</code> ，将文件放到对应的  <code>jre/lib/security</code>  路径下，覆盖原有的文件</p>
+<p><strong>加密后的密文写入配置</strong></p>
+<p>通过 ENC () 包裹密文并写入</p>
+<h5 id="260-后使用-sanitizingfunction"><a class="markdownIt-Anchor" href="#260-后使用-sanitizingfunction">#</a> 2.6.0+ 后使用  <code>SanitizingFunction</code></h5>
+<p>springboot 的接口，可以自定义指定配置文件的指定规则，对配置文件进行脱敏。</p>
+<p>还在研究中，目前启动并没有执行里面的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MySanitizingFunction</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> SanitizingFunction <span class="title function_">sanitizingFunction</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> data -&gt; &#123;</span><br><span class="line">            PropertySource&lt;?&gt; propertySource = data.getPropertySource();</span><br><span class="line">            <span class="keyword">if</span> (propertySource.getName().contains(<span class="string">&quot;xxx&quot;</span>)) &#123;</span><br><span class="line">                <span class="comment">// 执行相关操作</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> data;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      <div class="tags">
+          <a href="/hexo-blog/tags/java/" rel="tag"><i class="ic i-tag"></i> java</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-08-05 07:40:31" itemprop="dateModified" datetime="2022-08-05T07:40:31+00:00">2022-08-05</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/hexo-blog/images/wechatpay.png" alt="ceilzcx 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/alipay.png" alt="ceilzcx 支付宝">
+        <p>支付宝</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/paypal.png" alt="ceilzcx 贝宝">
+        <p>贝宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>ceilzcx <i class="ic i-at"><em>@</em></i>hexo-blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://ceilzcx.github.io/hexo-blog/2021/07/15/java/SpringBoot/" title="SpringBoot">https://ceilzcx.github.io/hexo-blog/2021/07/15/java/SpringBoot/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/hexo-blog/2021/07/15/java/Java/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitzannuj20zk0m8b29.jpg" title="Java">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Java</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/hexo-blog/2021/07/15/Hexo/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4wqtg4j20zk0m8x6p.jpg" title="Hexo">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Hexo</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#springboot"><span class="toc-text"> SpringBoot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98-cors"><span class="toc-text"> 一、跨域问题 —— CORS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-text"> 二、读取配置的几种方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89-%E6%8B%A6%E6%88%AA%E5%99%A8%E5%92%8C%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-text"> 三、拦截器和过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B-spring-event"><span class="toc-text"> 四、Spring Event</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text"> 其他</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-servlet%E4%B8%BB%E8%A6%81%E5%A4%84%E7%90%86-doget%E5%92%8Cdopost"><span class="toc-text"> 一、Servlet 主要处理 doGet 和 doPost</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%84%B1%E6%95%8F"><span class="toc-text"> 配置文件脱敏</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#260%E7%89%88%E6%9C%AC%E5%89%8D%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-jasypt"><span class="toc-text"> 2.6.0 版本前可以使用  jasypt</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#260-%E5%90%8E%E4%BD%BF%E7%94%A8-sanitizingfunction"><span class="toc-text"> 2.6.0+ 后使用  SanitizingFunction</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="ceilzcx"
+      data-src="/hexo-blog/images/avatar.jpg">
+  <p class="name" itemprop="name">ceilzcx</p>
+  <div class="description" itemprop="description">record some markdown</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/hexo-blog/archives/">
+        <span class="count">18</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/hexo-blog/tags/">
+        <span class="count">8</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NlaWx6Y3g=" title="https:&#x2F;&#x2F;github.com&#x2F;ceilzcx"><i class="ic i-github"></i></span>
+      <a href="/hexo-blog/1758619238@qq.com" title="1758619238@qq.com" class="item email"><i class="ic i-envelope"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/hexo-blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/hexo-blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/hexo-blog/2021/07/15/java/Java/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/hexo-blog/2021/07/15/Hexo/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/mysql/" title="mysql">mysql</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/12/database/database/" title="database">database</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/28/big-data/hadoop/" title="hadoop">hadoop</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/12/14/git/" title="git">git</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/09/big-data/Flink/" title="Flink">Flink</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/14/mq/RocketMQ/" title="RocketMQ">RocketMQ</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/Hexo/" title="Hexo">Hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/redis/" title="redis">redis</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2022/07/29/database/elasticsearch8/" title="elasticsearch8">elasticsearch8</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/21/Essays/" title="essays">essays</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ceilzcx @ Ceilzcx's blog</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/07/15/java/SpringBoot/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/hexo-blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "hexo-blog • All posts by \"mq\" tag",
+    "description": "record some markdown",
+    "home_page_url": "https://ceilzcx.github.io/hexo-blog",
+    "items": [
+        {
+            "id": "https://ceilzcx.github.io/hexo-blog/2022/03/09/mq/kafka/",
+            "url": "https://ceilzcx.github.io/hexo-blog/2022/03/09/mq/kafka/",
+            "title": "kafka",
+            "date_published": "2022-03-09T20:02:22.000Z",
+            "content_html": "<h2 id=\"kafka\"><a class=\"markdownIt-Anchor\" href=\"#kafka\">#</a> Kafka</h2>\n<blockquote>\n<p>发布 - 订阅模式的消息队列中间件</p>\n</blockquote>\n<p>what is 发布 - 订阅模式？生产者发送消息到消息队列，<strong>消费者轮询主动拉取消息</strong></p>\n<h3 id=\"优点\"><a class=\"markdownIt-Anchor\" href=\"#优点\">#</a> 优点</h3>\n<ul>\n<li>解耦：两边独立的修改和可扩展处理</li>\n<li>可恢复性：消息存在队列中，一部分系统挂了，也可以重启继续读取消息队列</li>\n<li>缓冲：解决生产者和消费者速度不一致问题</li>\n<li>削峰：防止流量猛增导致系统崩溃</li>\n<li>异步处理：等待指定时间后处理消息</li>\n</ul>\n<h3 id=\"速度快\"><a class=\"markdownIt-Anchor\" href=\"#速度快\">#</a> 速度快？</h3>\n<ul>\n<li>\n<p>页缓存</p>\n<p>保存在内存</p>\n<p>数据写入磁盘，采用  <code>write-back</code>  机制：先判断是否在页缓存中存在，不存在添加到页缓存，然后再向磁盘中写入。</p>\n</li>\n<li>\n<p>零拷贝：不需要 CPU 拷贝，通过 sendfile 实现 DMA 拷贝，上下文切换从四次变为两次</p>\n</li>\n</ul>\n",
+            "tags": [
+                "mq"
+            ]
+        }
+    ]
+}

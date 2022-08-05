@@ -1,0 +1,709 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo-blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/hexo-blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/atom.xml" />
+<link rel="alternate" type="application/json" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/hexo-blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="数据库" />
+
+
+<link rel="canonical" href="https://ceilzcx.github.io/hexo-blog/2022/07/29/database/elasticsearch8/">
+
+
+
+  <title>
+elasticsearch8 |
+Ceilzcx's blog = hexo-blog</title>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">elasticsearch8
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-07-29 16:11:24">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-07-29T16:11:24+00:00">2022-07-29</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/hexo-blog/" rel="start">Ceilzcx's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwuom7cj20zk0m8dvn.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclfb3vzhj20zk0m8wny.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph47e9vtj20zk0m8x6l.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevarprfj20zk0m8npd.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/hexo-blog/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://ceilzcx.github.io/hexo-blog/2022/07/29/database/elasticsearch8/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/hexo-blog/images/avatar.jpg">
+    <meta itemprop="name" content="ceilzcx">
+    <meta itemprop="description" content=", record some markdown">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="hexo-blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="elasticsearch8"><a class="markdownIt-Anchor" href="#elasticsearch8">#</a> Elasticsearch8+</h1>
+<blockquote>
+<p>ECE 认证工程师备考</p>
+</blockquote>
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装">#</a> 安装</h2>
+<p>使用  <code>Ubuntu16 </code> 系统</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt-get install elasticsearch</span><br><span class="line">/etc/elasticsearch | /var/log/elasticsearch | /usr/share/elasticsearch</span><br><span class="line">wget https://xxxx/elasticsearch.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">===================================================================================</span><br><span class="line">elasticsearch.keystore 密文文件，不小心误删</span><br><span class="line">===================================================================================</span><br><span class="line">./bin/elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">./elasticsearch-setup-passwords interactive</span><br><span class="line"></span><br><span class="line">=====================================================================================</span><br><span class="line">Failed to authenticate user &#x27;elastic&#x27; against http://10.0.16.8:9200/_security/_authenticate?pretty</span><br><span class="line">Possible causes include:</span><br><span class="line"> * The password for the &#x27;elastic&#x27; user has already been changed on this cluster</span><br><span class="line"> * Your elasticsearch node is running against a different keystore</span><br><span class="line">   This tool used the keystore at /home/ubuntu/elasticsearch-8.3.2/config/elasticsearch.keystore</span><br><span class="line"></span><br><span class="line">You can use the `elasticsearch-reset-password` CLI tool to reset the password of the &#x27;elastic&#x27; user</span><br><span class="line">=====================================================================================</span><br><span class="line"></span><br><span class="line">修改 elasticsearch.yml 的 xpack.security.enabled: false</span><br><span class="line">删除 .security-7 索引</span><br><span class="line">重新设置 xpack.security.enabled: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">===================================================================================</span><br><span class="line">kibana.yml配置不支持使用elastic用户名，使用其他用户名</span><br><span class="line">===================================================================================</span><br><span class="line">比较合理的 elasticsearch-setup-password 脚本会设置 kibana_system 的用户和密码</span><br><span class="line"></span><br><span class="line">elasticsearch.username: &quot;kibana_system&quot;</span><br><span class="line">elasticsearch.password: &quot;xxx&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="data-management"><a class="markdownIt-Anchor" href="#data-management">#</a> <strong>Data Management</strong></h2>
+<h3 id="define-an-index-that-satisfies-a-given-set-of-requirements-定义一个满足条件的索引"><a class="markdownIt-Anchor" href="#define-an-index-that-satisfies-a-given-set-of-requirements-定义一个满足条件的索引">#</a> Define an index that satisfies a given set of requirements —— 定义一个满足条件的索引</h3>
+<ul>
+<li>analysis</li>
+<li>setting</li>
+<li>mapper</li>
+</ul>
+<h3 id="define-and-use-an-index-template-for-a-given-pattern-that-satisfies-a-given-set-of-requirements"><a class="markdownIt-Anchor" href="#define-and-use-an-index-template-for-a-given-pattern-that-satisfies-a-given-set-of-requirements">#</a> Define and use an index template for a given pattern that satisfies a given set of requirements</h3>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PUT index-test</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mappings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  	<span class="comment">// 默认为true</span></span><br><span class="line">    <span class="attr">&quot;date_detection&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">    <span class="comment">// 设置时间格式</span></span><br><span class="line">    <span class="attr">&quot;dynamic_date_formats&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;MM/dd/yyyy&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="comment">// 开启number类型检测，整数检测为long类型，浮点数检测为float类型</span></span><br><span class="line">    <span class="attr">&quot;numeric_detection&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PUT test_index</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;mappings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;dynamic_templates&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">      	<span class="comment">// 自定义名称</span></span><br><span class="line">        <span class="attr">&quot;my_template&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="comment">// 匹配条件(match_mapping_type、match、unmatch、path:e.g 类似对象、path_unmatch)</span></span><br><span class="line">          <span class="attr">&quot;match&quot;</span><span class="punctuation">:</span> <span class="string">&quot;name*&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;mapping&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;keyword&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="define-and-use-a-dynamic-template-that-satisfies-a-given-set-of-requirements"><a class="markdownIt-Anchor" href="#define-and-use-a-dynamic-template-that-satisfies-a-given-set-of-requirements">#</a> <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L2R5bmFtaWMtdGVtcGxhdGVzLmh0bWw=">Define and use a dynamic template that satisfies a given set of requirements</span></h3>
+<blockquote>
+<p>8 + 版本后  <code>_template</code>  逐渐被废弃，改为  <code>_component_template</code>  和  <code>_index_template</code></p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PUT _index_template/my_template_name</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;template&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;mappings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;settings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="define-an-index-lifecycle-management-policy-for-a-time-series-index"><a class="markdownIt-Anchor" href="#define-an-index-lifecycle-management-policy-for-a-time-series-index">#</a> Define an Index Lifecycle Management policy for a time-series index</h3>
+<blockquote>
+<p>kibana： Stack Management &gt;&gt;&gt; Index Lifecycle Management</p>
+</blockquote>
+<h3 id="define-an-index-template-that-creates-a-new-data-stream"><a class="markdownIt-Anchor" href="#define-an-index-template-that-creates-a-new-data-stream">#</a> Define an index template that creates a new data stream</h3>
+<p>类似 ILM</p>
+<p>need</p>
+<ul>
+<li>
+<p>a matching index template</p>
+</li>
+<li>
+<p>a  <code>@timestamp</code>  field</p>
+</li>
+<li></li>
+</ul>
+<p>原理：read all indices (now + back) /write now/newest index</p>
+<p>索引格式： <code>.ds-&lt;data-stream&gt;-&lt;yyyy.MM.dd&gt;-000001</code></p>
+<p>add a new document： not use  <code>PUT /&lt;target&gt;/_doc/&lt;_id&gt;</code>  ，use  <code>PUT /&lt;target&gt;/_create/&lt;_id&gt;</code></p>
+<h3 id="use-the-data-visualizer-to-upload-a-text-file-into-elasticsearch不考"><a class="markdownIt-Anchor" href="#use-the-data-visualizer-to-upload-a-text-file-into-elasticsearch不考">#</a> Use the Data Visualizer to upload a text file into Elasticsearch（不考）</h3>
+<p>kibana &gt;&gt;&gt; machine learning  &gt;&gt;&gt; data visualizer</p>
+<h2 id="searching-data"><a class="markdownIt-Anchor" href="#searching-data">#</a> Searching Data</h2>
+<h3 id="write-and-execute-a-search-query-for-terms-andor-phrases-in-one-or-more-fields-of-an-index"><a class="markdownIt-Anchor" href="#write-and-execute-a-search-query-for-terms-andor-phrases-in-one-or-more-fields-of-an-index">#</a> Write and execute a search query for terms and/or phrases in one or more fields of an index</h3>
+<p><strong>match、term、match_phrase 的区别</strong></p>
+<ul>
+<li><code>match</code>  查询会进行分词，匹配到单个即可</li>
+<li><code>term</code>  查询不会分词，必须完全匹配（适用 keyword 类型，类似 like）</li>
+<li><code>match_phrase</code>  查询会分词，必须完全匹配（适用 text 类型，类似 like）</li>
+</ul>
+<h5 id="boolean-query"><a class="markdownIt-Anchor" href="#boolean-query">#</a> Boolean query</h5>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">POST _search</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;bool&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;must&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;term&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;field&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;value&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;filter&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;term&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;field&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;value&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;must_not&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;range&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;age&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;gte&quot;</span> <span class="punctuation">:</span> <span class="number">10</span><span class="punctuation">,</span> <span class="attr">&quot;lte&quot;</span> <span class="punctuation">:</span> <span class="number">20</span> <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;should&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span> <span class="attr">&quot;term&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;field1&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;value1&quot;</span> <span class="punctuation">&#125;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span> <span class="attr">&quot;term&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;field2&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;value2&quot;</span> <span class="punctuation">&#125;</span> <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;minimum_should_match&quot;</span> <span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;boost&quot;</span> <span class="punctuation">:</span> <span class="number">1.0</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>minimum_should_match</code>  存在 should 时默认为 1，否则默认为 0</p>
+<p><code>boost</code> ：计算分数时使用</p>
+<p><code>bool.filter</code> ：不计算分数</p>
+<p><code>_name</code> ：每一个 top query 都可以添加，response 的 <code>matched_queries</code>  查看结果满足哪个 query。</p>
+<h5 id="boosting-query-constant-score-query"><a class="markdownIt-Anchor" href="#boosting-query-constant-score-query">#</a> Boosting query &amp; Constant score query</h5>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">GET /_search</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;boosting&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;positive&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;term&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;apple&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="comment">// 匹配的document减negative_boost的分数</span></span><br><span class="line">      <span class="attr">&quot;negative&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;term&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pie tart fruit crumble tree&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;negative_boost&quot;</span><span class="punctuation">:</span> <span class="number">0.5</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;constant_score&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// 只有 filter 这一种</span></span><br><span class="line">      <span class="attr">&quot;filter&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;term&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;user.id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;kimchy&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="comment">// 匹配到数据分数指定为boost值</span></span><br><span class="line">      <span class="attr">&quot;boost&quot;</span><span class="punctuation">:</span> <span class="number">1.2</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="disjunction-max-query"><a class="markdownIt-Anchor" href="#disjunction-max-query">#</a> Disjunction max query</h5>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">GET /_search</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;dis_max&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="comment">// 满足多个 query 匹配的文档，根据 tie_breaker 增加分数</span></span><br><span class="line">      <span class="comment">// 0 &lt;= tie_breaker &lt;= 1</span></span><br><span class="line">      <span class="attr">&quot;tie_breaker&quot;</span><span class="punctuation">:</span> <span class="number">0.4</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;boost&quot;</span><span class="punctuation">:</span> <span class="number">1.2</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;queries&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span><span class="attr">&quot;match&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span><span class="attr">&quot;match&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        ...</span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="intervals-query"><a class="markdownIt-Anchor" href="#intervals-query">#</a> <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS84LjMvcXVlcnktZHNsLWludGVydmFscy1xdWVyeS5odG1s">Intervals query</span></h5>
+<p>精确控制查询的 terms 顺序、terms 之间的距离以及包含关系的灵活控制</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">GET /_search</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;intervals&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;all_of&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="comment">// 按顺序匹配 xxxvalue1xxxvalue2xxx可以被查询到，xxxvalue2xxxvalue1xxx的文档不能配查询</span></span><br><span class="line">          <span class="attr">&quot;ordered&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">          <span class="comment">// value1和value2的间距，0代表只能匹配xxxvalue1value2xxx的文档</span></span><br><span class="line">          <span class="attr">&quot;max_gaps&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;intervals&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;match&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="string">&quot;value1&quot;</span></span><br><span class="line">              <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;match&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="string">&quot;value2&quot;</span></span><br><span class="line">              <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="match-query"><a class="markdownIt-Anchor" href="#match-query">#</a> <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS84LjMvcXVlcnktZHNsLW1hdGNoLXF1ZXJ5Lmh0bWw=">Match query</span></h5>
+<blockquote>
+<p>匹配 text、number、date or boolean value</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">GET _search</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;match&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cuury&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="comment">// 模糊匹配 cuury 可以匹配到 curry</span></span><br><span class="line">        <span class="attr">&quot;fuzziness&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">        <span class="comment">// fuzzy前缀n位不更改</span></span><br><span class="line">        <span class="attr">&quot;prefix_length&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">        <span class="comment">// &quot;a b&quot; &gt;&gt;&gt; or &gt;&gt;&gt; a or b </span></span><br><span class="line">        <span class="comment">// &quot;a b&quot; &gt;&gt;&gt; and &gt;&gt;&gt; a and b</span></span><br><span class="line">        <span class="attr">&quot;operator&quot;</span><span class="punctuation">:</span> <span class="string">&quot;or/and&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="match-boolean-prefix"><a class="markdownIt-Anchor" href="#match-boolean-prefix">#</a> <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS84LjMvcXVlcnktZHNsLW1hdGNoLWJvb2wtcHJlZml4LXF1ZXJ5Lmh0bWw=">Match boolean prefix</span></h5>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">GET /_search</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;match_bool_prefix&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;message&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;quick brown f&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line">等价于</span><br><span class="line">GET /_search</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;bool&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;should&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span> <span class="attr">&quot;term&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;quick&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span> <span class="attr">&quot;term&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;brown&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span> <span class="attr">&quot;prefix&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;f&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="match-phrase-query-match-phrase-prefix-query"><a class="markdownIt-Anchor" href="#match-phrase-query-match-phrase-prefix-query">#</a> match phrase query &amp; match phrase prefix query</h5>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET my-index<span class="number">-00002</span>/_search</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;match_phrase&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;value&quot;</span>     </span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="combined-fields"><a class="markdownIt-Anchor" href="#combined-fields">#</a> <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS84LjMvcXVlcnktZHNsLWNvbWJpbmVkLWZpZWxkcy1xdWVyeS5odG1s">Combined fields</span></h5>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET _search</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;combined_fields&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="string">&quot;quility.com Brogan Dante&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="comment">// 查询 city 和 email 字段，^2代表匹配这个字段的boost=2</span></span><br><span class="line">      <span class="attr">&quot;fields&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;city^2&quot;</span><span class="punctuation">,</span> <span class="string">&quot;email&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="comment">// 默认为 or，or/and</span></span><br><span class="line">      <span class="attr">&quot;operator&quot;</span><span class="punctuation">:</span> <span class="string">&quot;or&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>nested query</p>
+<h3 id="write-and-execute-a-search-query-that-is-a-boolean-combination-of-multiple-queries-and-filters"><a class="markdownIt-Anchor" href="#write-and-execute-a-search-query-that-is-a-boolean-combination-of-multiple-queries-and-filters">#</a> Write and execute a search query that is a Boolean combination of multiple queries and filters</h3>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET my-index<span class="number">-000001</span>/_msearch</span><br><span class="line"><span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;query&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;match_all&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span> <span class="attr">&quot;from&quot;</span> <span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span class="attr">&quot;size&quot;</span> <span class="punctuation">:</span> <span class="number">10</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;query&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;match_all&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;index&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;my-index-000002&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;query&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;match_all&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>返回的 response 数组结果集，每个元素为一个查询结果</p>
+<h3 id="search-template"><a class="markdownIt-Anchor" href="#search-template">#</a> search template</h3>
+<h3 id="write-an-asynchronous-search"><a class="markdownIt-Anchor" href="#write-an-asynchronous-search">#</a> Write an asynchronous search</h3>
+<p>异步搜索</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST  my_index/_async_search</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line">GET _sql/async/&lt;id&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="write-and-execute-metric-and-bucket-aggregations"><a class="markdownIt-Anchor" href="#write-and-execute-metric-and-bucket-aggregations">#</a> Write and execute metric and bucket aggregations</h3>
+<ul>
+<li>
+<p>前置条件：【doc_values: true】</p>
+</li>
+<li>
+<p>不能用于 <code>text</code>  类型</p>
+</li>
+<li>
+<p>缓存，aggs 执行会将高频率的数据进行缓存，使用 <code>&quot;size&quot;:0</code>  有效减少不必要的缓存，缓存适用于相同的 <code>preference string</code></p>
+</li>
+</ul>
+<p>demo search aggs 如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// typed_keys: 原本return name, 现在return type#name</span></span><br><span class="line">GET my_index/_search?typed_keys</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;size&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span>	<span class="comment">// 只返回 aggs 结果</span></span><br><span class="line">	<span class="attr">&quot;aggs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;my-first-agg-name&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">			<span class="attr">&quot;type (terms)&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">				<span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;my-field&quot;</span></span><br><span class="line">			<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="comment">// 元数据：元数据也会带上这个field</span></span><br><span class="line">			<span class="attr">&quot;meta&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">       	 		<span class="attr">&quot;my-metadata-field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;foo&quot;</span></span><br><span class="line">      		<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">			<span class="comment">// sub aggs</span></span><br><span class="line">			<span class="attr">&quot;aggs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">				<span class="attr">&quot;my-first-sub-agg-name&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">				<span class="punctuation">&#125;</span></span><br><span class="line">			<span class="punctuation">&#125;</span></span><br><span class="line">		<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="comment">// 多个 aggs, 返回多个 result</span></span><br><span class="line">		<span class="attr">&quot;my-second-agg-name&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="punctuation">&#125;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="metric-aggs"><a class="markdownIt-Anchor" href="#metric-aggs">#</a> metric aggs</h4>
+<p>计算指标：Max/Min、Average、Sum</p>
+<p>不支持 sub-aggregations</p>
+<ul>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3NlYXJjaC1hZ2dyZWdhdGlvbnMtbWV0cmljcy1ib3hwbG90LWFnZ3JlZ2F0aW9uLmh0bWw=">Boxplot</span></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;boxplot&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;load_time&quot;</span> </span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// response</span></span><br><span class="line"><span class="attr">&quot;aggregations&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;load_time_boxplot&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;min&quot;</span><span class="punctuation">:</span> <span class="number">0.0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;max&quot;</span><span class="punctuation">:</span> <span class="number">990.0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="comment">// 第一个四分位数（前一半数据的中位数）</span></span><br><span class="line">    <span class="attr">&quot;q1&quot;</span><span class="punctuation">:</span> <span class="number">165.0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="comment">// 第二个四分位数（中位数）</span></span><br><span class="line">    <span class="attr">&quot;q2&quot;</span><span class="punctuation">:</span> <span class="number">445.0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="comment">// 第三个四分位数（后一半数据的中位数）</span></span><br><span class="line">    <span class="attr">&quot;q3&quot;</span><span class="punctuation">:</span> <span class="number">725.0</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;lower&quot;</span><span class="punctuation">:</span> <span class="number">0.0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;upper&quot;</span><span class="punctuation">:</span> <span class="number">990.0</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ul>
+<h4 id="bucket-aggs"><a class="markdownIt-Anchor" href="#bucket-aggs">#</a> bucket aggs</h4>
+<p>支持 sub-aggregations</p>
+<ul>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS84LjMvc2VhcmNoLWFnZ3JlZ2F0aW9ucy1idWNrZXQtYWRqYWNlbmN5LW1hdHJpeC1hZ2dyZWdhdGlvbi5odG1s">Adjacency matrix</span></p>
+<p>【向量】filter A B C -&gt; return A B C A&amp;B A&amp;C B&amp;C</p>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS84LjMvc2VhcmNoLWFnZ3JlZ2F0aW9ucy1idWNrZXQtYXV0b2RhdGVoaXN0b2dyYW0tYWdncmVnYXRpb24uaHRtbA==">Auto-interval date histogram</span></p>
+<p>自定义 <code>buckets</code> ，es 自动划分需要区间</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;auto_date_histogram&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;date&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;buckets&quot;</span><span class="punctuation">:</span> <span class="number">10</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS84LjMvc2VhcmNoLWFnZ3JlZ2F0aW9ucy1idWNrZXQtY2hpbGRyZW4tYWdncmVnYXRpb24uaHRtbA==">Children</span></p>
+<p>适用于 <code>join</code>  类型</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;aggs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;join-aggs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;children&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;answer&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS84LjMvc2VhcmNoLWFnZ3JlZ2F0aW9ucy1idWNrZXQtY29tcG9zaXRlLWFnZ3JlZ2F0aW9uLmh0bWw=">Composite</span></p>
+<p>组合，合并多个 aggs 查询，source1：A1、A2，source2：B1、B2 -&gt; A1B1、A1B2、A2B1、A2B2 的查询结果</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;aggs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;my-aggs-name&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;composite&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;sources&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name01&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;field-name&quot;</span></span><br><span class="line">              <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name02&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;field-name&quot;</span></span><br><span class="line">              <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS84LjMvc2VhcmNoLWFnZ3JlZ2F0aW9ucy1idWNrZXQtaGlzdG9ncmFtLWFnZ3JlZ2F0aW9uLmh0bWw=">Histogram</span></p>
+<blockquote>
+<p>直方图 / 柱状图</p>
+<p>bucket_key = Math.floor((value - offset) / interval) * interval + offset</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;histogram&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;field-name&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="comment">// 间隔</span></span><br><span class="line">  <span class="attr">&quot;interval&quot;</span><span class="punctuation">:</span> <span class="number">5</span><span class="punctuation">,</span></span><br><span class="line">  <span class="comment">// 过滤 count &lt; min_doc_count 的区间</span></span><br><span class="line">  <span class="attr">&quot;min_doc_count&quot;</span><span class="punctuation">:</span> <span class="number">1</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3NlYXJjaC1hZ2dyZWdhdGlvbnMtYnVja2V0LWRhdGVoaXN0b2dyYW0tYWdncmVnYXRpb24uaHRtbA==">Date histogram</span></p>
+<blockquote>
+<p>date 作为 field type 的特殊 histogram</p>
+<p>bucket_key = Math.floor(value / interval) * interval</p>
+</blockquote>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3NlYXJjaC1hZ2dyZWdhdGlvbnMtYnVja2V0LXJhbmdlLWFnZ3JlZ2F0aW9uLmh0bWw=">Range</span></p>
+<blockquote>
+<p>范围聚合查询，from &lt;= value &lt; to</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;aggs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;price_ranges&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;range&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;keyed&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="comment">// 可以查询script field</span></span><br><span class="line">      <span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;price&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;ranges&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="comment">// 可以没有to，也可以没有from</span></span><br><span class="line">        <span class="punctuation">&#123;</span> <span class="attr">&quot;to&quot;</span><span class="punctuation">:</span> <span class="number">100.0</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="comment">// 范围可以重叠</span></span><br><span class="line">        <span class="punctuation">&#123;</span> <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="number">80.0</span><span class="punctuation">,</span> <span class="attr">&quot;to&quot;</span><span class="punctuation">:</span> <span class="number">200.0</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span> <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="number">200.0</span> <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3NlYXJjaC1hZ2dyZWdhdGlvbnMtYnVja2V0LWRhdGVyYW5nZS1hZ2dyZWdhdGlvbi5odG1s">Date range</span></p>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3NlYXJjaC1hZ2dyZWdhdGlvbnMtYnVja2V0LWdsb2JhbC1hZ2dyZWdhdGlvbi5odG1s">Global</span></p>
+<blockquote>
+<p>定义一个单独包含全部数据的 bucket，使得当前聚合不受 query 查询的影响（全部数据作为聚合目标）</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">POST /sales/_search?size=<span class="number">0</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;query&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;match&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;t-shirt&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;aggs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// 全部商品平均价格（match_all）</span></span><br><span class="line">    <span class="attr">&quot;all_products&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;global&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span> </span><br><span class="line">      <span class="attr">&quot;aggs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>     </span><br><span class="line">      <span class="attr">&quot;avg_price&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;avg&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;price&quot;</span> <span class="punctuation">&#125;</span> <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="comment">//  t-shirt商品平均价格（query有关）</span></span><br><span class="line">    <span class="attr">&quot;t_shirts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;avg&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;price&quot;</span> <span class="punctuation">&#125;</span> <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3NlYXJjaC1hZ2dyZWdhdGlvbnMtYnVja2V0LW1pc3NpbmctYWdncmVnYXRpb24uaHRtbA==">Missing</span></p>
+<p>缺少字段或者字段值为 null 的 <code>document</code>  缺少 <code>bucket</code> ，通过 <code>missing</code>  聚合统计</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;aggs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;products_without_a_price&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;missing&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;price&quot;</span> <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3NlYXJjaC1hZ2dyZWdhdGlvbnMtYnVja2V0LWlwcHJlZml4LWFnZ3JlZ2F0aW9uLmh0bWw=">IP prefix</span> 和 <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3NlYXJjaC1hZ2dyZWdhdGlvbnMtYnVja2V0LWlwcmFuZ2UtYWdncmVnYXRpb24uaHRtbA==">IP range</span></p>
+<blockquote>
+<p>IP 地址相关的聚合，<span class="exturl" data-url="aHR0cDovL3h4eC54eHgueHh4Lnh4eA==">xxx.xxx.xxx.xxx</span></p>
+</blockquote>
+</li>
+<li>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZWxhc3RpYy5jby9ndWlkZS9lbi9lbGFzdGljc2VhcmNoL3JlZmVyZW5jZS9jdXJyZW50L3NlYXJjaC1hZ2dyZWdhdGlvbnMtcmFuZG9tLXNhbXBsZXItYWdncmVnYXRpb24uaHRtbA==">Random sampler</span></p>
+<blockquote>
+<p>随机取样聚合，0 &lt; probability &lt; 0.5 || probability = 1</p>
+<p>随机取集合 * probability 的集合，每次结果可能不相同</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;aggregations&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;sampling&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;random_sampler&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;probability&quot;</span><span class="punctuation">:</span> <span class="number">0.1</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;aggs&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;price_percentiles&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;percentiles&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;field&quot;</span><span class="punctuation">:</span> <span class="string">&quot;taxful_total_price&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ul>
+<h4 id="pipeline-aggs"><a class="markdownIt-Anchor" href="#pipeline-aggs">#</a> pipeline aggs</h4>
+<h3 id="other"><a class="markdownIt-Anchor" href="#other">#</a> Other</h3>
+<h4 id="ccrcross-cluster-replication-ccscross-cluster-search"><a class="markdownIt-Anchor" href="#ccrcross-cluster-replication-ccscross-cluster-search">#</a> CCR（Cross-cluster replication） &amp; CCS（Cross-cluster search）</h4>
+<p>配置  <code>elasticsearch.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">transport.host:</span> <span class="string">xxx.xxx.xxx.xxx</span></span><br><span class="line"><span class="attr">transport.port:</span> <span class="number">9300</span></span><br></pre></td></tr></table></figure>
+<p>证书问题</p>
+<p>1）使用相同的 CA 证书：复制  <code>ca.crt</code>  和  <code>ca.key</code></p>
+<p>2）使用不同证书</p>
+<h5 id="创建集群远程连接"><a class="markdownIt-Anchor" href="#创建集群远程连接">#</a> 创建集群远程连接</h5>
+<p>Stack Management &gt;&gt;&gt; Remote Clusters</p>
+<p>或通过 Dev Tools 实现</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">PUT _cluster/settings</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;persistent&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;cluster.remote&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;remote_cluster&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;seeds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="string">&quot;192.168.0.8:9300&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="配置跨集群复制"><a class="markdownIt-Anchor" href="#配置跨集群复制">#</a> 配置跨集群复制</h5>
+<p>Stack Management &gt;&gt;&gt; Cross Cluster Replication</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Remote cluster</strong></td>
+<td>添加的集群名称</td>
+</tr>
+<tr>
+<td><strong>Leader index</strong></td>
+<td>待迁移的索引。</td>
+</tr>
+<tr>
+<td><strong>Follower index</strong></td>
+<td>迁移数据生成的索引。索引名称不可重复。</td>
+</tr>
+</tbody>
+</table>
+
+      <div class="tags">
+          <a href="/hexo-blog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"><i class="ic i-tag"></i> 数据库</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-08-05 07:40:31" itemprop="dateModified" datetime="2022-08-05T07:40:31+00:00">2022-08-05</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/hexo-blog/images/wechatpay.png" alt="ceilzcx 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/alipay.png" alt="ceilzcx 支付宝">
+        <p>支付宝</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/paypal.png" alt="ceilzcx 贝宝">
+        <p>贝宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>ceilzcx <i class="ic i-at"><em>@</em></i>hexo-blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://ceilzcx.github.io/hexo-blog/2022/07/29/database/elasticsearch8/" title="elasticsearch8">https://ceilzcx.github.io/hexo-blog/2022/07/29/database/elasticsearch8/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/hexo-blog/2022/05/30/database/rocksDB/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclil3m4ej20zk0m8tn8.jpg" title="rocksDB">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>rocksDB</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#elasticsearch8"><span class="toc-text"> Elasticsearch8+</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text"> 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data-management"><span class="toc-text"> Data Management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#define-an-index-that-satisfies-a-given-set-of-requirements-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="toc-text"> Define an index that satisfies a given set of requirements —— 定义一个满足条件的索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#define-and-use-an-index-template-for-a-given-pattern-that-satisfies-a-given-set-of-requirements"><span class="toc-text"> Define and use an index template for a given pattern that satisfies a given set of requirements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#define-and-use-a-dynamic-template-that-satisfies-a-given-set-of-requirements"><span class="toc-text"> Define and use a dynamic template that satisfies a given set of requirements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#define-an-index-lifecycle-management-policy-for-a-time-series-index"><span class="toc-text"> Define an Index Lifecycle Management policy for a time-series index</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#define-an-index-template-that-creates-a-new-data-stream"><span class="toc-text"> Define an index template that creates a new data stream</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#use-the-data-visualizer-to-upload-a-text-file-into-elasticsearch%E4%B8%8D%E8%80%83"><span class="toc-text"> Use the Data Visualizer to upload a text file into Elasticsearch（不考）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#searching-data"><span class="toc-text"> Searching Data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#write-and-execute-a-search-query-for-terms-andor-phrases-in-one-or-more-fields-of-an-index"><span class="toc-text"> Write and execute a search query for terms and&#x2F;or phrases in one or more fields of an index</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#boolean-query"><span class="toc-text"> Boolean query</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#boosting-query-constant-score-query"><span class="toc-text"> Boosting query &amp; Constant score query</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#disjunction-max-query"><span class="toc-text"> Disjunction max query</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#intervals-query"><span class="toc-text"> Intervals query</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#match-query"><span class="toc-text"> Match query</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#match-boolean-prefix"><span class="toc-text"> Match boolean prefix</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#match-phrase-query-match-phrase-prefix-query"><span class="toc-text"> match phrase query &amp; match phrase prefix query</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#combined-fields"><span class="toc-text"> Combined fields</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#write-and-execute-a-search-query-that-is-a-boolean-combination-of-multiple-queries-and-filters"><span class="toc-text"> Write and execute a search query that is a Boolean combination of multiple queries and filters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#search-template"><span class="toc-text"> search template</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#write-an-asynchronous-search"><span class="toc-text"> Write an asynchronous search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#write-and-execute-metric-and-bucket-aggregations"><span class="toc-text"> Write and execute metric and bucket aggregations</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#metric-aggs"><span class="toc-text"> metric aggs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bucket-aggs"><span class="toc-text"> bucket aggs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pipeline-aggs"><span class="toc-text"> pipeline aggs</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other"><span class="toc-text"> Other</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ccrcross-cluster-replication-ccscross-cluster-search"><span class="toc-text"> CCR（Cross-cluster replication） &amp; CCS（Cross-cluster search）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%9B%86%E7%BE%A4%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="toc-text"> 创建集群远程连接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%B7%A8%E9%9B%86%E7%BE%A4%E5%A4%8D%E5%88%B6"><span class="toc-text"> 配置跨集群复制</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="ceilzcx"
+      data-src="/hexo-blog/images/avatar.jpg">
+  <p class="name" itemprop="name">ceilzcx</p>
+  <div class="description" itemprop="description">record some markdown</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/hexo-blog/archives/">
+        <span class="count">18</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/hexo-blog/tags/">
+        <span class="count">8</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NlaWx6Y3g=" title="https:&#x2F;&#x2F;github.com&#x2F;ceilzcx"><i class="ic i-github"></i></span>
+      <a href="/hexo-blog/1758619238@qq.com" title="1758619238@qq.com" class="item email"><i class="ic i-envelope"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/hexo-blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/hexo-blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/algorithm/leetcode/" title="leetcode">leetcode</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/09/big-data/Flink/" title="Flink">Flink</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/Hexo/" title="Hexo">Hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/12/14/git/" title="git">git</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/28/big-data/hadoop/" title="hadoop">hadoop</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/12/database/database/" title="database">database</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/29/big-data/big-data/" title="big-data">big-data</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2022/07/29/database/elasticsearch8/" title="elasticsearch8">elasticsearch8</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/21/Essays/" title="essays">essays</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/java/Java/" title="Java">Java</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ceilzcx @ Ceilzcx's blog</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2022/07/29/database/elasticsearch8/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/hexo-blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

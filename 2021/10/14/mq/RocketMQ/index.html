@@ -1,0 +1,695 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo-blog/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/hexo-blog/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/atom.xml" />
+<link rel="alternate" type="application/json" title="hexo-blog" href="https://ceilzcx.github.io/hexo-blog/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/hexo-blog/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="消息队列" />
+
+
+<link rel="canonical" href="https://ceilzcx.github.io/hexo-blog/2021/10/14/mq/RocketMQ/">
+
+
+
+  <title>
+RocketMQ |
+Ceilzcx's blog = hexo-blog</title>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">RocketMQ
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2021-10-14 16:38:36">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2021-10-14T16:38:36+00:00">2021-10-14</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/hexo-blog/" rel="start">Ceilzcx's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclgi503lj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclj9410cj20zk0m8h12.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclip4jbpj20zk0m87cv.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/hexo-blog/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://ceilzcx.github.io/hexo-blog/2021/10/14/mq/RocketMQ/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/hexo-blog/images/avatar.jpg">
+    <meta itemprop="name" content="ceilzcx">
+    <meta itemprop="description" content=", record some markdown">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="hexo-blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="设计架构"><a class="markdownIt-Anchor" href="#设计架构">#</a> 设计架构</h2>
+<h3 id="producer"><a class="markdownIt-Anchor" href="#producer">#</a> Producer</h3>
+<blockquote>
+<p>消息提供 / 发布者，支持分布式和集群部署</p>
+</blockquote>
+<p>通过  <code>NameServer</code> ，获取  <code>Broker</code>  路由信息，通过负载均衡模块选择对应的  <code>Broker</code>  集群队列，并发布消息。</p>
+<p>投递的过程支持快速失败并且低延迟。</p>
+<h3 id="consumer"><a class="markdownIt-Anchor" href="#consumer">#</a> Consumer</h3>
+<blockquote>
+<p>消息消费者，支持分布式和集群部署</p>
+</blockquote>
+<p>支持 push /pull 进行消费；支持集群（默认消费模式）和广播形式消费</p>
+<ul>
+<li>集群模式：同一个  <code>ConsumerGroup</code>  下，一条消息消费一次</li>
+<li>广播模式：同一个  <code>ConsumerGroup</code>  下，一条消息每个实例都消费一次</li>
+</ul>
+<p>实时消息订阅（订阅 topic）</p>
+<h3 id="nameserver"><a class="markdownIt-Anchor" href="#nameserver">#</a> NameServer</h3>
+<blockquote>
+<p>topic 路由注册中心，（类似 dubbo 的 zookeeper），支持 broker 的注册和发现</p>
+</blockquote>
+<p><strong>AP 的设计：Availability（可用性）+ Partition Tolerance（分区容错性）</strong></p>
+<p><code>NameServer</code>  <strong>节点之间并不通信</strong>，各个时刻数据没法保持一致（不遵循 Consistency（一致性））</p>
+<p><strong>Broker 管理</strong>：接受 Broker 集群注册信息并保存作为路由信息的基本数据</p>
+<p><strong>提供健康检查</strong>：检查 Broker 是否存活</p>
+<p><em>每个  <code>NameServer</code>  将保存关于 Broker 集群的整个路由信息和用于客户端查询的队列信息，然后  <code>Producer</code>  和  <code>Conumser</code>  通过  <code>NameServer</code>  就可以知道整个 Broker 集群的路由信息，从而进行消息的投递和消费。</em></p>
+<p>如何注册 topic？</p>
+<ul>
+<li>
+<p>手动创建，指定对应的 broker 和消息队列数量进行创建</p>
+</li>
+<li>
+<p>自动创建</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autoCreateTopicEnable = true</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>生产发送消息时，如果指定的 Topic 不存在， <code>NameServer</code>  会返回一个【默认主题： <code>TBW102</code> 】的路由信息，使得生产者能够正常发生消息</p>
+</li>
+<li>
+<p>Broker 收到消息后，发现消息对应 Topic 不存在，且 Broker 允许自动创建 Topic，则会为消息创建 Topic ，并定时把路由信息同步至  <code>NameServer</code></p>
+</li>
+<li>
+<p>生产者也会定时从  <code>NameServer</code>  同步最新的路由信息，缓存至本地</p>
+</li>
+<li>
+<p>后续生产者发送消息时，就可以从本地的缓存中查询到对应 Topic 的路由信息了</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="brokerserver"><a class="markdownIt-Anchor" href="#brokerserver">#</a> BrokerServer</h3>
+<blockquote>
+<p>broker 主要负责消息的存储、传递和查询以及服务高可用保证</p>
+</blockquote>
+<p>broker 分为 Master 和 Slave，对应关系通过相同  <code>BrokerName</code> ，不同的  <code>BrokerId</code>  来定义， <code>BrokerId = 0</code>  表示 Master；broker 支持一主多从，但是<strong>只有  <code>brokerId = 1</code>  的从服务器才会参与消息的读负载</strong> 。</p>
+<p>broker 定时将 topic 信息注册到  <code>NameServer</code></p>
+<h3 id="topic和tag"><a class="markdownIt-Anchor" href="#topic和tag">#</a> Topic 和 Tag</h3>
+<ul>
+<li>topic 为 消费 和 提供者 订阅的一种主题</li>
+<li>tag 为 topic 更细粒度的一种划分。例：topic = order，你想要获取不同类型的订单，可以定义不同的 tag</li>
+</ul>
+<h2 id="网络部署"><a class="markdownIt-Anchor" href="#网络部署">#</a> 网络部署</h2>
+<h3 id="特点"><a class="markdownIt-Anchor" href="#特点">#</a> 特点</h3>
+<ul>
+<li>Producer 与  <code>NameServer</code>  集群的一个节点建立连接（随机），获取 topic 路由信息，与<strong> Master</strong> 建立长连接，并定时发送心跳</li>
+<li>Consumer 与  <code>NameServer</code>  集群的一个节点建立连接（随机），获取 topic 路由信息，与<strong> Master 和 Slave</strong> 建立长连接，并定时发送心跳</li>
+</ul>
+<h3 id="启动流程"><a class="markdownIt-Anchor" href="#启动流程">#</a> 启动流程</h3>
+<ul>
+<li>NameServer 启动，等待 Broker、Producer、Consumer 连接</li>
+<li>Broker 启动，跟所有的 NameServer 保持长连接，定时发送心跳包。心跳包中包含当前 Broker 信息 (IP + 端口等) 以及存储所有 Topic 信息。注册成功后，NameServer 集群中就有 Topic 跟 Broker 的映射关系。</li>
+<li>收发消息前，先创建 Topic，创建 Topic 时需要指定该 Topic 要存储在哪些 Broker 上，也可以在发送消息时自动创建 Topic。</li>
+<li>Producer 发送消息，启动时先跟 NameServer 集群中的其中一台建立长连接，并从 NameServer 中获取当前发送的 Topic 存在哪些 Broker 上，轮询从队列列表中选择一个队列，然后与队列所在的 Broker 建立长连接从而向 Broker 发消息。</li>
+<li>Consumer 跟 Producer 类似，跟其中一台 NameServer 建立长连接，获取当前订阅 Topic 存在哪些 Broker 上，然后直接跟 Broker 建立连接通道，开始消费消息。</li>
+</ul>
+<h2 id="消息传输"><a class="markdownIt-Anchor" href="#消息传输">#</a> 消息传输</h2>
+<h3 id="消息刷盘"><a class="markdownIt-Anchor" href="#消息刷盘">#</a> 消息刷盘</h3>
+<ul>
+<li>同步刷盘：等待数据保存到磁盘，broker 返回成功的 ACK 响应</li>
+<li>异步刷盘：数据加载到 PageCache，就返回成功的 ACK 响应，启动一个新的新的进程将 PageCache 加载到磁盘</li>
+</ul>
+<h3 id="消息重复"><a class="markdownIt-Anchor" href="#消息重复">#</a> 消息重复</h3>
+<h4 id="补充qos"><a class="markdownIt-Anchor" href="#补充qos">#</a> 补充：QOS</h4>
+<blockquote>
+<p>Quality of Service，服务质量</p>
+</blockquote>
+<ul>
+<li>至少一次（at least once）</li>
+<li>最多一次（at most once）</li>
+<li>仅一次（Exactly once）</li>
+</ul>
+<p><strong>rocketMQ 支持 at least one</strong>，因此可能存在重复数据</p>
+<h3 id="回溯消费"><a class="markdownIt-Anchor" href="#回溯消费">#</a> 回溯消费</h3>
+<p>注：fllink 中 end back 使用的 ？</p>
+<p>已经消费成功的消息，业务需要回退重新消费，通过时间维度回退（精确到毫秒）</p>
+<h3 id="定时消息"><a class="markdownIt-Anchor" href="#定时消息">#</a> 定时消息</h3>
+<p><strong>定时消息（延迟队列）是指消息发送到 broker 后，不会立即被消费，等待特定时间投递给真正的 topic</strong>。 broker 有配置项 <code>messageDelayLevel</code> ，默认值为 <code>1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h</code> ，18 个 level。</p>
+<h3 id="消息回查和消息重试"><a class="markdownIt-Anchor" href="#消息回查和消息重试">#</a> 消息回查和消息重试</h3>
+<ul>
+<li>消息回查针对 Producer。用于事务的  <code>Haslf Message</code> ，默认回查 15 次。</li>
+<li>消息重试针对 Consumer。Comsumer 消费成功后需要返回  <code>Broker</code>  一个确认消息，<strong>如果没有返回则  <code>Broker</code>  认为这条消息消费失败，失败后会再重试消费该消息，默认重试 16 次</strong></li>
+</ul>
+<h3 id="死信消息"><a class="markdownIt-Anchor" href="#死信消息">#</a> 死信消息</h3>
+<p>消息重试失败后，保持无法正常消费的消息。可以通过 console 控制台对死信队队列的消息进行重发。</p>
+<h3 id="消息顺序"><a class="markdownIt-Anchor" href="#消息顺序">#</a> 消息顺序</h3>
+<p>部分消息按照业务需求需要按顺序进行消费。例：订单状态：订单创建 → 订单付款 → 订单完成</p>
+<ul>
+<li>分区顺序：根据 Sharding key 进行区块区分。可以采用 id 取 hash 放入不同的 消息队列，对消息队列进行先入先出操作，不同 id 之间互不影响</li>
+<li>全局顺序：指定 topic 下的所有消息按照先入先出（FIFO）进行发布和消费。适用性不高</li>
+</ul>
+<h3 id="消息过滤"><a class="markdownIt-Anchor" href="#消息过滤">#</a> 消息过滤</h3>
+<p>通过 tag 进行消息过滤。消息过滤在 broker 实现，减少对 consumer 的网络传输，缺点增加 broker 负担，同时实现困难。</p>
+<h2 id="源码解析"><a class="markdownIt-Anchor" href="#源码解析">#</a> 源码解析</h2>
+<p><img data-src="struct.png" alt="代码结构"></p>
+<h3 id="acl"><a class="markdownIt-Anchor" href="#acl">#</a> acl</h3>
+<h3 id="broker"><a class="markdownIt-Anchor" href="#broker">#</a> broker</h3>
+<h3 id="client"><a class="markdownIt-Anchor" href="#client">#</a> client</h3>
+<p>rocketMQ 客户端实现</p>
+<h4 id="producer-2"><a class="markdownIt-Anchor" href="#producer-2">#</a> Producer</h4>
+<p><img data-src="client-producer.PNG" alt="client-producer"></p>
+<p>主要逻辑在 package：producer 和 impl，真正的实现还是需要远程访问，需要用到 remoting 模块。</p>
+<h3 id="filter"><a class="markdownIt-Anchor" href="#filter">#</a> filter</h3>
+<blockquote>
+<p>消息过滤，在 broker 和 consumer 中间加入了 filter 代理，主要有 broker 负责</p>
+</blockquote>
+<h3 id="namesrv"><a class="markdownIt-Anchor" href="#namesrv">#</a> namesrv</h3>
+<p><code>NamesrvStartup</code>  是  <code>namesrv</code>  的启动类，具体的实现类为  <code>NamesrvController</code>  。</p>
+<p>create NamesrvController （create NamesrvConfig、create NettyServerConfig）</p>
+<p>NamesrvController（initialize、start）</p>
+<p><img data-src="namesrv.png" alt="namesrv"></p>
+<h3 id="remoting"><a class="markdownIt-Anchor" href="#remoting">#</a> remoting</h3>
+<blockquote>
+<p>基于 netty 的底层通信实现</p>
+</blockquote>
+<h4 id="netty"><a class="markdownIt-Anchor" href="#netty">#</a> netty</h4>
+<p>NettyRemotingServer /  NettyRemotingClient</p>
+<ul>
+<li>
+<p>read request 通过 InboundHandler 实现</p>
+</li>
+<li>
+<p>process request -&gt; response</p>
+<p>通过  <code>RequestProcessor</code>  接口，这样不同模块可以编写自己的实现类去转换 request</p>
+</li>
+<li>
+<p>write response 通过 writeAndFlush () 实现</p>
+</li>
+</ul>
+<h4 id="protocol"><a class="markdownIt-Anchor" href="#protocol">#</a> protocol</h4>
+<blockquote>
+<p>协议相关实现，对应  <code>RemotingCommand</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>length</th>
+<th>head length</th>
+<th>head data</th>
+<th>body data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4 byte</td>
+<td>4 byte</td>
+<td>head length</td>
+<td>length？</td>
+</tr>
+</tbody>
+</table>
+<h4 id="运行逻辑"><a class="markdownIt-Anchor" href="#运行逻辑">#</a> 运行逻辑</h4>
+<ul>
+<li>client 封装 RemotingCommand 类，将消息传输给 Server。消息传输在  <code>AbstractNettyRemoting.invokeSyncImpl</code>  中</li>
+<li>Server 通过 channel 获取消息，再通过  <code>AbstractNettyRemoting.processRequestMessage</code>  将 request 转换为 response，并将结果发送回 client</li>
+<li>client 通过 channel 获取消息，再通过  <code>AbstractNettyRemoting.processResponseMessage</code>  处理返回的结果，获取结果执行其他逻辑。</li>
+</ul>
+<h3 id="srvutil"><a class="markdownIt-Anchor" href="#srvutil">#</a> srvutil</h3>
+<blockquote>
+<p>解析命令行的工具类  <code>ServerUtil</code></p>
+</blockquote>
+<h3 id="store"><a class="markdownIt-Anchor" href="#store">#</a> store</h3>
+<blockquote>
+<p>存储层实现，同时包括了索引服务，高可用 HA 服务实现</p>
+</blockquote>
+<p><code>ConsumeQueue</code>  <strong>不负责存储消息</strong>，只是负责记录它所属 Topic 的消息在 CommitLog 中的偏移量。</p>
+<p><code>DefaultMessageStore</code>  类下  <code>ReputMessageService</code>  的  <code>doReput</code>  ，每隔 1 毫秒循环，通知  <code>ConsumerQueue</code>  进行更新</p>
+<h4 id="顺序存储"><a class="markdownIt-Anchor" href="#顺序存储">#</a> 顺序存储</h4>
+<p>由于  <code>Rocketmq</code>  的信息是存储到文件的，硬盘的存储和读取效率会低于内存，同时顺序读写和随机读写的效率相差极大（顺序写的速度好像比随机写快了千倍）， <code>DefaultMessageStore</code>  也是通过顺序读写实现的，Java 的顺序读写通过  <code>RandomAccessFile</code>  类实现。</p>
+<h3 id="tools"><a class="markdownIt-Anchor" href="#tools">#</a> tools</h3>
+<blockquote>
+<p>mq 集群管理工具，提供了消息查询等功能</p>
+</blockquote>
+<h3 id="疑问"><a class="markdownIt-Anchor" href="#疑问">#</a> 疑问</h3>
+<ul>
+<li><code>rocketmq-namesrv</code>  模块中  <code>KVConfingManager</code>  的作用？</li>
+<li><code>rocketmq-store</code>  模块中，一个 topic 对应多个 Queue</li>
+</ul>
+
+      <div class="tags">
+          <a href="/hexo-blog/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"><i class="ic i-tag"></i> 消息队列</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-08-05 07:40:31" itemprop="dateModified" datetime="2022-08-05T07:40:31+00:00">2022-08-05</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/hexo-blog/images/wechatpay.png" alt="ceilzcx 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/alipay.png" alt="ceilzcx 支付宝">
+        <p>支付宝</p>
+      </div>
+      
+      <div>
+        <img data-src="/hexo-blog/images/paypal.png" alt="ceilzcx 贝宝">
+        <p>贝宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>ceilzcx <i class="ic i-at"><em>@</em></i>hexo-blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://ceilzcx.github.io/hexo-blog/2021/10/14/mq/RocketMQ/" title="RocketMQ">https://ceilzcx.github.io/hexo-blog/2021/10/14/mq/RocketMQ/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/hexo-blog/2021/10/12/database/database/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicit31ffoj20zk0m8naf.jpg" title="database">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>database</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/hexo-blog/2021/10/28/big-data/hadoop/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclffsa1cj20zk0m811l.jpg" title="hadoop">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>hadoop</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%9E%B6%E6%9E%84"><span class="toc-text"> 设计架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#producer"><span class="toc-text"> Producer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#consumer"><span class="toc-text"> Consumer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nameserver"><span class="toc-text"> NameServer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#brokerserver"><span class="toc-text"> BrokerServer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#topic%E5%92%8Ctag"><span class="toc-text"> Topic 和 Tag</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2"><span class="toc-text"> 网络部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-text"> 特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="toc-text"> 启动流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E4%BC%A0%E8%BE%93"><span class="toc-text"> 消息传输</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E5%88%B7%E7%9B%98"><span class="toc-text"> 消息刷盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%87%8D%E5%A4%8D"><span class="toc-text"> 消息重复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E5%85%85qos"><span class="toc-text"> 补充：QOS</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E6%BA%AF%E6%B6%88%E8%B4%B9"><span class="toc-text"> 回溯消费</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E6%B6%88%E6%81%AF"><span class="toc-text"> 定时消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E5%9B%9E%E6%9F%A5%E5%92%8C%E6%B6%88%E6%81%AF%E9%87%8D%E8%AF%95"><span class="toc-text"> 消息回查和消息重试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E4%BF%A1%E6%B6%88%E6%81%AF"><span class="toc-text"> 死信消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E9%A1%BA%E5%BA%8F"><span class="toc-text"> 消息顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%BF%87%E6%BB%A4"><span class="toc-text"> 消息过滤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="toc-text"> 源码解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#acl"><span class="toc-text"> acl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#broker"><span class="toc-text"> broker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#client"><span class="toc-text"> client</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#producer-2"><span class="toc-text"> Producer</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text"> filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#namesrv"><span class="toc-text"> namesrv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#remoting"><span class="toc-text"> remoting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#netty"><span class="toc-text"> netty</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#protocol"><span class="toc-text"> protocol</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91"><span class="toc-text"> 运行逻辑</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#srvutil"><span class="toc-text"> srvutil</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#store"><span class="toc-text"> store</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8"><span class="toc-text"> 顺序存储</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tools"><span class="toc-text"> tools</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%96%91%E9%97%AE"><span class="toc-text"> 疑问</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="ceilzcx"
+      data-src="/hexo-blog/images/avatar.jpg">
+  <p class="name" itemprop="name">ceilzcx</p>
+  <div class="description" itemprop="description">record some markdown</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/hexo-blog/archives/">
+        <span class="count">18</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/hexo-blog/tags/">
+        <span class="count">8</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2NlaWx6Y3g=" title="https:&#x2F;&#x2F;github.com&#x2F;ceilzcx"><i class="ic i-github"></i></span>
+      <a href="/hexo-blog/1758619238@qq.com" title="1758619238@qq.com" class="item email"><i class="ic i-envelope"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/hexo-blog/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/hexo-blog/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/hexo-blog/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/hexo-blog/2021/10/12/database/database/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/hexo-blog/2021/10/28/big-data/hadoop/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2022/05/25/java/lmax-disruptor/" title="lmax-disruptor">lmax-disruptor</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/Hexo/" title="Hexo">Hexo</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/redis/" title="redis">redis</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/algorithm/leetcode/" title="leetcode">leetcode</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/java/SpringBoot/" title="SpringBoot">SpringBoot</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/09/big-data/Flink/" title="Flink">Flink</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/15/database/elasticsearch/" title="elasticsearch">elasticsearch</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2022/07/29/database/elasticsearch8/" title="elasticsearch8">elasticsearch8</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/10/28/big-data/hadoop/" title="hadoop">hadoop</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/hexo-blog/2021/07/21/Essays/" title="essays">essays</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ceilzcx @ Ceilzcx's blog</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2021/10/14/mq/RocketMQ/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/hexo-blog/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
