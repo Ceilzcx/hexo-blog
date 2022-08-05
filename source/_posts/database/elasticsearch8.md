@@ -161,7 +161,225 @@ kibana >>> machine learning  >>> data visualizer
 
 ### Write and execute a search query for terms and/or phrases in one or more fields of an index
 
+**match、term、match_phrase的区别**
 
++ `match`查询会进行分词，匹配到单个即可
++ `term`查询不会分词，必须完全匹配（适用keyword类型，类似like）
++ `match_phrase`查询会分词，必须完全匹配（适用text类型，类似like）
+
+##### Boolean query
+
+```json
+POST _search
+{
+  "query": {
+    "bool" : {
+      "must" : {
+        "term" : { "field" : "value" }
+      },
+      "filter": {
+        "term" : { "field" : "value" }
+      },
+      "must_not" : {
+        "range" : {
+          "age" : { "gte" : 10, "lte" : 20 }
+        }
+      },
+      "should" : [
+        { "term" : { "field1" : "value1" } },
+        { "term" : { "field2" : "value2" } }
+      ],
+      "minimum_should_match" : 1,
+      "boost" : 1.0
+    }
+  }
+}
+```
+
+`minimum_should_match` 存在 should 时默认为1，否则默认为0
+
+`boost`：计算分数时使用
+
+`bool.filter`：不计算分数
+
+`_name`：每一个top query都可以添加，response的`matched_queries`查看结果满足哪个query。
+
+##### Boosting query & Constant score query
+
+```json
+GET /_search
+{
+  "query": {
+    "boosting": {
+      "positive": {
+        "term": {
+          "text": "apple"
+        }
+      },
+      // 匹配的document减negative_boost的分数
+      "negative": {
+        "term": {
+          "text": "pie tart fruit crumble tree"
+        }
+      },
+      "negative_boost": 0.5
+    },
+    "constant_score": {
+      // 只有 filter 这一种
+      "filter": {
+        "term": { "user.id": "kimchy" }
+      },
+      // 匹配到数据分数指定为boost值
+      "boost": 1.2
+    }
+  }
+}
+```
+
+##### Disjunction max query
+
+```json
+GET /_search
+{
+  "query": {
+    "dis_max": {
+      // 满足多个 query 匹配的文档，根据 tie_breaker 增加分数
+      // 0 <= tie_breaker <= 1
+      "tie_breaker": 0.4,
+      "boost": 1.2,
+      "queries": [
+        {"match":{}},
+        {"match":{}},
+        ...
+      ]
+    }
+  }
+}
+```
+
+##### [Intervals query](https://www.elastic.co/guide/en/elasticsearch/reference/8.3/query-dsl-intervals-query.html)
+
+精确控制查询的terms顺序、terms之间的距离以及包含关系的灵活控制
+
+```json
+GET /_search
+{
+  "query": {
+    "intervals": {
+      "message": {
+        "all_of": {
+          // 按顺序匹配 xxxvalue1xxxvalue2xxx可以被查询到，xxxvalue2xxxvalue1xxx的文档不能配查询
+          "ordered": true,
+          // value1和value2的间距，0代表只能匹配xxxvalue1value2xxx的文档
+          "max_gaps": 0,
+          "intervals": [
+            {
+              "match": {
+                "query": "value1"
+              }
+            },
+            {
+              "match": {
+                "query": "value2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+##### [Match query](https://www.elastic.co/guide/en/elasticsearch/reference/8.3/query-dsl-match-query.html)
+
+> 匹配 text、number、date or boolean value
+
+```json
+GET _search
+{
+  "query": {
+    "match": {
+      "message": {
+        "query": "cuury",
+        // 模糊匹配 cuury 可以匹配到 curry
+        "fuzziness": 1,
+        // fuzzy前缀n位不更改
+        "prefix_length": 2,
+        // "a b" >>> or >>> a or b 
+        // "a b" >>> and >>> a and b
+        "operator": "or/and"
+      }
+    }
+  }
+}
+```
+
+
+
+##### [Match boolean prefix](https://www.elastic.co/guide/en/elasticsearch/reference/8.3/query-dsl-match-bool-prefix-query.html)
+
+```json
+GET /_search
+{
+  "query": {
+    "match_bool_prefix" : {
+      "message" : "quick brown f"
+    }
+  }
+}
+等价于
+GET /_search
+{
+  "query": {
+    "bool" : {
+      "should": [
+        { "term": { "message": "quick" }},
+        { "term": { "message": "brown" }},
+        { "prefix": { "message": "f"}}
+      ]
+    }
+  }
+}
+```
+
+##### match phrase query & match phrase prefix query
+
+```json
+GET my-index-00002/_search
+{
+  "query": {
+    "match_phrase": {
+      "field": "value"     
+    }
+  }
+}
+```
+
+##### [Combined fields](https://www.elastic.co/guide/en/elasticsearch/reference/8.3/query-dsl-combined-fields-query.html)
+
+```json
+GET _search
+{
+  "query": {
+    "combined_fields": {
+      "query": "quility.com Brogan Dante",
+      // 查询 city 和 email 字段，^2代表匹配这个字段的boost=2
+      "fields": ["city^2", "email"],
+      // 默认为 or，or/and
+      "operator": "or"
+    }
+  }
+}
+```
+
+
+
+
+
+
+
+nested query
 
 ### Write and execute a search query that is a Boolean combination of multiple queries and filters
 
@@ -176,6 +394,11 @@ GET my-index-000001/_msearch
 ```
 
 返回的 response 数组结果集，每个元素为一个查询结果
+
+
+
+
+### search template
 
 
 
@@ -238,6 +461,34 @@ GET my_index/_search?typed_keys
 计算指标：Max/Min、Average、Sum
 
 不支持 sub-aggregations
+
++ [Boxplot](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-boxplot-aggregation.html)
+
+  ```json
+  "boxplot": {
+    "field": "load_time" 
+  }
+  
+  // response
+  "aggregations": {
+    "load_time_boxplot": {
+      "min": 0.0,
+      "max": 990.0,
+      // 第一个四分位数（前一半数据的中位数）
+      "q1": 165.0,
+      // 第二个四分位数（中位数）
+      "q2": 445.0,
+      // 第三个四分位数（后一半数据的中位数）
+      "q3": 725.0,
+  	"lower": 0.0,
+      "upper": 990.0
+    }
+  }
+  ```
+
+  
+
++ 
 
 #### bucket aggs
 
@@ -317,6 +568,168 @@ GET my_index/_search?typed_keys
   }
   ```
 
++ [Date histogram](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-datehistogram-aggregation.html)
+
+  > date 作为 field type 的特殊 histogram
+  >
+  > bucket_key = Math.floor(value / interval) * interval
+
++ [Range](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-range-aggregation.html)
+
+  >  范围聚合查询，from <= value < to
+
+  ```json
+  "aggs": {
+    "price_ranges": {
+      "range": {
+        "keyed": true,
+        // 可以查询script field
+        "field": "price",
+        "ranges": [
+          // 可以没有to，也可以没有from
+          { "to": 100.0 },
+          // 范围可以重叠
+          { "from": 80.0, "to": 200.0 },
+          { "from": 200.0 }
+        ]
+      }
+    }
+  }
+  ```
+
+  
+
++ [Date range](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-daterange-aggregation.html)
+
+  
+
++ [Global](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-global-aggregation.html)
+
+  > 定义一个单独包含全部数据的bucket，使得当前聚合不受query查询的影响（全部数据作为聚合目标）
+
+  ```json
+  POST /sales/_search?size=0
+  {
+    "query": {
+      "match": { "type": "t-shirt" }
+    },
+    "aggs": {
+      // 全部商品平均价格（match_all）
+      "all_products": {
+        "global": {}, 
+        "aggs": {     
+        "avg_price": { "avg": { "field": "price" } }
+        }
+      },
+      //  t-shirt商品平均价格（query有关）
+      "t_shirts": { "avg": { "field": "price" } }
+    }
+  }
+  ```
+
+  
+
++ [Missing](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-missing-aggregation.html)
+
+  缺少字段或者字段值为null的`document`缺少`bucket`，通过`missing`聚合统计
+
+  ```json
+  "aggs": {
+    "products_without_a_price": {
+      "missing": { "field": "price" }
+    }
+  }
+  ```
+
+  
+
++ [IP prefix](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-ipprefix-aggregation.html) 和 [IP range](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-iprange-aggregation.html)
+
+  > IP地址相关的聚合，xxx.xxx.xxx.xxx
+
++ [Random sampler](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-random-sampler-aggregation.html)
+
+  > 随机取样聚合，0 < probability < 0.5 || probability = 1
+  >
+  > 随机取集合 * probability 的集合，每次结果可能不相同
+
+  ```json
+  {
+    "aggregations": {
+      "sampling": {
+        "random_sampler": {
+          "probability": 0.1
+        },
+        "aggs": {
+          "price_percentiles": {
+            "percentiles": {
+              "field": "taxful_total_price"
+            }
+          }
+        }
+      }
+    }
+  }
+  ```
+
+  
+
 + 
 
 #### pipeline aggs
+
+
+
+### Other
+
+#### CCR（Cross-cluster replication） & CCS（Cross-cluster search）
+
+配置 `elasticsearch.yml`
+
+```yaml
+transport.host: xxx.xxx.xxx.xxx
+transport.port: 9300
+```
+
+证书问题
+
+1）使用相同的CA证书：复制 `ca.crt` 和 `ca.key`
+
+2）使用不同证书
+
+
+
+##### 创建集群远程连接
+
+Stack Management >>> Remote Clusters
+
+或通过 Dev Tools 实现
+
+```json
+
+PUT _cluster/settings
+{
+  "persistent": {
+    "cluster.remote": {
+      "remote_cluster": {
+        "seeds": [
+          "192.168.0.8:9300"
+        ]
+      }
+    }
+  }
+}
+```
+
+
+
+##### 配置跨集群复制
+
+Stack Management >>> Cross Cluster Replication
+
+| 参数               | 说明                                   |
+| ------------------ | -------------------------------------- |
+| **Remote cluster** | 添加的集群名称                         |
+| **Leader index**   | 待迁移的索引。                         |
+| **Follower index** | 迁移数据生成的索引。索引名称不可重复。 |
+
